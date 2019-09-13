@@ -3,10 +3,10 @@
     <item android:id="@+id/estoque"
         android:title="@string/estoque"
         android:icon="@drawable/caixa" />
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/action_cadastrar"
         android:title="@string/cadastrar"
         android:icon="@drawable/cadastro" />
-    <item android:id="@+id/action_navigation"
+    <item android:id="@+id/action_upload"
         android:title="@string/enviar"
         android:icon="@drawable/upload" />
 </menu>
