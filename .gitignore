@@ -1,4 +1,8 @@
-./idea
+*.iml
 .idea
+.idea/workspace.xml
 .gradle
-/app.iml
+build/
+.navigation
+captures/
+output.json 

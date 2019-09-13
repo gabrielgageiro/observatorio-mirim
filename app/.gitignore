@@ -3,3 +3,11 @@
 .idea
 .gradle
 app.iml
+*.iml
+.idea
+.idea/workspace.xml
+.gradle
+build/
+.navigation
+captures/
+output.json
