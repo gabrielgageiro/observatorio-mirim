@@ -5,4 +5,6 @@
 build/
 .navigation
 captures/
-output.json 
+output.json
+.idea/**/gradle.xml
+.idea/**/libraries
