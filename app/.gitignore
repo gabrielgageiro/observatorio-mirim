@@ -1,2 +1,5 @@
 /build
 ./idea
+.idea
+.gradle
+app.iml
