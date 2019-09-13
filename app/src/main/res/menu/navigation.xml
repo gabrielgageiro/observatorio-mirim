@@ -1,11 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_search"
-        android:title="Items"
+    <!--TODO alterar os ícones-->
+    <item android:id="@+id/estoque"
+        android:title="@string/estoque"
         android:icon="@drawable/caixa" />
     <item android:id="@+id/action_settings"
-        android:title="Novo"
+        android:title="@string/cadastrar"
         android:icon="@drawable/cadastro" />
     <item android:id="@+id/action_navigation"
-        android:title="Upload"
+        android:title="@string/enviar"
         android:icon="@drawable/upload" />
 </menu>
