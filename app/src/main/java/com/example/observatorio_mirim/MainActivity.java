@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void initBottomNavigationBar(){
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemReselectedListener(this);
+        bottomNavigationView.setItemIconTintList(null);
 //        TODO adicionar efeito de fade ao trocar de tela
     }
 
