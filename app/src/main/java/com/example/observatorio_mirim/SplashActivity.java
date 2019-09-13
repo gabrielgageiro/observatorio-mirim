@@ -2,7 +2,6 @@ package com.example.observatorio_mirim;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -61,7 +60,7 @@ public class SplashActivity extends Activity {
 
             @Override
             public final void onAnimationEnd(final Animation lo_animation){
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
                 finish();
             }
@@ -78,7 +77,7 @@ public class SplashActivity extends Activity {
     Cancela o efeito da splah e vai direto para a tela de inicio
      */
     public void ClickImage(View v) {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
     }
 
 }
