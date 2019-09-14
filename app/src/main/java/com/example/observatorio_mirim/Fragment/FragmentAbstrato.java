@@ -1,4 +1,4 @@
-package com.example.observatorio_mirim.Utils;
+package com.example.observatorio_mirim.Fragment;
 
 
 import android.os.Bundle;
@@ -6,7 +6,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -23,7 +25,7 @@ public abstract class FragmentAbstrato extends Fragment {
     private static String KEY = "fragment";
     private static String TITULO = "titulo";
     private View view;
-
+    private RecyclerView abstract_fragment;
     public FragmentAbstrato() {
         // Required empty public constructor
     }
@@ -39,12 +41,18 @@ public abstract class FragmentAbstrato extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Find
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView abstract_fragment = (RecyclerView) view;
+        abstract_fragment.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        abstract_fragment.setLayoutManager(linearLayoutManager);
+        DividerItemDecoration divider = new DividerItemDecoration(getActivity(), linearLayoutManager.getOrientation());
+        abstract_fragment.addItemDecoration(divider);
+
+        rvState();
     }
 
     private void rvState(){
-        vrState = rv_jogos.getLayoutManager().onSaveInstanceState()
+        vrState = abstract_fragment .getLayoutManager().onSaveInstanceState();
     }
 
     public Parcelable getVrState() {
