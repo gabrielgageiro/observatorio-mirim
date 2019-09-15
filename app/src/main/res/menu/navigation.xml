@@ -1,11 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/estoque"
+    <item android:id="@+id/menu_estoque"
         android:title="@string/estoque"
         android:icon="@drawable/img_box" />
-    <item android:id="@+id/action_cadastrar"
+    <item android:id="@+id/menu_cadastrar"
         android:title="@string/cadastrar"
         android:icon="@drawable/img_cadastro" />
-    <item android:id="@+id/action_upload"
+    <item android:id="@+id/menu_upload"
         android:title="@string/enviar"
         android:icon="@drawable/img_upload" />
 </menu>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.menu_estoque: Toast.makeText(this, "Estoque", Toast.LENGTH_LONG).show(); break;
+            case R.id.menu_cadastrar: Toast.makeText(this, "Cadastro", Toast.LENGTH_LONG).show(); break;
+            case R.id.menu_upload: Toast.makeText(this, "Upload", Toast.LENGTH_LONG).show(); break;
+        }
         return true;
     }
 
