@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemReselectedListener(this);
         bottomNavigationView.setItemIconTintList(null); //necessário para deixar os icones com as cores originais
-        openFragment(EstoqueFragment.create());
+        AbstractFragment.openFragmentFromActivity(this, EstoqueFragment.create());
 //        TODO adicionar efeito de fade ao trocar de tela
     }
 
@@ -39,16 +39,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (menuItem.getItemId()) {
             case R.id.menu_estoque: {
                 Toast.makeText(this, "Estoque", Toast.LENGTH_LONG).show();
-                openFragment(EstoqueFragment.create());
+                AbstractFragment.openFragmentFromActivity(this, EstoqueFragment.create());
 
             } break;
             case R.id.menu_cadastrar: {
                 Toast.makeText(this, "Cadastro", Toast.LENGTH_LONG).show();
-                openFragment(CadastroFragment.create());
+                AbstractFragment.openFragmentFromActivity(this, CadastroFragment.create());
             } break;
             case R.id.menu_upload: {
                 Toast.makeText(this, "Upload", Toast.LENGTH_LONG).show();
-                openFragment(UploadFragment.create());
+                AbstractFragment.openFragmentFromActivity(this, UploadFragment.create());
             } break;
         }
         return true;
@@ -58,13 +58,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
     }
 
-    private void openFragment(AbstractFragment fragment){
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle(fragment.getTitulo());
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.container, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-    }
 }

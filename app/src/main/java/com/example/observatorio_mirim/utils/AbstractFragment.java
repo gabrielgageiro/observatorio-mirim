@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.observatorio_mirim.R;
 
 public abstract class AbstractFragment extends Fragment {
     private Integer key;
@@ -30,5 +34,13 @@ public abstract class AbstractFragment extends Fragment {
 
     public Integer getKey() {
         return key;
+    }
+
+    public static void openFragmentFromActivity(AppCompatActivity activity, AbstractFragment fragment){
+        activity.getSupportActionBar().setTitle(fragment.getTitulo());
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
