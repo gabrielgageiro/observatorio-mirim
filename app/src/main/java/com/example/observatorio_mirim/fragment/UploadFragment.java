@@ -1,4 +1,4 @@
-package com.example.observatorio_mirim.Fragment;
+package com.example.observatorio_mirim.fragment;
 
 import com.example.observatorio_mirim.R;
 
