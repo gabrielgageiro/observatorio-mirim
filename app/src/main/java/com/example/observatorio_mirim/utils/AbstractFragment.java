@@ -1,4 +1,4 @@
-package com.example.observatorio_mirim.fragment;
+package com.example.observatorio_mirim.utils;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

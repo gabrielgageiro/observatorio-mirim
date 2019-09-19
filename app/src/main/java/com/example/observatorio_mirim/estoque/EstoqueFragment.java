@@ -1,6 +1,7 @@
-package com.example.observatorio_mirim.fragment;
+package com.example.observatorio_mirim.estoque;
 
 import com.example.observatorio_mirim.R;
+import com.example.observatorio_mirim.utils.AbstractFragment;
 
 public class EstoqueFragment extends AbstractFragment {
 

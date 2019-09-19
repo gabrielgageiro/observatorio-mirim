@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.observatorio_mirim.fragment.AbstractFragment;
-import com.example.observatorio_mirim.fragment.CadastroFragment;
-import com.example.observatorio_mirim.fragment.EstoqueFragment;
-import com.example.observatorio_mirim.fragment.UploadFragment;
+import com.example.observatorio_mirim.utils.AbstractFragment;
+import com.example.observatorio_mirim.cadastro.CadastroFragment;
+import com.example.observatorio_mirim.estoque.EstoqueFragment;
+import com.example.observatorio_mirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
