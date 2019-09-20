@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-<!--//TODO: ikmplementar a view certo-->
-    <TextView
+
+    <ListView
+        android:id="@+id/list_estoque"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Estoque"
-        android:gravity="center_vertical|center_horizontal"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+    </ListView>
+
+        <TextView
+            android:id="@+id/codigoProduto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Código: 789123"/>
+
+        <TextView
+            android:id="@+id/nomeProduto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome: ABACAXI"/>
+
+        <TextView
+            android:id="@+id/barrasProduto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Código de Barras: 123456789"/>
+
+
+
 
 </LinearLayout>
