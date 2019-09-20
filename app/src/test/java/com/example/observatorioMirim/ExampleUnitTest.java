@@ -1,4 +1,4 @@
-package com.example.observatorio_mirim;
+package com.observatorioMirim;
 
 import org.junit.Test;
 
