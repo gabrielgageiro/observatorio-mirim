@@ -13,27 +13,28 @@ import com.google.android.material.textfield.TextInputLayout;
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextInputLayout textUsuario;
-    private TextInputEditText textSenha;
-    private TextInputEditText usuario_edit_text;
+    private TextInputLayout text_input;
+    private TextInputEditText edit_text_usuario;
+    private TextInputEditText edit_text_senha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-          btnLogin = findViewById(R.id.btn_login);
-          textUsuario = findViewById(R.id.password_text_input);
-          textSenha = findViewById(R.id.password_edit_text);
-        usuario_edit_text = findViewById(R.id.usuario_edit_text);
+        btnLogin = findViewById(R.id.btn_login);
+        textUsuario = findViewById(R.id.password_text_input);
+        text_input = findViewById(R.id.text_input);
+        edit_text_usuario = findViewById(R.id.edit_text_usuario);
+        edit_text_senha = findViewById(R.id.edit_text_senha);
 
 
          Animation animation_left = AnimationUtils.loadAnimation(this, R.anim.move_para_esquerda);
-         Animation animation_right = AnimationUtils.loadAnimation(this, R.anim.move_para_direita);
+         Animation animation_left2 = AnimationUtils.loadAnimation(this, R.anim.move_para_esquerda_500ms);
 
         textUsuario.startAnimation(animation_left);
-        textSenha.startAnimation(animation_left);
-        usuario_edit_text.startAnimation(animation_left);
-        //btnLogin.startAnimation(animation_right);
+        text_input.startAnimation(animation_left);
+        btnLogin.startAnimation(animation_left2);
     }
 
 
