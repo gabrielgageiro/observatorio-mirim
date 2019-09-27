@@ -37,16 +37,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.menu_estoque: {
-                Toast.makeText(this, "Estoque", Toast.LENGTH_LONG).show();
+                //TODO alterar para utilizar o listFragment
                 AbstractFragment.openFragmentFromActivity(this, EstoqueFragment.create());
 
             } break;
             case R.id.menu_cadastrar: {
-                Toast.makeText(this, "Cadastro", Toast.LENGTH_LONG).show();
                 AbstractFragment.openFragmentFromActivity(this, CadastroFragment.create());
             } break;
             case R.id.menu_upload: {
-                Toast.makeText(this, "Upload", Toast.LENGTH_LONG).show();
                 AbstractFragment.openFragmentFromActivity(this, UploadFragment.create());
             } break;
         }

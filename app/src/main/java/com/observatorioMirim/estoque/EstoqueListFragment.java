@@ -26,7 +26,7 @@ public class EstoqueListFragment extends ListFragment {
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.Planets, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
+      //  getListView().setOnItemClickListener(this);
     }
 
     @Override

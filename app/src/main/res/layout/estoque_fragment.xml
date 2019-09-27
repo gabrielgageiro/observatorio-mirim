@@ -1,37 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/list_estoque"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
-    </ListView>
-
-        <TextView
-            android:id="@+id/codigoProduto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Código: 789123"/>
-
-        <TextView
-            android:id="@+id/nomeProduto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nome: ABACAXI"/>
-
-        <TextView
-            android:id="@+id/barrasProduto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Código de Barras: 123456789"/>
+        tools:listitem="@layout/estoque_list">
+    </androidx.recyclerview.widget.RecyclerView>
 
 
-
-
-</LinearLayout>
+</FrameLayout>
