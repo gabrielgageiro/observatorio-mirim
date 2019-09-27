@@ -7,9 +7,9 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/image_nyan_cat"
+        android:id="@+id/logo_morro_fumaca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/nyan_cat"/>
+        android:src="@drawable/logo_morro_fumaca"/>
 
 </LinearLayout>

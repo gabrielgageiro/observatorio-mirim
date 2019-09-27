@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout text_input;
     private TextInputEditText edit_text_usuario;
     private TextInputEditText edit_text_senha;
+    private ImageView login_logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +29,17 @@ public class LoginActivity extends AppCompatActivity {
         text_input = findViewById(R.id.text_input);
         edit_text_usuario = findViewById(R.id.edit_text_usuario);
         edit_text_senha = findViewById(R.id.edit_text_senha);
+        login_logo = findViewById(R.id.login_logo);
 
 
-         Animation animation_left = AnimationUtils.loadAnimation(this, R.anim.move_para_esquerda);
-         Animation animation_left2 = AnimationUtils.loadAnimation(this, R.anim.move_para_esquerda_500ms);
+         Animation animation_esquerda = AnimationUtils.loadAnimation(this, R.anim.move_para_esquerda);
+         Animation animation_esquerda_500Ms = AnimationUtils.loadAnimation(this, R.anim.move_para_esquerda);
+         Animation animation_direita = AnimationUtils.loadAnimation(this, R.anim.move_para_direta);
 
-        textUsuario.startAnimation(animation_left);
-        text_input.startAnimation(animation_left);
-        btnLogin.startAnimation(animation_left2);
+        textUsuario.startAnimation(animation_esquerda);
+        text_input.startAnimation(animation_esquerda);
+        btnLogin.startAnimation(animation_esquerda_500Ms);
+        login_logo.startAnimation(animation_direita);
     }
 
 

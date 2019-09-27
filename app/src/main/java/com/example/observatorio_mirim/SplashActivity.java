@@ -40,7 +40,7 @@ public class SplashActivity extends Activity {
          /*
         Resgata o logo da aplicacao.
         */
-        io_imv_logo = findViewById(R.id.image_nyan_cat);
+        io_imv_logo = findViewById(R.id.logo_morro_fumaca);
 
         /*
         Cria a animacao para o logo da aplicacao.
