@@ -2,14 +2,12 @@ package com.observatorioMirim;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.observatorioMirim.estoque.EstoqueListFragment;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.cadastro.CadastroFragment;
-import com.observatorioMirim.estoque.EstoqueFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -29,16 +27,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemReselectedListener(this);
         bottomNavigationView.setItemIconTintList(null); //necessário para deixar os icones com as cores originais
-        AbstractFragment.openFragmentFromActivity(this, EstoqueFragment.create());
-//        TODO adicionar efeito de fade ao trocar de tela
+        AbstractFragment.openFragmentFromActivity(this, EstoqueListFragment.create());
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.menu_estoque: {
-                //TODO alterar para utilizar o listFragment
-                AbstractFragment.openFragmentFromActivity(this, EstoqueFragment.create());
+                AbstractFragment.openFragmentFromActivity(this, EstoqueListFragment.create());
 
             } break;
             case R.id.menu_cadastrar: {
@@ -54,5 +50,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
     }
-
 }

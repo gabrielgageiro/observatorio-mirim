@@ -10,27 +10,48 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
+import com.observatorioMirim.utils.AbstractFragment;
 
-public class EstoqueListFragment extends ListFragment {
+import java.util.ArrayList;
+
+public class EstoqueListFragment extends AbstractFragment {
+    public EstoqueListFragment(Integer key, String titulo) {
+        super(key, titulo);
+    }
+    private RecyclerView recyclerView;
+    private LineAdapter lineAdapter;
+
+    public static EstoqueListFragment create(){
+        return new EstoqueListFragment(R.layout.produto_list, "Cadastro");
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        recyclerView = view.findViewById(R.id.produto_list);
+        recyclerView.setLayoutManager(layoutManager);
+        lineAdapter = new LineAdapter(new ArrayList<Produto>());
+        recyclerView.setAdapter(lineAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.Planets, android.R.layout.simple_list_item_1);
-        setListAdapter(adapter);
-      //  getListView().setOnItemClickListener(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView = new RecyclerView(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        lineAdapter = new LineAdapter(new ArrayList<Produto>());
+        recyclerView.setAdapter(lineAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     }
 
-    @Override
-    public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-    }
 }

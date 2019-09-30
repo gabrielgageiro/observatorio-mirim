@@ -10,6 +10,6 @@ public class EstoqueFragment extends AbstractFragment {
     }
 
     public static EstoqueFragment create(){
-        return new EstoqueFragment(R.layout.estoque_list, "Estoque");
+        return new EstoqueFragment(R.layout.produto_view, "Estoque");
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/produto_list_view"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/codigoProduto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Código: 789123"/>
+
+        <TextView
+            android:id="@+id/nomeProduto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome: ABACAXI"/>
+
+        <TextView
+            android:id="@+id/barrasProduto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Código de Barras: 123456789"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/add"
+            android:src="@drawable/add_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/delete"
+            android:src="@drawable/add_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>
