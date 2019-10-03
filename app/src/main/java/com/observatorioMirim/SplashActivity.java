@@ -40,7 +40,7 @@ public class SplashActivity extends Activity {
          /*
         Resgata o logo da aplicacao.
         */
-        io_imv_logo = findViewById(R.id.image_nyan_cat);
+        io_imv_logo = findViewById(R.id.logo_morro_fumaca);
 
         /*
         Cria a animacao para o logo da aplicacao.
@@ -60,7 +60,7 @@ public class SplashActivity extends Activity {
 
             @Override
             public final void onAnimationEnd(final Animation lo_animation){
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
                 finish();
             }
@@ -77,7 +77,7 @@ public class SplashActivity extends Activity {
     Cancela o efeito da splah e vai direto para a tela de inicio
      */
     public void ClickImage(View v) {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
     }
 
 }
