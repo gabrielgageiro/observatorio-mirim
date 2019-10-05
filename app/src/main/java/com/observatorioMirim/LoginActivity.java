@@ -1,6 +1,7 @@
 package com.observatorioMirim;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -10,6 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.observatorioMirim.api.API;
+import com.observatorioMirim.api.models.Escola;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
@@ -40,6 +49,35 @@ public class LoginActivity extends AppCompatActivity {
         text_input.startAnimation(animation_esquerda);
         btnLogin.startAnimation(animation_esquerda_500Ms);
         login_logo.startAnimation(animation_direita);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                API.getEscolas(new Callback<List<Escola>>() {
+                    @Override
+                    public void onResponse(Call<List<Escola>> call, Response<List<Escola>> response) {
+                        if(response != null && response.body() != null && response.body().size() > 0){
+
+                            for (Escola escola : response.body()) {
+                                if(escola.getUsuario_smart().equals(edit_text_usuario.getText().toString())){
+                                    System.out.println("Login efetivado");
+                                } else {
+                                    System.out.println(escola.getUsuario_smart());
+                                    System.out.println(edit_text_usuario.getText().toString());
+                                }
+                            }
+                        } else {
+                            System.out.println("Erro ao trazer as escolas");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Escola>> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
     }
 
 
