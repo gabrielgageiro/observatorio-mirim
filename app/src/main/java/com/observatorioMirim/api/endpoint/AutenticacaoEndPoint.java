@@ -14,6 +14,6 @@ public interface AutenticacaoEndPoint {
     @GET("api/escola/listar")
     Call<List<Escola>> GetEscolas();
 
-    @POST("/api/escolar/buscar")
+    @POST("/api/escola/buscar")
     Call<Escola> GetEscolasByCodigoSenha(@Body Escola escola);
 }
