@@ -1,5 +1,6 @@
 package com.observatorioMirim;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -40,6 +41,11 @@ public class LoginActivity extends AppCompatActivity {
         text_input.startAnimation(animation_esquerda);
         btnLogin.startAnimation(animation_esquerda_500Ms);
         login_logo.startAnimation(animation_direita);
+
+        btnLogin.setOnClickListener(o ->{
+            Intent it = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(it);
+        });
     }
 
 
