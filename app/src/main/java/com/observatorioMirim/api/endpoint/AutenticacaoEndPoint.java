@@ -8,12 +8,13 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface AutenticacaoEndPoint {
 
     @GET("api/escola/listar")
     Call<List<Escola>> GetEscolas();
 
-    @POST("/api/escola/buscar")
-    Call<Escola> GetEscolasByCodigoSenha(@Body Escola escola);
+    @GET("/api/escola/login")
+    Call<Escola> GetEscolasByCodigoSenha(@Query("usuario_smart") final String usuario_smart, @Query("senha_smart") final String senha_smart);
 }

@@ -26,11 +26,11 @@ public class API {
         call.enqueue(callback);
     }
 
-    public static void getEscolaByCodigoSenha(final Escola escola, Callback<Escola> callback) {
+    public static void getEscolaByCodigoSenha(final String usuario_smart, final String senha_smart, Callback<Escola> callback) {
         AutenticacaoEndPoint endPoint = retrofit.create(AutenticacaoEndPoint.class);
         Call<Escola> call;
 
-        call = endPoint.GetEscolasByCodigoSenha(escola);
+        call = endPoint.GetEscolasByCodigoSenha(usuario_smart, senha_smart);
         call.enqueue(callback);
     }
 }

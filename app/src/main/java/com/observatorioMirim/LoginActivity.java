@@ -60,9 +60,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 final Escola escola = new Escola(edit_text_usuario.getText().toString(), edit_text_senha.getText().toString());
-                System.out.println("escola instanciada");
+                System.out.println(escola.getUsuario_smart());
+                System.out.println(escola.getSenha_smart());
 
-                API.getEscolaByCodigoSenha(escola, new Callback<Escola>() {
+                API.getEscolaByCodigoSenha(escola.getUsuario_smart(), escola.getSenha_smart(), new Callback<Escola>() {
                     @Override
                     public void onResponse(Call<Escola> call, Response<Escola> response) {
                         if(response != null && response.body() != null){
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Escola> call, Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
             }
