@@ -1,4 +1,4 @@
-package com.observatorioMirim.api.models;
+package com.observatorioMirim.api.models.escola;
 
 import com.google.gson.annotations.SerializedName;
 

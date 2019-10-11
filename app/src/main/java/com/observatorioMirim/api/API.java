@@ -1,7 +1,7 @@
 package com.observatorioMirim.api;
 
 import com.observatorioMirim.api.endpoint.AutenticacaoEndPoint;
-import com.observatorioMirim.api.models.Escola;
+import com.observatorioMirim.api.models.escola.Escola;
 
 import java.util.List;
 

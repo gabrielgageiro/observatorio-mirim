@@ -13,9 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.observatorioMirim.api.API;
-import com.observatorioMirim.api.models.Escola;
-
-import java.util.List;
+import com.observatorioMirim.api.models.escola.Escola;
 
 import retrofit2.Call;
 import retrofit2.Callback;
