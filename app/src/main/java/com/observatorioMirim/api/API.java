@@ -2,7 +2,9 @@ package com.observatorioMirim.api;
 
 import com.observatorioMirim.api.endpoint.AutenticacaoEndPoint;
 import com.observatorioMirim.api.models.escola.Escola;
+import com.observatorioMirim.api.models.produto.Produto;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,6 +33,23 @@ public class API {
         Call<Escola> call;
 
         call = endPoint.GetEscolasByCodigoSenha(usuario_smart, senha_smart);
+        call.enqueue(callback);
+    }
+
+    public static void saveProduto(final List<Produto> produtos, final Callback<List<Produto>> callback){
+
+        AutenticacaoEndPoint endPoint = retrofit.create(AutenticacaoEndPoint.class);
+        Call<List<Produto>> call;
+
+        call = endPoint.saveProdutos(produtos);
+        call.enqueue(callback);
+    }
+
+    public static void getProdutos(final Integer idConta, final Integer idEscola, final Callback<List<Produto>> callback){
+        AutenticacaoEndPoint endPoint = retrofit.create(AutenticacaoEndPoint.class);
+        Call<List<Produto>> call;
+
+        call = endPoint.GetProdutos(idConta, idEscola);
         call.enqueue(callback);
     }
 }

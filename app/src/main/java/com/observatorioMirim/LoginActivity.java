@@ -14,6 +14,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.observatorioMirim.api.API;
 import com.observatorioMirim.api.models.escola.Escola;
+import com.observatorioMirim.api.models.produto.Produto;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,6 +89,38 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+
+        //incluirProduto();
+        listarProdutos();
+    }
+
+    private void listarProdutos() {
+        API.getProdutos(8, 1, new Callback<List<Produto>>() {
+            @Override
+            public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
+            }
+
+            @Override
+            public void onFailure(Call<List<Produto>> call, Throwable t) {
+            }
+        });
+    }
+
+
+    private void incluirProduto() {
+        final List<Produto> produtos = Arrays.asList(new Produto(1, "Produto Teste", "Teste", "1546464", "1", new Date(), 1, "Equipe1"));
+
+        API.saveProduto(produtos, new Callback<List<Produto>>() {
+            @Override
+            public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
+            }
+
+            @Override
+            public void onFailure(Call<List<Produto>> call, Throwable t) {
+            }
+        });
+
+
     }
 
 
