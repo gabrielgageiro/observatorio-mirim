@@ -24,6 +24,7 @@ out
 /subprojects/internal-android-performance-testing/build-android-libs
 !/.idea
 /.idea/*
-!/.idea/codeStyles
+.idea/codeStyles
 !/.idea/inspectionProfiles
 */**/.idea
+local.properties
