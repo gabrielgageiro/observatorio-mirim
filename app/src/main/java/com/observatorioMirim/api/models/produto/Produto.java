@@ -1,11 +1,7 @@
 package com.observatorioMirim.api.models.produto;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Produto implements Serializable {
     @SerializedName("id_escola")
@@ -23,9 +19,6 @@ public class Produto implements Serializable {
     @SerializedName("unidade")
     private String unidade;
 
-    @SerializedName("DhInc")
-    private Date dataHoraInclusao;
-
     @SerializedName("IdConta")
     private Integer idConta;
 
@@ -35,13 +28,12 @@ public class Produto implements Serializable {
     public Produto() {
     }
 
-    public Produto(Integer idEscola, String nome, String marca, String codigoBarras, String unidade, Date dataHoraInclusao, Integer idConta, String escola) {
+    public Produto(Integer idEscola, String nome, String marca, String codigoBarras, String unidade, Integer idConta, String escola) {
         this.idEscola = idEscola;
         this.nome = nome;
         this.marca = marca;
         this.codigoBarras = codigoBarras;
         this.unidade = unidade;
-        this.dataHoraInclusao = dataHoraInclusao;
         this.idConta = idConta;
         this.escola = escola;
     }
@@ -84,14 +76,6 @@ public class Produto implements Serializable {
 
     public void setUnidade(String unidade) {
         this.unidade = unidade;
-    }
-
-    public Date getDataHoraInclusao() {
-        return dataHoraInclusao;
-    }
-
-    public void setDataHoraInclusao(Date dataHoraInclusao) {
-        this.dataHoraInclusao = dataHoraInclusao;
     }
 
     public Integer getIdConta() {
