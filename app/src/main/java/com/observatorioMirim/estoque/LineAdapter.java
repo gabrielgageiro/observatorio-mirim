@@ -36,10 +36,8 @@ public class LineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof LineHolder){
-            System.out.println("VIEW ITEM");
             addLinhaItem((LineHolder) holder, position);
         } else if(holder instanceof LoadingViewHolder){
-            System.out.println("VIEW load");
             showLoadingView((LoadingViewHolder) holder, position);
         }
     }
@@ -65,7 +63,6 @@ public class LineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void addLinhaItem(LineHolder holder, int position){
-        System.out.println("VIEW LINHA");
         Integer integer = produtos.get(position);
         if (integer != null){
             holder.getNomeProduto().setText(integer.toString());

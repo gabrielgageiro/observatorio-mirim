@@ -62,7 +62,6 @@ public class EstoqueListFragment extends AbstractFragment {
                 super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
-                System.out.println("itemsAtuais: " + layoutManager.getChildCount() + "   totalItems : " + layoutManager.getItemCount() + "   Scrooled : " + layoutManager.findFirstVisibleItemPosition());
                 if (!isLoading) {
                     if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == linhas.size() - 1) {
                         //bottom of list!
