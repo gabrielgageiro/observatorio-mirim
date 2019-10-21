@@ -5,20 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.observatorioMirim.estoque.EstoqueListFragment;
 import com.observatorioMirim.utils.AbstractFragment;
-import com.observatorioMirim.cadastro.CadastroFragment;
+import com.observatorioMirim.cadastro.EntradaFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
     private BottomNavigationView bottomNavigationView;
+    private FloatingActionButton novaEntrada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_bar);
+        novaEntrada = (FloatingActionButton) findViewById(R.id.nova_entrada);
+        novaEntrada.setOnClickListener(o ->{
+            AbstractFragment.openFragmentFromActivity(this, EntradaFragment.create());
+        });
 
         initBottomNavigationBar();
     }
@@ -38,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             } break;
             case R.id.menu_cadastrar: {
-                AbstractFragment.openFragmentFromActivity(this, CadastroFragment.create());
+                AbstractFragment.openFragmentFromActivity(this, EntradaFragment.create());
             } break;
             case R.id.menu_upload: {
                 AbstractFragment.openFragmentFromActivity(this, UploadFragment.create());
