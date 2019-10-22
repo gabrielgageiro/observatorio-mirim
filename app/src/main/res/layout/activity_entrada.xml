@@ -6,20 +6,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/entry_chip_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Alunos"/>
+    <!--<TextView-->
+        <!--android:id="@+id/entry_chip_txt"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="Alunos"/>-->
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/entry_chip_group"
+    <!--<com.google.android.material.chip.ChipGroup-->
+        <!--android:id="@+id/entry_chip_group"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/entry_chip_txt">-->
+
+    <!--</com.google.android.material.chip.ChipGroup>-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/entry_chip_txt">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </com.google.android.material.chip.ChipGroup>
+        <AutoCompleteTextView
+            android:id="@+id/mainTagAutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:completionThreshold="1"
+            android:imeOptions="actionDone"
+            android:hint="Alunos"
+            />
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/mainTagChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipSpacingVertical="4dp"
+            />
+
+    </LinearLayout>
 
 </RelativeLayout>
