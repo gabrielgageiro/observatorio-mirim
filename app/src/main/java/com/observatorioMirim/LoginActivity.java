@@ -95,11 +95,56 @@ public class LoginActivity extends AppCompatActivity {
 
         //incluirProduto();
         //listarProdutos();
+        //listarProdutoByNome();
+        //listarProdutoById();
+        //listarProdutoByCodigoBarras();
 
         //incluirFornecedor();
-        listarFornecedores();
-
+        //listarFornecedores();
     }
+
+    private void listarProdutoByCodigoBarras() {
+        API.getProdutoByCodigoBarras(10, 9, "7891149102488", new Callback<Produto>() {
+            @Override
+            public void onResponse(Call<Produto> call, Response<Produto> response) {
+                System.out.println(response.body().getNome());
+            }
+
+            @Override
+            public void onFailure(Call<Produto> call, Throwable t) {
+                System.out.println("Deu erro");
+            }
+        });
+    }
+
+    private void listarProdutoById() {
+        API.getProdutoById(10, 9, 2, new Callback<Produto>() {
+            @Override
+            public void onResponse(Call<Produto> call, Response<Produto> response) {
+                System.out.println(response.body().getNome());
+            }
+
+            @Override
+            public void onFailure(Call<Produto> call, Throwable t) {
+                System.out.println("Deu erro");
+            }
+        });
+    }
+
+    private void listarProdutoByNome() {
+        API.getProdutoByNome(10, 9, "Leite Milnutri", new Callback<Produto>() {
+            @Override
+            public void onResponse(Call<Produto> call, Response<Produto> response) {
+                System.out.println(response.body().getNome());
+            }
+
+            @Override
+            public void onFailure(Call<Produto> call, Throwable t) {
+                System.out.println("Deu erro");
+            }
+        });
+    }
+
 
     private void listarFornecedores() {
         API.getFornecedores(10, 9, new Callback<List<Fornecedor>>() {
