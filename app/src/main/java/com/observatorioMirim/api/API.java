@@ -6,6 +6,7 @@ import com.observatorioMirim.api.endpoint.FornecedorEndPoint;
 import com.observatorioMirim.api.endpoint.ProdutoEndPoint;
 import com.observatorioMirim.api.models.RespostaEscola;
 import com.observatorioMirim.api.models.entrada.Entrada;
+import com.observatorioMirim.api.models.entrada.EntradaAluno;
 import com.observatorioMirim.api.models.escola.Escola;
 import com.observatorioMirim.api.models.fornecedor.Fornecedor;
 import com.observatorioMirim.api.models.produto.Produto;
@@ -83,6 +84,26 @@ public class API {
         call.enqueue(callback);
     }
 
+    public static void getFornecedorByNome(final Integer idConta, final Integer idEscola, final String nomeProduto, final Callback<Fornecedor> callback){
+        FornecedorEndPoint endPoint = retrofit.create(FornecedorEndPoint.class);
+        Call<Fornecedor> call;
+        call = endPoint.getFornecedorByNome(idConta, idEscola, nomeProduto);
+        call.enqueue(callback);
+    }
+
+    public static void getFornecedorById(final Integer idConta, final Integer idEscola, final Integer idProduto, final Callback<Fornecedor> callback){
+        FornecedorEndPoint endPoint = retrofit.create(FornecedorEndPoint.class);
+        Call<Fornecedor> call;
+        call = endPoint.getFornecedorById(idConta, idEscola, idProduto);
+        call.enqueue(callback);
+    }
+
+    public static void getFornecedorByCodigoBarras(final Integer idConta, final Integer idEscola, final String codigoBarras, final Callback<Fornecedor> callback){
+        FornecedorEndPoint endPoint = retrofit.create(FornecedorEndPoint.class);
+        Call<Fornecedor> call;
+        call = endPoint.getFornecedorByCodigoBarras(idConta, idEscola, codigoBarras);
+        call.enqueue(callback);
+    }
 
     //Retornar uma lista / Array
     public static void getFornecedores(final Integer idConta, final Integer idEscola, final Callback<List<Fornecedor>> callback){
@@ -95,6 +116,12 @@ public class API {
     public static void postEntrada(final Entrada[] entradas, final Callback<RespostaEscola> callback){
         EntradaEndPoint endPoint = retrofit.create(EntradaEndPoint.class);
         Call<RespostaEscola> call = endPoint.postEntrada(entradas);
+        call.enqueue(callback);
+    }
+
+    public static void postEntradaAluno(final EntradaAluno[] entradaAlunos, final Callback<RespostaEscola> callback){
+        EntradaEndPoint endPoint = retrofit.create(EntradaEndPoint.class);
+        Call<RespostaEscola> call = endPoint.postEntradaAluno(entradaAlunos);
         call.enqueue(callback);
     }
 

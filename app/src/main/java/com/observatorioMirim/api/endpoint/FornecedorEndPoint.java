@@ -19,4 +19,13 @@ public interface FornecedorEndPoint {
 
     @GET("/api/escola/fornecedores/listar")
     Call<List<Fornecedor>> getFornecedores(@Query("id_conta") final Integer idConta, @Query("id_escola") final Integer idEscola);
+
+    @GET("api/escola/fornecedores/especifico")
+    Call<Fornecedor> getFornecedorById(@Query("id_conta") final Integer idConta, @Query("id_escola") final Integer idEscola, @Query("id") final Integer idFornecedor);
+
+    @GET("api/escola/fornecedores/especifico/nome")
+    Call<Fornecedor> getFornecedorByNome(@Query("id_conta") final Integer idConta, @Query("id_escola") final Integer idEscola, @Query("nome") final String nomeFornecedor);
+
+    @GET("api/escola/fornecedores/especifico/codigobarras")
+    Call<Fornecedor> getFornecedorByCodigoBarras(@Query("id_conta") final Integer idConta, @Query("id_escola") final Integer idEscola, @Query("codigo_barras") final String codigoBarras);
 }

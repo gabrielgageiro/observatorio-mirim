@@ -18,16 +18,16 @@ public class Entrada implements Serializable {
     private String observacao;
 
     @SerializedName("IdConta")
-    private Date idConta;
+    private Integer idConta;
 
     public Entrada() {
     }
 
-    public Entrada(Integer idEscola, Date dataHora, String observacao, Date idConta) {
+    public Entrada(Integer idEscola, String observacao, Integer idConta, Date dataHora) {
         this.idEscola = idEscola;
-        this.dataHora = dataHora;
         this.observacao = observacao;
         this.idConta = idConta;
+        this.dataHora = dataHora;
     }
 
     public Integer getIdEscola() {
@@ -38,14 +38,6 @@ public class Entrada implements Serializable {
         this.idEscola = idEscola;
     }
 
-    public Date getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(Date dataHora) {
-        this.dataHora = dataHora;
-    }
-
     public String getObservacao() {
         return observacao;
     }
@@ -54,11 +46,19 @@ public class Entrada implements Serializable {
         this.observacao = observacao;
     }
 
-    public Date getIdConta() {
+    public Integer getIdConta() {
         return idConta;
     }
 
-    public void setIdConta(Date idConta) {
+    public void setIdConta(Integer idConta) {
         this.idConta = idConta;
+    }
+
+    public Date getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(Date dataHora) {
+        this.dataHora = dataHora;
     }
 }
