@@ -13,9 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -23,6 +25,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 import com.observatorioMirim.R;
+import com.observatorioMirim.cadastro.aluno.AlunoFragment;
 import com.observatorioMirim.estoque.LineAdapter;
 import com.observatorioMirim.utils.AbstractFragment;
 
@@ -31,23 +34,30 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class EntradaFragment extends AbstractFragment {
-    private List<String> listaAlunos = Arrays.asList("Love", "Passion", "Peace", "Hello", "Test");
-    public EntradaFragment(Integer key, String titulo) {
+    //todo listaAlunos sao os alunos da entrada. o cadastro dos alunos devem vir da API
+    private List<String> listaAlunos = Arrays.asList("Gabriel", "Lucas", "Marcelo B", "Marcelo R", "Dani", "Cassio");
+    private AutoCompleteTextView autoCompleteTextView;
+    private ChipGroup chipGroup;
+
+    private EntradaFragment(Integer key, String titulo) {
         super(key, titulo);
     }
 
     public static EntradaFragment create(){
         return new EntradaFragment(R.layout.activity_entrada, "Entrada");
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         /*Entry chip section*/
-        System.out.println("EUIAOHAIUEHEASOIUEA");
-        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.mainTagAutoCompleteTextView);
-        ChipGroup chipGroup = view.findViewById(R.id.mainTagChipGroup);
+
+        autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.mainTagAutoCompleteTextView);
+        chipGroup = view.findViewById(R.id.mainTagChipGroup);
         loadTagsUi(autoCompleteTextView, chipGroup, new ArrayList<String>(), listaAlunos);
         return view;
     }
@@ -58,12 +68,14 @@ public class EntradaFragment extends AbstractFragment {
 
         autoCompleteTextView.setOnItemClickListener((adapterView, view, position, id) -> {
             String nome = adapterView.getItemAtPosition(position).toString();
-            addChipToGroup(nome, chipGroup, atuaisChips);
+            insertOrCreateAluno(nome);
+            autoCompleteTextView.setText(null);
         });
 
         autoCompleteTextView.setOnEditorActionListener((textView, actionId, keyEvent) ->{
             if(actionId == EditorInfo.IME_ACTION_DONE){
-                addChipToGroup(textView.getText().toString(), chipGroup, atuaisChips);
+                insertOrCreateAluno(textView.getText().toString());
+                textView.setText(null);
                 return true;
             }
             return false;
@@ -77,7 +89,6 @@ public class EntradaFragment extends AbstractFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                System.out.println("OIl");
             }
 
             @Override
@@ -99,37 +110,27 @@ public class EntradaFragment extends AbstractFragment {
             items.remove(nome);
         });
     }
-//
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = super.onCreateView(inflater, container, savedInstanceState);
-//        /*Entry chip section*/
-//        System.out.println("EUIAOHAIUEHEASOIUEA");
-//        final ChipGroup entryChipGroup = view.findViewById(R.id.entry_chip_group);
-//        final Chip entryChip = getChip(entryChipGroup, "Hello World");
-//        final Chip entryChip2 = getChip(entryChipGroup, "Test");
-//        entryChipGroup.addView(entryChip);
-//        entryChipGroup.addView(entryChip2);
-//
-//
-//        return view;
-//    }
-//
-//    private Chip getChip(final ChipGroup entryChipGroup, String text) {
-//
-//        final Chip chip = new Chip(getActivity());
-//        chip.setChipDrawable(ChipDrawable.createFromResource(getActivity(), R.xml.chip));
-//        int paddingDp = (int) TypedValue.applyDimension(
-//                TypedValue.COMPLEX_UNIT_DIP, 10,
-//                getResources().getDisplayMetrics()
-//        );
-//        chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
-//        chip.setText(text);
-//        chip.setOnCloseIconClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                entryChipGroup.removeView(chip);
-//            }
-//        });
-//        return chip;
-//    }
+
+    private void insertOrCreateAluno(String aluno){
+        //todo listaAlunos sao os alunos da entrada. o cadastro dos alunos devem vir da API
+        if(listaAlunos.contains(aluno)){
+            addChipToGroup(aluno, chipGroup, new ArrayList<String>());
+            return;
+        }
+        showConfirmCadastroDialog();
+        Toast.makeText(getContext(),"CADASTRAR NOVO ALUNO",Toast.LENGTH_LONG).show();
+    }
+
+    private void showConfirmCadastroDialog(){
+        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Aluno não cadastrado")
+                .setContentText("Deseja cadastrar este aluno ?")
+                .setConfirmText("Sim")
+                .setConfirmClickListener(sDialog -> {
+                    AbstractFragment.openFragmentFromActivity((AppCompatActivity) getActivity(), AlunoFragment.create());
+                    sDialog.dismissWithAnimation();
+                })
+                .setCancelButton("Não", SweetAlertDialog::dismissWithAnimation)
+                .show();
+    }
 }
