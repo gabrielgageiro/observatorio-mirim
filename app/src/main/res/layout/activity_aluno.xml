@@ -26,7 +26,7 @@
 
 
     <ImageButton
-        android:id="@+id/add"
+        android:id="@+id/addAluno"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/add_24"
