@@ -57,6 +57,7 @@ public class EntradaFragment extends AbstractFragment {
         /*Entry chip section*/
 
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.mainTagAutoCompleteTextView);
+        autoCompleteTextView.requestFocus();
         chipGroup = view.findViewById(R.id.mainTagChipGroup);
         loadTagsUi(autoCompleteTextView, chipGroup, new ArrayList<String>(), listaAlunos);
         return view;
