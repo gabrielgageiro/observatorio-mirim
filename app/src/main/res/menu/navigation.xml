@@ -1,11 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_estoque"
-        android:title="@string/estoque"
+    <item android:id="@+id/menu_entradas"
+        android:title="@string/entradas"
         android:icon="@drawable/img_box" />
-    <item android:id="@+id/menu_cadastrar"
-        android:title="@string/cadastrar"
-        android:icon="@drawable/img_cadastro" />
-    <item android:id="@+id/menu_upload"
-        android:title="@string/enviar"
+    <item android:id="@+id/menu_sincronizar"
+        android:title="@string/sincronizar"
         android:icon="@drawable/img_upload" />
 </menu>

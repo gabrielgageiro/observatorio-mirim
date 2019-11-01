@@ -39,16 +39,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.menu_estoque: {
+            case R.id.menu_entradas:
                 AbstractFragment.openFragmentFromActivity(this, EstoqueListFragment.create());
-
-            } break;
-            case R.id.menu_cadastrar: {
-                AbstractFragment.openFragmentFromActivity(this, EntradaFragment.create());
-            } break;
-            case R.id.menu_upload: {
+                break;
+            case R.id.menu_sincronizar:
                 AbstractFragment.openFragmentFromActivity(this, UploadFragment.create());
-            } break;
+                break;
         }
         return true;
     }

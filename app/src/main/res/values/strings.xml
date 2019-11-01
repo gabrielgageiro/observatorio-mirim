@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Observatório Mirim</string>
-    <string name="estoque">Estoque</string>
-    <string name="cadastrar">Cadastrar</string>
-    <string name="enviar">Enviar</string>
+    <string name="entradas">Entradas</string>
+    <string name="sincronizar">Sincronizar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
