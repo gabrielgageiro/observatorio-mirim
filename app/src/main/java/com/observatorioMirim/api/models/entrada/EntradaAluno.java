@@ -2,15 +2,13 @@ package com.observatorioMirim.api.models.entrada;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class EntradaAluno {
+public class EntradaAluno implements Serializable {
 
     @SerializedName("id_escola")
     private Integer idEscola;
-
-    @SerializedName("id_entrada")
-    private Integer idEntrada;
 
     @SerializedName("nome_aluno")
     private String nomeAluno;
@@ -21,9 +19,8 @@ public class EntradaAluno {
     public EntradaAluno() {
     }
 
-    public EntradaAluno(Integer idEscola, Integer idEntrada, String nomeAluno, Integer idConta) {
+    public EntradaAluno(Integer idEscola, String nomeAluno, Integer idConta) {
         this.idEscola = idEscola;
-        this.idEntrada = idEntrada;
         this.nomeAluno = nomeAluno;
         this.idConta = idConta;
     }
@@ -34,14 +31,6 @@ public class EntradaAluno {
 
     public void setIdEscola(Integer idEscola) {
         this.idEscola = idEscola;
-    }
-
-    public Integer getIdEntrada() {
-        return idEntrada;
-    }
-
-    public void setIdEntrada(Integer idEntrada) {
-        this.idEntrada = idEntrada;
     }
 
     public String getNomeAluno() {
