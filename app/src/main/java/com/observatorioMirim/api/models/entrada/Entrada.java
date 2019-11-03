@@ -3,8 +3,6 @@ package com.observatorioMirim.api.models.entrada;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

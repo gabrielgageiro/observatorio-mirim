@@ -120,15 +120,15 @@ public class API {
         call.enqueue(callback);
     }
 
-    public static void postEntradaAluno(final EntradaAluno[] entradaAlunos, final Callback<RespostaEscola> callback){
+    public static void postEntradaAluno(final EntradaAluno entradaAluno, final Callback<RespostaEscola> callback){
         EntradaEndPoint endPoint = retrofit.create(EntradaEndPoint.class);
-        Call<RespostaEscola> call = endPoint.postEntradaAluno(entradaAlunos);
+        Call<RespostaEscola> call = endPoint.postEntradaAluno(entradaAluno);
         call.enqueue(callback);
     }
 
-    public static void postEntradaItem(final EntradaItem[] entradaItems, final Callback<RespostaEscola> callback){
+    public static void postEntradaItem(final EntradaItem entradaItem, final Callback<RespostaEscola> callback){
         EntradaEndPoint endPoint = retrofit.create(EntradaEndPoint.class);
-        Call<RespostaEscola> call = endPoint.postEntradaItem(entradaItems);
+        Call<RespostaEscola> call = endPoint.postEntradaItem(entradaItem);
         call.enqueue(callback);
     }
 

@@ -21,8 +21,6 @@ import com.observatorioMirim.api.models.escola.Escola;
 import com.observatorioMirim.api.models.fornecedor.Fornecedor;
 import com.observatorioMirim.api.models.produto.Produto;
 
-import org.joda.time.DateTime;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -109,8 +107,32 @@ public class LoginActivity extends AppCompatActivity {
         //incluirFornecedor();
         //listarFornecedores();
 
-        incluirEntrada();
-        //incluirAluno();
+        //incluirEntrada();
+        incluirAluno();
+        //incluirItem();
+    }
+
+    private void incluirItem() {
+        final EntradaItem entradaItem = new EntradaItem();
+        entradaItem.setIdConta(10);
+        entradaItem.setIdEscola(9);
+        entradaItem.setIdFornecedor(3);
+        entradaItem.setIdProduto(3);
+        entradaItem.setObservacao("Eaii tudo bom?");
+
+
+        API.postEntradaItem(entradaItem, new Callback<RespostaEscola>() {
+            @Override
+            public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
+                System.out.println(response.body().getMensagem());
+                System.out.println(response.body().getId());
+            }
+
+            @Override
+            public void onFailure(Call<RespostaEscola> call, Throwable t) {
+                System.out.println("Deu erro");
+            }
+        });
     }
 
     private void incluirEntrada() {
@@ -137,16 +159,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void incluirAluno() {
-        final EntradaAluno[] entradaAlunos = new EntradaAluno[1];
-        entradaAlunos[0] = new EntradaAluno();
-        entradaAlunos[0].setIdConta(10);
-        entradaAlunos[0].setIdEscola(9);
-        entradaAlunos[0].setNomeAluno("Cássio");
+        final EntradaAluno entradaAluno = new EntradaAluno();
+        entradaAluno.setIdConta(10);
+        entradaAluno.setIdEscola(9);
+        entradaAluno.setNomeAluno("Cássio 3.0");
 
-        API.postEntradaAluno(entradaAlunos, new Callback<RespostaEscola>() {
+        API.postEntradaAluno(entradaAluno, new Callback<RespostaEscola>() {
             @Override
             public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
-                System.out.println(response.body());
+                System.out.println(response.body().getMensagem());
+                System.out.println(response.body().getId());
             }
 
             @Override

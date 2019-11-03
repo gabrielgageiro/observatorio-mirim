@@ -33,12 +33,12 @@ public class EntradaItem implements Serializable {
     private String foto;
 
     @SerializedName("IdConta")
-    private String idConta;
+    private Integer idConta;
 
     public EntradaItem() {
     }
 
-    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, Date prazoValidade, String foto, String idConta) {
+    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, Date prazoValidade, String foto, Integer idConta) {
         this.idEscola = idEscola;
         this.idFornecedor = idFornecedor;
         this.idProduto = idProduto;
@@ -114,12 +114,13 @@ public class EntradaItem implements Serializable {
         this.foto = foto;
     }
 
-    public String getIdConta() {
+    public Integer getIdConta() {
         return idConta;
     }
 
-    public void setIdConta(String idConta) {
+    public void setIdConta(Integer idConta) {
         this.idConta = idConta;
     }
+
 }
 

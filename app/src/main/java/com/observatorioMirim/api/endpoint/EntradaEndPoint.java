@@ -19,8 +19,8 @@ public interface EntradaEndPoint {
     Call<RespostaEscola> postEntrada(@Body Entrada entradas);
 
     @POST("api/escola/entrada/aluno/incluir")
-    Call<RespostaEscola> postEntradaAluno(@Body EntradaAluno[] entradaAluno);
+    Call<RespostaEscola> postEntradaAluno(@Body EntradaAluno entradaAluno);
 
     @POST("api/escola/entrada/item/incluir ")
-    Call<RespostaEscola> postEntradaItem(@Body EntradaItem[] entradaItems);
+    Call<RespostaEscola> postEntradaItem(@Body EntradaItem entradaItems);
 }
