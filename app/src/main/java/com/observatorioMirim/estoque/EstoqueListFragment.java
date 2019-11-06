@@ -74,7 +74,7 @@ public class EstoqueListFragment extends AbstractFragment {
 
     }
 
-    private void loadItem() {
+    private void loadItem() {//todo pegar da api
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             linhas.remove(linhas.size() - 1);

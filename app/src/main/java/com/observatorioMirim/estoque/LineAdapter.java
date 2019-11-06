@@ -4,11 +4,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
+import com.observatorioMirim.cadastro.EntradaFragment;
+import com.observatorioMirim.utils.AbstractFragment;
 
 import java.util.List;
 
@@ -40,6 +44,9 @@ public class LineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if(holder instanceof LoadingViewHolder){
             showLoadingView((LoadingViewHolder) holder, position);
         }
+        holder.itemView.setOnClickListener(o ->{
+            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(),EntradaFragment.create());
+        });
     }
 
     @Override
