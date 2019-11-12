@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.observatorioMirim.estoque.EstoqueListFragment;
+import com.observatorioMirim.entrada.EntradaListFragment;
 import com.observatorioMirim.utils.AbstractFragment;
-import com.observatorioMirim.cadastro.EntradaFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -21,11 +20,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_bar);
-        novaEntrada = (FloatingActionButton) findViewById(R.id.nova_entrada);
-        novaEntrada.setOnClickListener(o ->{
-            AbstractFragment.openFragmentFromActivity(this, EntradaFragment.create());
-        });
-
         initBottomNavigationBar();
     }
 
@@ -33,14 +27,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemReselectedListener(this);
         bottomNavigationView.setItemIconTintList(null); //necessário para deixar os icones com as cores originais
-        AbstractFragment.openFragmentFromActivity(this, EstoqueListFragment.create());
+        AbstractFragment.openFragmentFromActivity(this, EntradaListFragment.create());
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.menu_entradas:
-                AbstractFragment.openFragmentFromActivity(this, EstoqueListFragment.create());
+                AbstractFragment.openFragmentFromActivity(this, EntradaListFragment.create());
                 break;
             case R.id.menu_sincronizar:
                 AbstractFragment.openFragmentFromActivity(this, UploadFragment.create());

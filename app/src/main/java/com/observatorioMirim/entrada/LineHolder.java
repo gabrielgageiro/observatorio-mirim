@@ -1,4 +1,4 @@
-package com.observatorioMirim.estoque;
+package com.observatorioMirim.entrada;
 
 import android.view.View;
 import android.widget.TextView;

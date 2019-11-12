@@ -1,4 +1,4 @@
-package com.observatorioMirim.estoque;
+package com.observatorioMirim.entrada;
 
 public class Produto {
     private String codigoProduto;

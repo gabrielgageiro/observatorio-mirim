@@ -1,11 +1,10 @@
-package com.observatorioMirim.estoque;
+package com.observatorioMirim.entrada;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,21 +17,20 @@ import com.observatorioMirim.utils.AbstractFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class EstoqueListFragment extends AbstractFragment {
+public class EntradaListFragment extends AbstractFragment {
     private RecyclerView recyclerView;
     private LineAdapter lineAdapter;
     private boolean isLoading = false;
     private List<Integer> linhas = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10));
 
-    public EstoqueListFragment(Integer key, String titulo) {
+    public EntradaListFragment(Integer key, String titulo) {
         super(key, titulo);
     }
 
-    public static EstoqueListFragment create(){
-        return new EstoqueListFragment(R.layout.produto_list, "Cadastro");
+    public static EntradaListFragment create(){
+        return new EntradaListFragment(R.layout.view_list, "Cadastro");
     }
 
     @Nullable
@@ -40,7 +38,7 @@ public class EstoqueListFragment extends AbstractFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        recyclerView = view.findViewById(R.id.produto_list);
+        recyclerView = view.findViewById(R.id.view_list);
         recyclerView.setLayoutManager(layoutManager);
         lineAdapter = new LineAdapter(linhas);
         recyclerView.setAdapter(lineAdapter);
