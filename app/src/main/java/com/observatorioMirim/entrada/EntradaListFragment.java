@@ -21,7 +21,7 @@ import java.util.List;
 
 public class EntradaListFragment extends AbstractFragment {
     private RecyclerView recyclerView;
-    private LineAdapter lineAdapter;
+    private EntradaAdapter entradaAdapter;
     private boolean isLoading = false;
     private List<Integer> linhas = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10));
 
@@ -30,7 +30,7 @@ public class EntradaListFragment extends AbstractFragment {
     }
 
     public static EntradaListFragment create(){
-        return new EntradaListFragment(R.layout.view_list, "Cadastro");
+        return new EntradaListFragment(R.layout.view_list, "Entradas");
     }
 
     @Nullable
@@ -40,8 +40,8 @@ public class EntradaListFragment extends AbstractFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         recyclerView = view.findViewById(R.id.view_list);
         recyclerView.setLayoutManager(layoutManager);
-        lineAdapter = new LineAdapter(linhas);
-        recyclerView.setAdapter(lineAdapter);
+        entradaAdapter = new EntradaAdapter(linhas);
+        recyclerView.setAdapter(entradaAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         initScrollListener();
 
@@ -77,16 +77,16 @@ public class EntradaListFragment extends AbstractFragment {
         handler.postDelayed(() -> {
             linhas.remove(linhas.size() - 1);
                 int scrollPosition = linhas.size();
-            lineAdapter.notifyItemRemoved(scrollPosition);
+            entradaAdapter.notifyItemRemoved(scrollPosition);
 
             int limite = scrollPosition + 10; //limite e o tamanho atual da lista + 10
 
                 while (scrollPosition - 1 < limite) {
-                    lineAdapter.addProduto(scrollPosition);
+                    entradaAdapter.addEntrada(scrollPosition);
                     scrollPosition++;
                 }
 
-                lineAdapter.notifyDataSetChanged();
+                entradaAdapter.notifyDataSetChanged();
                 isLoading = false;
         }, 2000);
     }

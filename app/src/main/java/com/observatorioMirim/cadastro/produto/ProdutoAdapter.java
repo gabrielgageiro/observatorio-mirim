@@ -1,4 +1,4 @@
-package com.observatorioMirim.utils;
+package com.observatorioMirim.cadastro.produto;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
 import com.observatorioMirim.cadastro.EntradaFragment;
-import com.observatorioMirim.cadastro.produto.ProdutoHolder;
+import com.observatorioMirim.utils.AbstractFragment;
 
 import java.util.List;
 
-public class LineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ProdutoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_ITEM = 0;
     private final int VIEW_LOADING = 1;
 
     private List<Integer> produtos;
 
-    public LineAdapter(List<Integer> produtos) {
+    public ProdutoAdapter(List<Integer> produtos) {
         this.produtos = produtos;
     }
 
@@ -40,11 +40,11 @@ public class LineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ProdutoHolder){
             addLinhaItem((ProdutoHolder) holder, position);
-        } else if(holder instanceof LoadingViewHolder){
-            showLoadingView((LoadingViewHolder) holder, position);
+        } else if(holder instanceof ProdutoAdapter.LoadingViewHolder){
+            showLoadingView((ProdutoAdapter.LoadingViewHolder) holder, position);
         }
         holder.itemView.setOnClickListener(o ->{
-            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(),EntradaFragment.create());
+            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(), EntradaFragment.create());
         });
     }
 
@@ -76,12 +76,11 @@ public class LineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
+    private void showLoadingView(ProdutoAdapter.LoadingViewHolder viewHolder, int position) {
         //ProgressBar would be displayed
     }
 
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
-
         ProgressBar progressBar;
 
         public LoadingViewHolder(@NonNull View itemView) {

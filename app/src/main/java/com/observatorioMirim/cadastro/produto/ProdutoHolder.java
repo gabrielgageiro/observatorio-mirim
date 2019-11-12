@@ -1,4 +1,4 @@
-package com.observatorioMirim.entrada;
+package com.observatorioMirim.cadastro.produto;
 
 import android.view.View;
 import android.widget.TextView;
@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
 
-public class LineHolder extends RecyclerView.ViewHolder {
+public class ProdutoHolder extends RecyclerView.ViewHolder {
     private TextView codigoProduto;
     private TextView nomeProduto;
     private TextView barrasProduto;
 
-    public LineHolder(View itemView){
+    public ProdutoHolder(View itemView){
         super(itemView);
         nomeProduto = (TextView) itemView.findViewById(R.id.nomeProduto);
         barrasProduto = (TextView) itemView.findViewById(R.id.barrasProduto);
