@@ -1,4 +1,4 @@
-package com.observatorioMirim.entrada;
+package com.observatorioMirim.utils;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
 import com.observatorioMirim.cadastro.EntradaFragment;
+import com.observatorioMirim.entrada.LineHolder;
 import com.observatorioMirim.utils.AbstractFragment;
 
 import java.util.List;
