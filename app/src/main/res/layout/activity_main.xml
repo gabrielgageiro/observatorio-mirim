@@ -23,6 +23,18 @@
             app:itemTextColor="@color/white"
             app:menu="@menu/navigation" />
 
+        <!--TODO: REMOVER OU AJUSTAR-->
+        <Button
+            android:id="@+id/btn_proximo"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_proximo"
+            android:background="@drawable/drawable_login"
+            android:textColor="#fff"
+            android:layout_marginTop="30sp"
+            />
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

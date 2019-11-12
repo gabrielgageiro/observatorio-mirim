@@ -3,5 +3,6 @@
     <string name="entradas">Entradas</string>
     <string name="sincronizar">Sincronizar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_proximo">PRÓXIMO</string>
 
 </resources>

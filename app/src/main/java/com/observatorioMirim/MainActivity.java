@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.observatorioMirim.entrada.EntradaListFragment;
@@ -13,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
     private BottomNavigationView bottomNavigationView;
-    private FloatingActionButton novaEntrada;
+    private Button btnProximo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
