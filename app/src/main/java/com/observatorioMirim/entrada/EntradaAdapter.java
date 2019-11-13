@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
-import com.observatorioMirim.cadastro.produto.ProdutoFragment;
+import com.observatorioMirim.cadastro.produto.ProdutoListFragment;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.LineAdapter;
 
@@ -34,7 +34,7 @@ public class EntradaAdapter extends LineAdapter<Integer, EntradaHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         addLinhaItem((EntradaHolder) holder, position);
         holder.itemView.setOnClickListener(o -> {
-            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(), ProdutoFragment.create());
+            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(), ProdutoListFragment.create());
         });
     }
 

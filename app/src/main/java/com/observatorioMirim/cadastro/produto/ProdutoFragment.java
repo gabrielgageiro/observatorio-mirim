@@ -10,6 +10,6 @@ public class ProdutoFragment extends AbstractFragment {
     }
 
     public static ProdutoFragment create(){
-        return new ProdutoFragment(R.layout.produto_view, "Estoque");
+        return new ProdutoFragment(R.layout.produto_view, "Produtos");
     }
 }

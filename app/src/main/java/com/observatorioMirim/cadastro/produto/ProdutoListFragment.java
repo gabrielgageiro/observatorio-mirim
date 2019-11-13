@@ -1,4 +1,4 @@
-package com.observatorioMirim.entrada;
+package com.observatorioMirim.cadastro.produto;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
+import com.observatorioMirim.entrada.EntradaAdapter;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.ListFrament;
 
@@ -20,20 +21,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EntradaListFragment extends AbstractFragment implements ListFrament {
+public class ProdutoListFragment extends AbstractFragment implements ListFrament {
     private RecyclerView recyclerView;
-    private EntradaAdapter entradaAdapter;
+    private ProdutoAdapter produtoAdapter;
     private boolean isLoading = false;
-    private List<Integer> linhas = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10));
+    private List<Produto> linhas = new ArrayList<>(Arrays.asList(new Produto("90","91","92"),new Produto("93","94","95"),new Produto("97","98","99")));
 
-    public EntradaListFragment(Integer key, String titulo) {
+    public ProdutoListFragment(Integer key, String titulo) {
         super(key, titulo);
     }
-
-    public static EntradaListFragment create(){
-        return new EntradaListFragment(R.layout.view_list, "Entradas");
+    public static ProdutoListFragment create(){
+        return new ProdutoListFragment(R.layout.view_list, "Produtos");
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,8 +40,8 @@ public class EntradaListFragment extends AbstractFragment implements ListFrament
         View view = super.onCreateView(inflater, container, savedInstanceState);
         recyclerView = view.findViewById(R.id.view_list);
         recyclerView.setLayoutManager(layoutManager);
-        entradaAdapter = new EntradaAdapter(linhas);
-        recyclerView.setAdapter(entradaAdapter);
+        produtoAdapter = new ProdutoAdapter(linhas);
+        recyclerView.setAdapter(produtoAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         initScrollListener();
 
@@ -51,7 +50,7 @@ public class EntradaListFragment extends AbstractFragment implements ListFrament
 
     @Override
     public void initScrollListener() {
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -79,18 +78,18 @@ public class EntradaListFragment extends AbstractFragment implements ListFrament
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             linhas.remove(linhas.size() - 1);
-                int scrollPosition = linhas.size();
-            entradaAdapter.notifyItemRemoved(scrollPosition);
+            int scrollPosition = linhas.size();
+            produtoAdapter.notifyItemRemoved(scrollPosition);
 
             int limite = scrollPosition + 10; //limite e o tamanho atual da lista + 10
 
-                while (scrollPosition - 1 < limite) {
-                    entradaAdapter.addLine(scrollPosition);
-                    scrollPosition++;
-                }
+            while (scrollPosition - 1 < limite) {
+//                produtoAdapter.addLine(linhas.get(scrollPosition));
+                scrollPosition++;
+            }
 
-                entradaAdapter.notifyDataSetChanged();
-                isLoading = false;
+            produtoAdapter.notifyDataSetChanged();
+            isLoading = false;
         }, 2000);
     }
 }
