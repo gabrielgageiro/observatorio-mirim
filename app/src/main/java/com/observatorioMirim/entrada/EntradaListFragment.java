@@ -82,7 +82,7 @@ public class EntradaListFragment extends AbstractFragment {
             int limite = scrollPosition + 10; //limite e o tamanho atual da lista + 10
 
                 while (scrollPosition - 1 < limite) {
-                    entradaAdapter.addEntrada(scrollPosition);
+                    entradaAdapter.addLine(scrollPosition);
                     scrollPosition++;
                 }
 

@@ -1,92 +1,34 @@
 package com.observatorioMirim.utils;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.observatorioMirim.R;
-import com.observatorioMirim.cadastro.EntradaFragment;
-import com.observatorioMirim.cadastro.produto.ProdutoHolder;
 
 import java.util.List;
 
-public class LineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final int VIEW_ITEM = 0;
-    private final int VIEW_LOADING = 1;
+public abstract class LineAdapter<T,S> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    protected final int VIEW_ITEM = 0;
+    protected final int VITW_LOADING = 1;
 
-    private List<Integer> produtos;
+    protected List<T> itens;
 
-    public LineAdapter(List<Integer> produtos) {
-        this.produtos = produtos;
-    }
-
-    @NonNull
-    @Override
-    public ProdutoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(VIEW_ITEM == viewType){
-            return new ProdutoHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.produto_view, parent, false));
-        }
-        return new ProdutoHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_loading, parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ProdutoHolder){
-            addLinhaItem((ProdutoHolder) holder, position);
-        } else if(holder instanceof LoadingViewHolder){
-            showLoadingView((LoadingViewHolder) holder, position);
-        }
-        holder.itemView.setOnClickListener(o ->{
-            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(),EntradaFragment.create());
-        });
+    public LineAdapter(List<T> itens) {
+        this.itens = itens;
     }
 
     @Override
     public int getItemCount() {
-        return produtos != null && !produtos.isEmpty() ? produtos.size() : 0;
+        return itens != null && !itens.isEmpty() ? itens.size() : 0;
     }
 
-    public void addProduto(Integer produto){
-        produtos.add(produto);
+    public void addLine(T item) {
+        itens.add(item);
         notifyItemInserted(getItemCount());
     }
 
-    /**
-     * Decide qual view mostrar
-     * @param position
-     * @return
-     */
     @Override
     public int getItemViewType(int position) {
-        return produtos.get(position) == null ? VIEW_LOADING: VIEW_ITEM;
+        return itens.get(position) == null ? VITW_LOADING : VIEW_ITEM;
     }
 
-    private void addLinhaItem(ProdutoHolder holder, int position){
-        Integer integer = produtos.get(position);
-        if (integer != null){
-            holder.getNomeProduto().setText(integer.toString());
+    protected abstract void addLinhaItem(S holder, int position);
 
-        }
-    }
-
-    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
-        //ProgressBar would be displayed
-    }
-
-    private class LoadingViewHolder extends RecyclerView.ViewHolder {
-
-        ProgressBar progressBar;
-
-        public LoadingViewHolder(@NonNull View itemView) {
-            super(itemView);
-            progressBar = itemView.findViewById(R.id.progressBar);
-        }
-    }
 }
