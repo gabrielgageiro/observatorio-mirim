@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cadastro_aluno"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:weightSum="1"
-    android:orientation="horizontal"
-    android:layout_margin="10dp">
+    android:layout_height="match_parent"
+    android:layout_margin="15dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/text_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.95"
-        android:hint="Aluno"
-        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_usuario"
+        <AutoCompleteTextView
+            android:id="@+id/mainTagAutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:inputType="textCapWords"
+            android:completionThreshold="1"
+            android:imeOptions="actionDone"
+            android:hint="Alunos"
+            />
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/mainTagChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipSpacingVertical="4dp"
+            />
 
-    <ImageButton
-        android:id="@+id/addAluno"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/add_24"
-        android:layout_weight="0.05" />
+    </LinearLayout>
 
-</LinearLayout>
+    <!--<Button-->
+    <!--android:id="@+id/btn_proximo"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="PROXIMO"-->
+    <!--android:textColor="@color/colorPrimaryDark"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--/>-->
+
+</RelativeLayout>
