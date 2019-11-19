@@ -43,7 +43,6 @@ public class ProdutoListFragment extends AbstractFragment implements ListFrament
         recyclerView.setLayoutManager(layoutManager);
         produtoAdapter = new ProdutoAdapter(linhas);
         recyclerView.setAdapter(produtoAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         initScrollListener();
 
         MainActivity main = (MainActivity) getActivity();
