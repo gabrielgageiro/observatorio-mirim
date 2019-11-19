@@ -1,6 +1,7 @@
 package com.observatorioMirim;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -8,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -21,6 +23,7 @@ import com.observatorioMirim.api.models.escola.Escola;
 import com.observatorioMirim.api.models.fornecedor.Fornecedor;
 import com.observatorioMirim.api.models.produto.Produto;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText edit_text_senha;
     private ImageView login_logo;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,8 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         //listarFornecedores();
 
         //incluirEntrada();
-        incluirAluno();
-        //incluirItem();
+        //incluirAluno();
     }
 
     private void incluirItem() {
@@ -137,18 +140,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private void incluirEntrada() {
         final Entrada entradas = new Entrada();
-        entradas.setIdConta(10);
-        entradas.setIdEscola(9);
+        entradas.setIdConta(2);
+        entradas.setIdEscola(1);
         entradas.setObservacao("Eaii tudo bom?");
-//        entradas.setDataHora(LocalDateTime.now());
-        entradas.setEntradaAlunos(new ArrayList<EntradaAluno>());
-        entradas.setEntradaItems(new ArrayList<EntradaItem>());
+        //entradas.setDataHora(LocalDateTime.now()); //É preenchido automaticamente
+        entradas.setEntradaAlunos(Arrays.asList(new EntradaAluno(1, "Cássio", 2), new EntradaAluno(1, "Càssio", 2)));
+        entradas.setEntradaItems(Collections.singletonList(new EntradaItem(1, 30, 18, "KG", new BigDecimal(1), "Item do Cássio", 2)));
+        entradas.setIdSaida(1);
+        entradas.setEntradaEntradas(new ArrayList<Entrada>());
+        entradas.setEscola("Tento");//Setar pelo preferences?? não é obrigatório
 
 
         API.postEntrada(entradas, new Callback<RespostaEscola>() {
             @Override
             public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
-                System.out.println(response.body());
+                System.out.println(response.body().getMensagem());
+                System.out.println(response.body().getId());
             }
 
             @Override
@@ -224,18 +231,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void listarFornecedores() {
-        API.getFornecedores(10, 9, new Callback<List<Fornecedor>>() {
+        API.getFornecedorById(2, 1, 30, new Callback<Fornecedor>() {
             @Override
-            public void onResponse(Call<List<Fornecedor>> call, Response<List<Fornecedor>> response) {
-                if(!response.body().isEmpty()) {
-                    for (Fornecedor fornecedor : response.body()) {
-                        System.out.println(fornecedor.getNome());
-                    }
-                }
+            public void onResponse(Call<Fornecedor> call, Response<Fornecedor> response) {
+                System.out.println(response.body().getNome());
             }
 
             @Override
-            public void onFailure(Call<List<Fornecedor>> call, Throwable t) {
+            public void onFailure(Call<Fornecedor> call, Throwable t) {
             }
         });
     }
@@ -243,9 +246,9 @@ public class LoginActivity extends AppCompatActivity {
     private void incluirFornecedor() {
         final Fornecedor[] fornecedores = new Fornecedor[1];
         fornecedores[0] = new Fornecedor();
-        fornecedores[0].setIdConta(10);
-        fornecedores[0].setIdEscola(9);
-        fornecedores[0].setNome("Dani Boy");
+        fornecedores[0].setIdConta(2);
+        fornecedores[0].setIdEscola(1);
+        fornecedores[0].setNome("Cássio Fornecedor");
         fornecedores[0].setCnpj("184145454554");
         fornecedores[0].setTelefone("489947455");
 
@@ -262,8 +265,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    /*private void listarProdutos() {
-        API.getProdutos(10, 9, new Callback<List<Produto>>() {
+    private void listarProdutos() {
+        API.getProdutos(2, 1, new Callback<List<Produto>>() {
             @Override
             public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
                if(!response.body().isEmpty()){
@@ -278,14 +281,14 @@ public class LoginActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-    }*/
+    }
 
-    /*private void incluirProduto() {
+    private void incluirProduto() {
         final Produto[] produtos = new Produto[1];
         produtos[0] = new Produto();
         produtos[0].setIdConta(10);
         produtos[0].setIdEscola(9);
-        produtos[0].setNome("Lança Perfume");
+        produtos[0].setNome("KKKKKKKKKK");
         produtos[0].setMarca("Lança");
         produtos[0].setUnidade("ML");
         produtos[0].setCodigoBarras("1263531253");
@@ -302,7 +305,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-    }*/
+    }
 
 
 }

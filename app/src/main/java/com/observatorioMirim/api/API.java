@@ -92,10 +92,10 @@ public class API {
         call.enqueue(callback);
     }
 
-    public static void getFornecedorById(final Integer idConta, final Integer idEscola, final Integer idProduto, final Callback<Fornecedor> callback){
+    public static void getFornecedorById(final Integer idConta, final Integer idEscola, final Integer idFornecedor, final Callback<Fornecedor> callback){
         FornecedorEndPoint endPoint = retrofit.create(FornecedorEndPoint.class);
         Call<Fornecedor> call;
-        call = endPoint.getFornecedorById(idConta, idEscola, idProduto);
+        call = endPoint.getFornecedorById(idConta, idEscola, idFornecedor);
         call.enqueue(callback);
     }
 

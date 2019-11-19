@@ -13,6 +13,9 @@ public class Entrada implements Serializable {
     @SerializedName("id_escola")
     private Integer idEscola;
 
+    @SerializedName("id_saida")
+    private Integer idSaida;
+
     @SerializedName("data_hora")
     private LocalDateTime dataHora;
 
@@ -28,16 +31,25 @@ public class Entrada implements Serializable {
     @SerializedName("listaEntradaAluno")
     private List<EntradaAluno> entradaAlunos = new ArrayList<>();
 
+    @SerializedName("ListaEntrada")
+    private List<Entrada> entradaEntradas = new ArrayList<>();
+
+    @SerializedName("escola")
+    private String escola;
+
     public Entrada() {
     }
 
-    public Entrada(Integer idEscola, LocalDateTime dataHora, String observacao, Integer idConta, List<EntradaItem> entradaItems, List<EntradaAluno> listaEntradaAluno) {
+    public Entrada(Integer idEscola, Integer idSaida, LocalDateTime dataHora, String observacao, Integer idConta, List<EntradaItem> entradaItems, List<EntradaAluno> entradaAlunos, List<Entrada> entradaEntradas, String escola) {
         this.idEscola = idEscola;
+        this.idSaida = idSaida;
         this.dataHora = dataHora;
         this.observacao = observacao;
         this.idConta = idConta;
         this.entradaItems = entradaItems;
-        this.entradaAlunos = listaEntradaAluno;
+        this.entradaAlunos = entradaAlunos;
+        this.entradaEntradas = entradaEntradas;
+        this.escola = escola;
     }
 
     public Integer getIdEscola() {
@@ -86,5 +98,29 @@ public class Entrada implements Serializable {
 
     public void setEntradaAlunos(List<EntradaAluno> entradaAlunos) {
         this.entradaAlunos = entradaAlunos;
+    }
+
+    public Integer getIdSaida() {
+        return idSaida;
+    }
+
+    public void setIdSaida(Integer idSaida) {
+        this.idSaida = idSaida;
+    }
+
+    public List<Entrada> getEntradaEntradas() {
+        return entradaEntradas;
+    }
+
+    public void setEntradaEntradas(List<Entrada> entradaEntradas) {
+        this.entradaEntradas = entradaEntradas;
+    }
+
+    public String getEscola() {
+        return escola;
+    }
+
+    public void setEscola(String escola) {
+        this.escola = escola;
     }
 }

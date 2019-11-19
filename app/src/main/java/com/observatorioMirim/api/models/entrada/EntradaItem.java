@@ -50,6 +50,16 @@ public class EntradaItem implements Serializable {
         this.idConta = idConta;
     }
 
+    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, Integer idConta) {
+        this.idEscola = idEscola;
+        this.idFornecedor = idFornecedor;
+        this.idProduto = idProduto;
+        this.unidade = unidade;
+        this.quantidade = quantidade;
+        this.observacao = observacao;
+        this.idConta = idConta;
+    }
+
     public Integer getIdEscola() {
         return idEscola;
     }
