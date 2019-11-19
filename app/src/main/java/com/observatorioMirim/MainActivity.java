@@ -2,6 +2,8 @@ package com.observatorioMirim;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_bar);
+        btnProximo = (Button) findViewById(R.id.btn_proximo);
         initBottomNavigationBar();
     }
 
@@ -50,5 +53,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
+    }
+
+    public Button getBtnProximo() {
+        return btnProximo;
+    }
+
+    public void trocaTela(AbstractFragment fragment) {
+        btnProximo.setOnClickListener(o -> {
+            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(), fragment);
+        });
     }
 }

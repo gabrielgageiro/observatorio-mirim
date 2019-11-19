@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
+import com.observatorioMirim.cadastro.aluno.AlunoFragment;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.ListFrament;
 
@@ -44,8 +45,10 @@ public class ProdutoListFragment extends AbstractFragment implements ListFrament
         recyclerView.setAdapter(produtoAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         initScrollListener();
+
         MainActivity main = (MainActivity) getActivity();
         main.getBottomNavigationView().setVisibility(View.INVISIBLE);
+        main.trocaTela(AlunoFragment.create());
         return view;
     }
 

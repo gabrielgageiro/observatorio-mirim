@@ -4,9 +4,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
+import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.LineAdapter;
 
 import java.util.List;
@@ -30,6 +32,9 @@ public class ProdutoAdapter extends LineAdapter<Produto, ProdutoHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         addLinhaItem((ProdutoHolder) holder, position);
+        holder.itemView.setOnClickListener(o -> {
+            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(), ProdutoFragment.create());
+        });
     }
 
     @Override
