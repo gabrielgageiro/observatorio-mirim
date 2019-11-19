@@ -2,8 +2,11 @@ package com.observatorioMirim.api.models.entrada;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class EntradaItem implements Serializable {
@@ -27,7 +30,7 @@ public class EntradaItem implements Serializable {
     private String observacao;
 
     @SerializedName("prazo_validade")
-    private Date prazoValidade;
+    private String prazoValidade;
 
     @SerializedName("foto")
     private String foto;
@@ -38,7 +41,7 @@ public class EntradaItem implements Serializable {
     public EntradaItem() {
     }
 
-    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, Date prazoValidade, String foto, Integer idConta) {
+    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, String prazoValidade, String foto, Integer idConta) {
         this.idEscola = idEscola;
         this.idFornecedor = idFornecedor;
         this.idProduto = idProduto;
@@ -108,14 +111,6 @@ public class EntradaItem implements Serializable {
         this.observacao = observacao;
     }
 
-    public Date getPrazoValidade() {
-        return prazoValidade;
-    }
-
-    public void setPrazoValidade(Date prazoValidade) {
-        this.prazoValidade = prazoValidade;
-    }
-
     public String getFoto() {
         return foto;
     }
@@ -132,5 +127,12 @@ public class EntradaItem implements Serializable {
         this.idConta = idConta;
     }
 
+    public String getPrazoValidade() {
+        return prazoValidade;
+    }
+
+    public void setPrazoValidade(String prazoValidade) {
+        this.prazoValidade = prazoValidade;
+    }
 }
 

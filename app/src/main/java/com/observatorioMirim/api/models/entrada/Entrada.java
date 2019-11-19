@@ -16,9 +16,6 @@ public class Entrada implements Serializable {
     @SerializedName("id_saida")
     private Integer idSaida;
 
-    @SerializedName("data_hora")
-    private LocalDateTime dataHora;
-
     @SerializedName("observacao")
     private String observacao;
 
@@ -40,10 +37,9 @@ public class Entrada implements Serializable {
     public Entrada() {
     }
 
-    public Entrada(Integer idEscola, Integer idSaida, LocalDateTime dataHora, String observacao, Integer idConta, List<EntradaItem> entradaItems, List<EntradaAluno> entradaAlunos, List<Entrada> entradaEntradas, String escola) {
+    public Entrada(Integer idEscola, Integer idSaida, String observacao, Integer idConta, List<EntradaItem> entradaItems, List<EntradaAluno> entradaAlunos, List<Entrada> entradaEntradas, String escola) {
         this.idEscola = idEscola;
         this.idSaida = idSaida;
-        this.dataHora = dataHora;
         this.observacao = observacao;
         this.idConta = idConta;
         this.entradaItems = entradaItems;
@@ -74,14 +70,6 @@ public class Entrada implements Serializable {
 
     public void setIdConta(Integer idConta) {
         this.idConta = idConta;
-    }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
     }
 
     public List<EntradaItem> getEntradaItems() {

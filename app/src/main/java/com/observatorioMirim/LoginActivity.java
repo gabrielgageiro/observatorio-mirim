@@ -113,6 +113,22 @@ public class LoginActivity extends AppCompatActivity {
 
         //incluirEntrada();
         //incluirAluno();
+        listarEntradas();
+    }
+
+    private void listarEntradas() {
+        API.getEntradas(2, 1, new Callback<List<Entrada>>() {
+            @Override
+            public void onResponse(Call<List<Entrada>> call, Response<List<Entrada>> response) {
+                for(Entrada e :response.body()){
+                    System.out.println(e.getObservacao());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Entrada>> call, Throwable t) {
+            }
+        });
     }
 
     private void incluirItem() {

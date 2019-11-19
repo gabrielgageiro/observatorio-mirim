@@ -21,6 +21,10 @@ public interface EntradaEndPoint {
     @POST("api/escola/entrada/aluno/incluir")
     Call<RespostaEscola> postEntradaAluno(@Body EntradaAluno entradaAluno);
 
-    @POST("api/escola/entrada/item/incluir ")
+    @POST("api/escola/entrada/item/incluir")
     Call<RespostaEscola> postEntradaItem(@Body EntradaItem entradaItems);
+
+    @GET("api/escola/entrada/listar")
+    Call<List<Entrada>> getEntradas(@Query("id_conta") final Integer idConta, @Query("id_escola") final Integer idEscola);
+
 }
