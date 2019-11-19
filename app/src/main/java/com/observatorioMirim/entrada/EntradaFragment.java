@@ -10,6 +10,6 @@ public class EntradaFragment extends AbstractFragment {
     }
 
     public static EntradaFragment create(){
-        return new EntradaFragment(R.layout.produto_view, "Estoque");
+        return new EntradaFragment(R.layout.produto_view, "Entradas");
     }
 }

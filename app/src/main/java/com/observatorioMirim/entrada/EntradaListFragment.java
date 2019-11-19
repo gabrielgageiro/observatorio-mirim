@@ -43,7 +43,7 @@ public class EntradaListFragment extends AbstractFragment implements ListFrament
         recyclerView.setLayoutManager(layoutManager);
         entradaAdapter = new EntradaAdapter(linhas);
         recyclerView.setAdapter(entradaAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         initScrollListener();
 
         return view;
