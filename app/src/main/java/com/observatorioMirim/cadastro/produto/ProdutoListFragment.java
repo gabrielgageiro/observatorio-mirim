@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.R;
-import com.observatorioMirim.entrada.EntradaAdapter;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.ListFrament;
 
@@ -84,7 +83,7 @@ public class ProdutoListFragment extends AbstractFragment implements ListFrament
             int limite = scrollPosition + 10; //limite e o tamanho atual da lista + 10
 
             while (scrollPosition - 1 < limite) {
-//                produtoAdapter.addLine(linhas.get(scrollPosition));
+                produtoAdapter.addLine(linhas.get(scrollPosition-1));
                 scrollPosition++;
             }
 

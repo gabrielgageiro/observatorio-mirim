@@ -34,9 +34,11 @@ public class ProdutoAdapter extends LineAdapter<Produto, ProdutoHolder> {
 
     @Override
     public void addLinhaItem(ProdutoHolder holder, int position) {
-          Produto integer = itens.get(position);
-        if (integer != null) {
-            holder.getNomeProduto().setText(integer.toString());
+          Produto produto = itens.get(position);
+        if (produto != null) {
+            holder.getNomeProduto().setText(produto.getNomeProduto());
+            holder.getCodigoProduto().setText(produto.getCodigoProduto());
+            holder.getBarrasProduto().setText(produto.getBarrasProduto());
         }
     }
 }

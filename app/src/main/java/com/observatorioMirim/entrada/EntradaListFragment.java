@@ -24,13 +24,13 @@ public class EntradaListFragment extends AbstractFragment implements ListFrament
     private RecyclerView recyclerView;
     private EntradaAdapter entradaAdapter;
     private boolean isLoading = false;
-    private List<Integer> linhas = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10));
+    private List<Integer> linhas = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
     public EntradaListFragment(Integer key, String titulo) {
         super(key, titulo);
     }
 
-    public static EntradaListFragment create(){
+    public static EntradaListFragment create() {
         return new EntradaListFragment(R.layout.view_list, "Entradas");
     }
 
@@ -51,7 +51,7 @@ public class EntradaListFragment extends AbstractFragment implements ListFrament
 
     @Override
     public void initScrollListener() {
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -79,18 +79,18 @@ public class EntradaListFragment extends AbstractFragment implements ListFrament
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             linhas.remove(linhas.size() - 1);
-                int scrollPosition = linhas.size();
+            int scrollPosition = linhas.size();
             entradaAdapter.notifyItemRemoved(scrollPosition);
 
             int limite = scrollPosition + 10; //limite e o tamanho atual da lista + 10
 
-                while (scrollPosition - 1 < limite) {
-                    entradaAdapter.addLine(scrollPosition);
-                    scrollPosition++;
-                }
+            while (scrollPosition - 1 < limite) {
+                entradaAdapter.addLine(scrollPosition);
+                scrollPosition++;
+            }
 
-                entradaAdapter.notifyDataSetChanged();
-                isLoading = false;
+            entradaAdapter.notifyDataSetChanged();
+            isLoading = false;
         }, 2000);
     }
 }
