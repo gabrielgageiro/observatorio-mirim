@@ -47,4 +47,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
     }
+
+    public BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
 }

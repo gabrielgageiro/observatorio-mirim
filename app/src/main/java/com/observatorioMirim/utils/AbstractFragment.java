@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 
 public abstract class AbstractFragment extends Fragment {
@@ -42,5 +43,11 @@ public abstract class AbstractFragment extends Fragment {
         transaction.replace(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onDetach() {
+        ((MainActivity) getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
+        super.onDetach();
     }
 }

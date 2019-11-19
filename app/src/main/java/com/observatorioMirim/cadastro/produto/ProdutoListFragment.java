@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.ListFrament;
@@ -43,7 +44,8 @@ public class ProdutoListFragment extends AbstractFragment implements ListFrament
         recyclerView.setAdapter(produtoAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         initScrollListener();
-
+        MainActivity main = (MainActivity) getActivity();
+        main.getBottomNavigationView().setVisibility(View.INVISIBLE);
         return view;
     }
 
