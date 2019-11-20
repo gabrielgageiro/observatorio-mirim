@@ -8,11 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-
-/**
- * Created by Programador on 30/08/2017.
- */
-
 public class SplashActivity extends Activity {
 
     /*

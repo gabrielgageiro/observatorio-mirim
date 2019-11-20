@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_bar);
         btnProximo = (Button) findViewById(R.id.btn_proximo);
         initBottomNavigationBar();
+
     }
 
     private void initBottomNavigationBar(){
