@@ -22,6 +22,7 @@ import com.observatorioMirim.api.models.entrada.EntradaItem;
 import com.observatorioMirim.api.models.escola.Escola;
 import com.observatorioMirim.api.models.fornecedor.Fornecedor;
 import com.observatorioMirim.api.models.produto.Produto;
+import com.observatorioMirim.api.models.saida.Saida;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -120,7 +121,23 @@ public class LoginActivity extends AppCompatActivity {
 
         //incluirEntrada();
         //incluirAluno();
-        listarEntradas();
+        //listarEntradas();
+        listarSaidas();
+    }
+
+    private void listarSaidas() {
+        API.getSaidas(2, 1, new Callback<List<Saida>>() {
+            @Override
+            public void onResponse(Call<List<Saida>> call, Response<List<Saida>> response) {
+                System.out.println(response.body().get(0).getSaidaItemList().size());
+            }
+
+            @Override
+            public void onFailure(Call<List<Saida>> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void listarEntradas() {
@@ -128,7 +145,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Entrada>> call, Response<List<Entrada>> response) {
                 for(Entrada e :response.body()){
-                    System.out.println(e.getObservacao());
+                    for(EntradaItem ei : e.getEntradaItems()){
+                        System.out.println(ei.getIdProduto());
+                    }
                 }
             }
 
