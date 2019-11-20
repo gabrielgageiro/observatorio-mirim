@@ -20,6 +20,7 @@ import com.observatorioMirim.api.models.entrada.EntradaItem;
 import com.observatorioMirim.api.models.escola.Escola;
 import com.observatorioMirim.api.models.fornecedor.Fornecedor;
 import com.observatorioMirim.api.models.produto.Produto;
+import com.observatorioMirim.utils.Shared;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.sql.Date;
@@ -83,11 +84,20 @@ public class LoginActivity extends AppCompatActivity {
 
                 final Escola escola = new Escola(edit_text_usuario.getText().toString(), edit_text_senha.getText().toString());
 
+
                 API.getEscolaByCodigoSenha(escola.getUsuario_smart(), escola.getSenha_smart(), new Callback<Escola>() {
                     @Override
                     public void onResponse(Call<Escola> call, Response<Escola> response) {
+                        Integer conta = response.body().getIdConta();
+                        Integer idEscola = response.body().getId();
+
+
+
                         if(response != null && response.body() != null){
                             if(response.body().getUsuario_smart().equals(escola.getUsuario_smart()) && response.body().getSenha_smart().equals(escola.getSenha_smart())){
+                                Shared.putInt(getApplicationContext(),Integer.valueOf(conta),conta);
+                                Shared.putInt(getApplicationContext(),Integer.valueOf(idEscola),idEscola);
+
                                 //TODO: Criar classe observatorioUtils, salvar as chaves aqui, salvar o idConta e idEscola no share
                                 /*new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                         .setTitleText("Bem Vindo")
@@ -98,8 +108,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 sweetAlertDialog.dismissWithAnimation();
                                             }
                                         }).show();*/
-                                Intent it = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(it);
+                                    Intent it = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(it);
+
                             }
                         } else {
                             new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)

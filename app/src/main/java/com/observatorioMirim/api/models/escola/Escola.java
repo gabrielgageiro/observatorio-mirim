@@ -64,6 +64,9 @@ public class Escola implements Serializable {
     @SerializedName("IdConta")
     private Integer idConta;
 
+    @SerializedName("Id")
+    private Integer idEscola;
+
     public Escola() {
     }
 
@@ -94,6 +97,14 @@ public class Escola implements Serializable {
 
     public void setIdConta(Integer idConta) {
         this.idConta = idConta;
+    }
+
+    public Integer getId() {
+        return idEscola;
+    }
+
+    public void setId(Integer idEscola) {
+        this.idEscola = idEscola;
     }
 
     public String getNomeEscola() {
