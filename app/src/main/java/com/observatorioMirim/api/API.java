@@ -4,6 +4,7 @@ import com.observatorioMirim.api.endpoint.AutenticacaoEndPoint;
 import com.observatorioMirim.api.endpoint.EntradaEndPoint;
 import com.observatorioMirim.api.endpoint.FornecedorEndPoint;
 import com.observatorioMirim.api.endpoint.ProdutoEndPoint;
+import com.observatorioMirim.api.endpoint.SaidaEndPoint;
 import com.observatorioMirim.api.models.RespostaEscola;
 import com.observatorioMirim.api.models.entrada.Entrada;
 import com.observatorioMirim.api.models.entrada.EntradaAluno;
@@ -11,6 +12,7 @@ import com.observatorioMirim.api.models.entrada.EntradaItem;
 import com.observatorioMirim.api.models.escola.Escola;
 import com.observatorioMirim.api.models.fornecedor.Fornecedor;
 import com.observatorioMirim.api.models.produto.Produto;
+import com.observatorioMirim.api.models.saida.Saida;
 
 import java.util.Date;
 import java.util.List;
@@ -135,6 +137,12 @@ public class API {
     public static void getEntradas(final Integer idConta, final Integer idEscola, final Callback<List<Entrada>> callback){
         EntradaEndPoint endPoint = retrofit.create(EntradaEndPoint.class);
         Call<List<Entrada>> call = endPoint.getEntradas(idConta, idEscola);
+        call.enqueue(callback);
+    }
+
+    public static void getSaidas(final Integer idConta, final Integer idEscola, final Callback<List<Saida>> callback){
+        SaidaEndPoint endPoint = retrofit.create(SaidaEndPoint.class);
+        Call<List<Saida>> call = endPoint.getSaidas(idConta, idEscola);
         call.enqueue(callback);
     }
 }
