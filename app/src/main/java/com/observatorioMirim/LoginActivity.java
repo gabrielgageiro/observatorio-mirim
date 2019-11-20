@@ -75,39 +75,39 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            if(Objects.requireNonNull(edit_text_usuario.getText()).length() == 0 && Objects.requireNonNull(edit_text_senha.getText()).length() == 0){
-                System.out.println("Implementar Animação informando que o usuário e a senha devem ser preenchidos");
-                return;
-            }
-
-            final Escola escola = new Escola(edit_text_usuario.getText().toString(), edit_text_senha.getText().toString());
-
-            API.getEscolaByCodigoSenha(escola.getUsuario_smart(), escola.getSenha_smart(), new Callback<Escola>() {
-                @Override
-                public void onResponse(Call<Escola> call, Response<Escola> response) {
-                    if(response != null && response.body() != null){
-                        if(response.body().getUsuario_smart().equals(escola.getUsuario_smart()) && response.body().getSenha_smart().equals(escola.getSenha_smart())){
-                            //TODO: Criar classe observatorioUtils, salvar as chaves aqui, salvar o idConta e idEscola no share
-
-                            Intent it = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(it);
-                            //TODO: Implementar uma mensagem informando que o login foi efetivado ou Bem Vindo!
-                        }
-                    } else {
-                        System.out.println("Erro ao encontrar a escola");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Escola> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            });
-            }
-        });
+//        btnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            if(Objects.requireNonNull(edit_text_usuario.getText()).length() == 0 && Objects.requireNonNull(edit_text_senha.getText()).length() == 0){
+//                System.out.println("Implementar Animação informando que o usuário e a senha devem ser preenchidos");
+//                return;
+//            }
+//
+//            final Escola escola = new Escola(edit_text_usuario.getText().toString(), edit_text_senha.getText().toString());
+//
+//            API.getEscolaByCodigoSenha(escola.getUsuario_smart(), escola.getSenha_smart(), new Callback<Escola>() {
+//                @Override
+//                public void onResponse(Call<Escola> call, Response<Escola> response) {
+//                    if(response != null && response.body() != null){
+//                        if(response.body().getUsuario_smart().equals(escola.getUsuario_smart()) && response.body().getSenha_smart().equals(escola.getSenha_smart())){
+//                            //TODO: Criar classe observatorioUtils, salvar as chaves aqui, salvar o idConta e idEscola no share
+//
+//                            Intent it = new Intent(LoginActivity.this, MainActivity.class);
+//                            startActivity(it);
+//                            //TODO: Implementar uma mensagem informando que o login foi efetivado ou Bem Vindo!
+//                        }
+//                    } else {
+//                        System.out.println("Erro ao encontrar a escola");
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Escola> call, Throwable t) {
+//                    t.printStackTrace();
+//                }
+//            });
+//            }
+//        });
 
         //incluirProduto();
         //listarProdutos();
