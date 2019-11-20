@@ -122,9 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         API.getSaidas(2, 1, new Callback<List<Saida>>() {
             @Override
             public void onResponse(Call<List<Saida>> call, Response<List<Saida>> response) {
-                for(Saida s: response.body()){
-                    System.out.println(s.getEscola());
-                }
+                System.out.println(response.body().get(0).getSaidaItemList().size());
             }
 
             @Override
