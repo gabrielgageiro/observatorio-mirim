@@ -88,15 +88,13 @@ public class LoginActivity extends AppCompatActivity {
                 API.getEscolaByCodigoSenha(escola.getUsuario_smart(), escola.getSenha_smart(), new Callback<Escola>() {
                     @Override
                     public void onResponse(Call<Escola> call, Response<Escola> response) {
-                        Integer conta = response.body().getIdConta();
+                        Integer idConta = response.body().getIdConta();
                         Integer idEscola = response.body().getId();
-
-
 
                         if(response != null && response.body() != null){
                             if(response.body().getUsuario_smart().equals(escola.getUsuario_smart()) && response.body().getSenha_smart().equals(escola.getSenha_smart())){
-                                Shared.putInt(getApplicationContext(),Integer.valueOf(conta),conta);
-                                Shared.putInt(getApplicationContext(),Integer.valueOf(idEscola),idEscola);
+                                Shared.putInt(LoginActivity.this, "idConta", idConta);
+                                Shared.putInt(LoginActivity.this, "idEscola", idEscola);
 
                                 //TODO: Criar classe observatorioUtils, salvar as chaves aqui, salvar o idConta e idEscola no share
                                 /*new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
