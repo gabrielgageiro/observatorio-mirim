@@ -133,4 +133,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    public void teste(){
+        API.getFornecedores(LoginActivity.this, new Callback<List<Fornecedor>>() {
+            @Override
+            public void onResponse(Call<List<Fornecedor>> call, Response<List<Fornecedor>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Fornecedor>> call, Throwable t) {
+
+            }
+        });
+    }
 }

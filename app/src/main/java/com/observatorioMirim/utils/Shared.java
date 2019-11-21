@@ -90,7 +90,7 @@ public class Shared {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(key, value);
+        editor.putInt(String.valueOf(Integer.valueOf(key)), value);
         editor.commit();
 
     }
