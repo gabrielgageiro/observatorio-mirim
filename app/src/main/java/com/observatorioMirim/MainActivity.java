@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_bar);
 
         initBottomNavigationBar();
-        System.out.println(Shared.getInt(MainActivity.this, "idConta"));
-        System.out.println(Shared.getInt(MainActivity.this, "idEscola"));
     }
 
     private void initBottomNavigationBar(){
