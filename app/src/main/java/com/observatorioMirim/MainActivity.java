@@ -12,6 +12,7 @@ import com.observatorioMirim.cadastro.CadastroFragment;
 import com.observatorioMirim.estoque.EstoqueFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.observatorioMirim.utils.Shared;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
     private BottomNavigationView bottomNavigationView;
@@ -23,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_bar);
 
         initBottomNavigationBar();
-
+        System.out.println(Shared.getInt(MainActivity.this, "idConta"));
+        System.out.println(Shared.getInt(MainActivity.this, "idEscola"));
     }
 
     private void initBottomNavigationBar(){

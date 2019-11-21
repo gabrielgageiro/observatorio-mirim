@@ -86,7 +86,7 @@ public class Shared {
      * @param value
      */
 
-    public static final void putInt(final Context context, final Integer key, final int value) {
+    public static final void putInt(final Context context, final String key, final int value) {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
