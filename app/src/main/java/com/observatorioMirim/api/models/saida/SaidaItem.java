@@ -2,7 +2,6 @@ package com.observatorioMirim.api.models.saida;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.LocalDateTime;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
