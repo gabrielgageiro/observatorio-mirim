@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void listarSaidas() {
-        API.getSaidas(2, 1, new Callback<List<Saida>>() {
+        API.getSaidas(new Callback<List<Saida>>() {
             @Override
             public void onResponse(Call<List<Saida>> call, Response<List<Saida>> response) {
                 System.out.println(response.body().get(0).getSaidaItemList().size());
