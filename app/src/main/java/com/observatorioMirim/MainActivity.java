@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.SearchView;
 
-import com.observatorioMirim.saida.list.SaidaList;
+import com.observatorioMirim.views.saida.list.SaidaList;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

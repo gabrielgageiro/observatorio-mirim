@@ -1,4 +1,4 @@
-package com.observatorioMirim.saida.list;
+package com.observatorioMirim.views.saida.list;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
