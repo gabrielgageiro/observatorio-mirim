@@ -140,15 +140,15 @@ public class API {
         call.enqueue(callback);
     }
 
-    public static void getSaidas(final Integer idConta, final Integer idEscola, final Callback<List<Saida>> callback){
+    public static void getSaidas(final Callback<List<Saida>> callback){
         SaidaEndPoint endPoint = retrofit.create(SaidaEndPoint.class);
-        Call<List<Saida>> call = endPoint.getSaidas(idConta, idEscola);
+        Call<List<Saida>> call = endPoint.getSaidas(2, 1);
         call.enqueue(callback);
     }
 
-    public static void getSaidasHoje(final Integer idConta, final Integer idEscola, final Callback<List<Saida>> callback){
+    public static void getSaidasHoje(final Callback<List<Saida>> callback){
         SaidaEndPoint endPoint = retrofit.create(SaidaEndPoint.class);
-        Call<List<Saida>> call = endPoint.getSaidasHoje(idConta, idEscola);
+        Call<List<Saida>> call = endPoint.getSaidasHoje(2, 1);
         call.enqueue(callback);
     }
 }
