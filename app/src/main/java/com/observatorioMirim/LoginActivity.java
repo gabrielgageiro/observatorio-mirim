@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText edit_text_usuario;
     private TextInputEditText edit_text_senha;
     private ImageView login_logo;
+    private CheckBox loginAutomatico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         edit_text_usuario = findViewById(R.id.edit_text_usuario);
         edit_text_senha = findViewById(R.id.edit_text_senha);
         login_logo = findViewById(R.id.login_logo);
+
+        loginAutomatico = findViewById(R.id.login_automatico);
 
 
         Animation animation_esquerda = AnimationUtils.loadAnimation(this, R.anim.move_para_esquerda);
@@ -62,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(Objects.requireNonNull(edit_text_usuario.getText()).length() == 0 && Objects.requireNonNull(edit_text_senha.getText()).length() == 0){
                     SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário e a senha devem ser preenchidos", SweetAlertDialog.WARNING_TYPE);
                     return;
@@ -70,43 +73,71 @@ public class LoginActivity extends AppCompatActivity {
 
                 final Escola escola = new Escola(edit_text_usuario.getText().toString(), edit_text_senha.getText().toString());
 
+                login(escola.getUsuario_smart(), escola.getSenha_smart());
+            }
+        });
+        logarAutomaticamente();
+    }
 
-                API.getEscolaByCodigoSenha(escola.getUsuario_smart(), escola.getSenha_smart(), new Callback<Escola>() {
-                    @Override
-                    public void onResponse(Call<Escola> call, Response<Escola> response) {
-                        Integer idConta = response.body().getIdConta();
-                        Integer idEscola = response.body().getId();
+    public void setLoginAutomatico() {
 
-                        if(response != null && response.body() != null){
-                            if(response.body().getUsuario_smart().equals(escola.getUsuario_smart()) && response.body().getSenha_smart().equals(escola.getSenha_smart())){
-                                Shared.putInt(LoginActivity.this, "idConta", idConta);
-                                Shared.putInt(LoginActivity.this, "idEscola", idEscola);
+        boolean logarAutomaticamente = loginAutomatico.isChecked();
 
-                                Intent it = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(it);
+        if (logarAutomaticamente) {
+            Shared.putString(LoginActivity.this, "codigoEscola", edit_text_usuario.getText().toString());
+            Shared.putString(LoginActivity.this, "senhaEscola", edit_text_senha.getText().toString());
+            Shared.putBoolean(LoginActivity.this, "logarAutomaticamente", true);
+        } else {
+            Shared.putBoolean(LoginActivity.this, "logarAutomaticamente", false);
+        }
+    }
 
-                            }
-                        } else {
-                            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                    .setTitleText("Atenção!")
-                                    .setContentText("O usuário ou senha informados estão incorretos")
-                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            sweetAlertDialog.dismissWithAnimation();
-                                        }
-                                    }).show();
-                            SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário ou senha informados estão incorretos", SweetAlertDialog.ERROR_TYPE);
+    public void logarAutomaticamente(){
+        boolean logarAutomaticamente = Shared.getBoolean(LoginActivity.this, "logarAutomaticamente");
+        final String codigoEscola = Shared.getString(LoginActivity.this, "codigoEscola");
+        final String senhaEscola = Shared.getString(LoginActivity.this, "senhaEscola");
 
-                        }
+        if(logarAutomaticamente){
+           login(codigoEscola, senhaEscola);
+        }
+    }
+
+    public void login(final String codigoEscola, final String senhaEscola){
+        API.getEscolaByCodigoSenha(codigoEscola, senhaEscola, new Callback<Escola>() {
+            @Override
+            public void onResponse(Call<Escola> call, Response<Escola> response) {
+                Integer idConta = response.body().getIdConta();
+                Integer idEscola = response.body().getId();
+
+                if(response != null && response.body() != null){
+                    if(response.body().getUsuario_smart().equals(codigoEscola) && response.body().getSenha_smart().equals(senhaEscola)){
+                        Shared.putInt(LoginActivity.this, "idConta", idConta);
+                        Shared.putInt(LoginActivity.this, "idEscola", idEscola);
+
+                        setLoginAutomatico();
+
+                        Intent it = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(it);
                     }
+                } else {
+                    new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Atenção!")
+                            .setContentText("O usuário ou senha informados estão incorretos")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismissWithAnimation();
+                                }
+                            }).show();
+                    SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário ou senha informados estão incorretos", SweetAlertDialog.ERROR_TYPE);
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<Escola> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+            @Override
+            public void onFailure(Call<Escola> call, Throwable t) {
+                t.printStackTrace();
             }
         });
     }
+
 }
