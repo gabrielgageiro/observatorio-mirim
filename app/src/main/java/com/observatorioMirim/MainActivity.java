@@ -2,7 +2,6 @@ package com.observatorioMirim;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,8 +10,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.SearchView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.observatorioMirim.entrada.EntradaListFragment;
+import com.observatorioMirim.saida.list.SaidaList;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -36,14 +34,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemReselectedListener(this);
         bottomNavigationView.setItemIconTintList(null); //necessário para deixar os icones com as cores originais
-        AbstractFragment.openFragmentFromActivity(this, EntradaListFragment.create());
+
+        SaidaList.open(this);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.menu_entradas:
-                AbstractFragment.openFragmentFromActivity(this, EntradaListFragment.create());
+                SaidaList.open(this);
                 break;
             case R.id.menu_sincronizar:
                 AbstractFragment.openFragmentFromActivity(this, UploadFragment.create());
