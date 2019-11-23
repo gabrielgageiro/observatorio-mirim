@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         text_input.startAnimation(animation_esquerda);
         btnLogin.startAnimation(animation_esquerda_500Ms);
         login_logo.startAnimation(animation_direita);
+        loginAutomatico.startAnimation(animation_esquerda_500Ms);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
