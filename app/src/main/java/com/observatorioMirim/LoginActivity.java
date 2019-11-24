@@ -141,4 +141,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //Para que seja possivel logar com outra conta
+    public void unLogin(){
+        Shared.putBoolean(LoginActivity.this, "logarAutomaticamente", false);
+    }
+
 }
