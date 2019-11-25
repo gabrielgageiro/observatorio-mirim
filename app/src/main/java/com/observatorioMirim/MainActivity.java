@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 
+import com.observatorioMirim.views.entrada.produto.item.EntradaProdutoItem;
 import com.observatorioMirim.views.saida.list.SaidaList;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.upload.UploadFragment;
@@ -17,7 +19,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
     private BottomNavigationView bottomNavigationView;
-    private Button btnProximo;
     private String busca;
 
     @Override
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_bar);
-        btnProximo = (Button) findViewById(R.id.btn_proximo);
         initBottomNavigationBar();
 
     }
@@ -57,10 +57,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
-    }
-
-    public Button getBtnProximo() {
-        return btnProximo;
     }
 
     @Override
@@ -95,13 +91,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
         return true;
-    }
-
-
-
-    public void trocaTela(AbstractFragment fragment) {
-        btnProximo.setOnClickListener(o -> {
-            AbstractFragment.openFragmentFromActivity((AppCompatActivity) o.getContext(), fragment);
-        });
     }
 }

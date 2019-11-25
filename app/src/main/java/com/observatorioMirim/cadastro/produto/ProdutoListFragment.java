@@ -47,7 +47,6 @@ public class ProdutoListFragment extends AbstractFragment implements ListFrament
 
         MainActivity main = (MainActivity) getActivity();
         main.getBottomNavigationView().setVisibility(View.INVISIBLE);
-        main.trocaTela(AlunoFragment.create());
         return view;
     }
 

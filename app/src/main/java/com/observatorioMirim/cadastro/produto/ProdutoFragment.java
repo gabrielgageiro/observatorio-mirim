@@ -25,14 +25,11 @@ public class ProdutoFragment extends AbstractFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).getBtnProximo().setVisibility(View.INVISIBLE);
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onDetach() {
-        ((MainActivity) getActivity()).getBtnProximo().setVisibility(View.VISIBLE);
         super.onDetach();
     }
 }
