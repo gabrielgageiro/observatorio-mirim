@@ -1,8 +1,9 @@
 package com.observatorioMirim.api.models.produto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class ProdutoDto {
+public class ProdutoDto implements Serializable {
 
     private Integer idProduto;
     private String nome;
