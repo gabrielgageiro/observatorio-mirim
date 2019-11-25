@@ -7,11 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.observatorioMirim.R;
+import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.saida.Saida;
+import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SaidaListAdapter extends ArrayAdapter<Saida> {
@@ -35,6 +40,19 @@ public class SaidaListAdapter extends ArrayAdapter<Saida> {
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        view.setOnClickListener(o -> {
+
+            ArrayList<ProdutoDto> produtos = new ArrayList<>();
+
+            ProdutoDto p = new ProdutoDto();
+            p.setNome("AAAAA");
+
+
+            produtos.add(p);
+
+            EntradaProdutoList.open((FragmentActivity) context, produtos);
+        });
 
         TextView dataSaida = view.findViewById(R.id.data_saida);
         dataSaida.setText(LocalDate.now().format(formatter));

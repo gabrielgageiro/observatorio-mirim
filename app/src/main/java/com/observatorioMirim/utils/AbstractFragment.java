@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.observatorioMirim.MainActivity;
@@ -47,6 +48,17 @@ public abstract class AbstractFragment extends Fragment {
 
     public static void openFragmentFromActivity(@NonNull final AppCompatActivity activity, @NonNull final Fragment fragment, @NonNull final String titulo){
         activity.getSupportActionBar().setTitle(titulo);
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public static void openFragmentFromActivity(@NonNull final FragmentActivity activity, @NonNull final Fragment fragment, @NonNull final String titulo){
+
+//        System.out.println(("--------->" + activity.getParent().getActionBar()));
+//
+//        activity.getActionBar().setTitle(titulo);
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment)
                 .addToBackStack(null)
