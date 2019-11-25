@@ -4,5 +4,14 @@
     <string name="sincronizar">Sincronizar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_proximo">PRÓXIMO</string>
-
+    <string name="entradas_dois_pontos">Entradas: </string>
+    <string name="marca_do_produto">Marca do Produto</string>
+    <string name="data_validade_dois_pontos">Data de validade:</string>
+    <string name="dia">Dia</string>
+    <string name="mes">Mês</string>
+    <string name="ano">Ano</string>
+    <string name="quantidade">Quantidade</string>
+    <string name="unidade">Unidade</string>
+    <string name="observacao">Observação</string>
+    <string name="dar_entrada">Dar Entrada</string>
 </resources>

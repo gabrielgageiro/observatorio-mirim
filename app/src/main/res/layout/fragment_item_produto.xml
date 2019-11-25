@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
-                android:text="Entrada: " />
+                android:text="@string/entradas_dois_pontos" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Marca do Produto"
+            android:hint="@string/marca_do_produto"
             android:layout_marginBottom="10dp"
             >
 
@@ -56,7 +56,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data de validade:"
+            android:text="@string/data_validade_dois_pontos"
             android:textSize="17sp"
             android:layout_marginBottom="3dp"
             />
@@ -73,14 +73,15 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Dia"
+                android:hint="@string/dia"
                 android:layout_weight="1"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entrada_produto_item_validade_dia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,14 +89,15 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mês"
+                android:hint="@string/mes"
                 android:layout_weight="1"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entrada_produto_item_validade_mes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,14 +105,15 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ano"
+                android:hint="@string/ano"
                 android:layout_weight="1"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entrada_produto_item_validade_ano"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,14 +130,15 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Quantidade"
+                android:hint="@string/quantidade"
                 android:layout_weight="1"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entrada_produto_item_quantidade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,11 +146,12 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Unidade"
+                android:hint="@string/unidade"
                 android:layout_weight="1"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entrada_produto_item_unidade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -159,11 +164,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Observação"
+            android:hint="@string/observacao"
             android:layout_marginBottom="10dp"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/entrada_produto_item_observacao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
@@ -171,12 +177,11 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--TODO: REMOVER OU AJUSTAR-->
         <Button
-            android:id="@+id/btn_proximo"
+            android:id="@+id/entrada_produto_item_dar_entrada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dar Entrada"
+            android:text="@string/dar_entrada"
             android:textColor="#fff"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"

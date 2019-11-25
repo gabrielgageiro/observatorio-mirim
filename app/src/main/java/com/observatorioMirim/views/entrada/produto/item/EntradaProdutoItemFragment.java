@@ -5,23 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.observatorioMirim.MainActivity;
+import com.google.android.material.textfield.TextInputEditText;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
-import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoListAdapter;
-
-import java.util.ArrayList;
 
 public class EntradaProdutoItemFragment extends Fragment {
 
-    private TextView entradaProdutoItemNome;
-    private Button button;
+    private TextView nome;
+    private TextInputEditText marca;
+    private TextInputEditText diaValidade;
+    private TextInputEditText mesValidade;
+    private TextInputEditText anoValidade;
+    private TextInputEditText quantidade;
+    private TextInputEditText unidade;
+    private TextInputEditText observacao;
+    private Button darEntrada;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -31,13 +34,25 @@ public class EntradaProdutoItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_produto, container, false);
 
 
-        entradaProdutoItemNome = view.findViewById(R.id.entrada_produto_item_nome);
-        entradaProdutoItemNome.setText(produto.getNome());
+        nome = view.findViewById(R.id.entrada_produto_item_nome);
+        nome.setText(produto.getNome());
 
-//        button = view.findViewById(R.id.oi);
-//        button.setOnClickListener( o -> {
-//
-//        });
+        marca = view.findViewById(R.id.entrada_produto_item_marca);
+
+        diaValidade = view.findViewById(R.id.entrada_produto_item_validade_dia);
+        mesValidade = view.findViewById(R.id.entrada_produto_item_validade_mes);
+        anoValidade = view.findViewById(R.id.entrada_produto_item_validade_ano);
+
+        quantidade = view.findViewById(R.id.entrada_produto_item_quantidade);
+        unidade = view.findViewById(R.id.entrada_produto_item_unidade);
+
+        observacao = view.findViewById(R.id.entrada_produto_item_observacao);
+
+
+        darEntrada = view.findViewById(R.id.entrada_produto_item_dar_entrada);
+        darEntrada.setOnClickListener( o -> {
+
+        });
 
 
         return view;
