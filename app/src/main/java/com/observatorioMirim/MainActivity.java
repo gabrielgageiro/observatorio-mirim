@@ -2,6 +2,7 @@ package com.observatorioMirim;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import com.observatorioMirim.views.saida.list.SaidaList;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.observatorioMirim.views.saida.list.SaidaListFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
     private BottomNavigationView bottomNavigationView;
@@ -91,5 +93,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragmentAtual = getSupportFragmentManager().getFragments().get(0);
+
+        if(fragmentAtual instanceof SaidaListFragment || fragmentAtual instanceof UploadFragment){
+            return;
+        }
+
+        super.onBackPressed();
     }
 }

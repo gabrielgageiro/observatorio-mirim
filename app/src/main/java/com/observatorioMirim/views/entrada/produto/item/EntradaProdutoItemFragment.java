@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 
@@ -132,6 +133,12 @@ public class EntradaProdutoItemFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Produtos");
     }
 
     public static EntradaProdutoItemFragment newInstance(final ProdutoDto produto){

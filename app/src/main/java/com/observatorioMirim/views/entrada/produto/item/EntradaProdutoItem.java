@@ -11,6 +11,6 @@ public class EntradaProdutoItem {
     private static final String TITULO = "Produto";
 
     public static void open(@NonNull final AppCompatActivity activity, ProdutoDto produtoDto){
-        AbstractFragment.openFragmentFromActivity(activity, EntradaProdutoItemFragment.newInstance(produtoDto), TITULO);
+        AbstractFragment.openFragmentFromActivity(activity, EntradaProdutoItemFragment.newInstance(produtoDto), TITULO, "EntradaProdutoItemFragment");
     }
 }

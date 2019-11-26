@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class EntradaProdutoListFragment extends Fragment {
 
+    public static final String TAG = "EntradaProdutoListFragment";
+
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
@@ -32,6 +34,19 @@ public class EntradaProdutoListFragment extends Fragment {
         listaProduto.setAdapter(saidaListAdapter);
 
         return view;
+    }
+
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        //TODO: Exibir popup confirmando
+
+        MainActivity main = (MainActivity) getActivity();
+        main.getBottomNavigationView().setVisibility(View.VISIBLE);
+        main.getSupportActionBar().setTitle("Entradas");
     }
 
     public static EntradaProdutoListFragment newInstance(final ArrayList<ProdutoDto> produtos){

@@ -24,10 +24,10 @@ public class SaidaList {
             @Override
             public void onResponse(Call<List<Saida>> call, Response<List<Saida>> response) {
                 if(response != null && response.body() != null && !response.body().isEmpty()){
-                    AbstractFragment.openFragmentFromActivity(activity, SaidaListFragment.newInstance((ArrayList<Saida>) response.body()), TITULO);
+                    AbstractFragment.openFragmentFromActivity(activity, SaidaListFragment.newInstance((ArrayList<Saida>) response.body()), TITULO, "SaidaListFragment");
                 }else{
                     ArrayList<Saida> saidas = new ArrayList<>();
-                    AbstractFragment.openFragmentFromActivity(activity, SaidaListFragment.newInstance(saidas), TITULO);
+                    AbstractFragment.openFragmentFromActivity(activity, SaidaListFragment.newInstance(saidas), TITULO, "SaidaListFragment");
                 }
             }
 

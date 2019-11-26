@@ -46,6 +46,14 @@ public abstract class AbstractFragment extends Fragment {
                 .commit();
     }
 
+    public static void openFragmentFromActivity(@NonNull final AppCompatActivity activity, @NonNull final Fragment fragment, @NonNull final String titulo, @NonNull final String tag){
+        activity.getSupportActionBar().setTitle(titulo);
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment)
+                .addToBackStack(tag)
+                .commit();
+    }
+
     public static void openFragmentFromActivity(@NonNull final AppCompatActivity activity, @NonNull final Fragment fragment, @NonNull final String titulo){
         activity.getSupportActionBar().setTitle(titulo);
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();

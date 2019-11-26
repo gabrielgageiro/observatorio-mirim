@@ -14,6 +14,6 @@ public class EntradaProdutoList {
 
     public static void open(@NonNull final AppCompatActivity activity, final ArrayList<ProdutoDto> produtos){
 
-        AbstractFragment.openFragmentFromActivity(activity, EntradaProdutoListFragment.newInstance(produtos), TITULO);
+        AbstractFragment.openFragmentFromActivity(activity, EntradaProdutoListFragment.newInstance(produtos), TITULO, EntradaProdutoListFragment.TAG);
     }
 }
