@@ -14,4 +14,5 @@
     <string name="unidade">Unidade</string>
     <string name="observacao">Observação</string>
     <string name="dar_entrada">Dar Entrada</string>
+    <string name="produto_dois_pontos">Produto: </string>
 </resources>

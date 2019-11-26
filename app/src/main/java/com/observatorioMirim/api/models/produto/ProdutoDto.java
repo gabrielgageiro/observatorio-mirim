@@ -13,6 +13,7 @@ public class ProdutoDto implements Serializable {
     private BigDecimal quantidade;
     private String unidade;
     private String observacao;
+    private boolean entrada = false;
 
     public ProdutoDto() {
     }
@@ -71,5 +72,13 @@ public class ProdutoDto implements Serializable {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    public boolean isEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(boolean entrada) {
+        this.entrada = entrada;
     }
 }
