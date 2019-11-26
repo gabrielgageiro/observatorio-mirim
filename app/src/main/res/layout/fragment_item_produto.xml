@@ -49,7 +49,7 @@
                 android:id="@+id/entrada_produto_item_marca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,7 +154,7 @@
                     android:id="@+id/entrada_produto_item_unidade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,6 +1,7 @@
 package com.observatorioMirim.api.models.produto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ProdutoDto implements Serializable {
@@ -9,6 +10,9 @@ public class ProdutoDto implements Serializable {
     private String nome;
     private String marca;
     private LocalDate dataValidade;
+    private BigDecimal quantidade;
+    private String unidade;
+    private String observacao;
 
     public ProdutoDto() {
     }
@@ -43,5 +47,29 @@ public class ProdutoDto implements Serializable {
 
     public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
+    }
+
+    public BigDecimal getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(BigDecimal quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 }

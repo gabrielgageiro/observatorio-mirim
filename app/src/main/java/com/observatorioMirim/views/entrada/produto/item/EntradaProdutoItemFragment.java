@@ -14,17 +14,20 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 public class EntradaProdutoItemFragment extends Fragment {
 
-    private TextView nome;
-    private TextInputEditText marca;
-    private TextInputEditText diaValidade;
-    private TextInputEditText mesValidade;
-    private TextInputEditText anoValidade;
-    private TextInputEditText quantidade;
-    private TextInputEditText unidade;
-    private TextInputEditText observacao;
-    private Button darEntrada;
+    private TextView textViewNome;
+    private TextInputEditText textInputMarca;
+    private TextInputEditText textInputDiaValidade;
+    private TextInputEditText textInputMesValidade;
+    private TextInputEditText textInputAnoValidade;
+    private TextInputEditText textInputQuantidade;
+    private TextInputEditText textInputUnidade;
+    private TextInputEditText textInputObservacao;
+    private Button buttonDarEntrada;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -34,23 +37,96 @@ public class EntradaProdutoItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_produto, container, false);
 
 
-        nome = view.findViewById(R.id.entrada_produto_item_nome);
-        nome.setText(produto.getNome());
+        textViewNome = view.findViewById(R.id.entrada_produto_item_nome);
+        textViewNome.setText(produto.getNome());
 
-        marca = view.findViewById(R.id.entrada_produto_item_marca);
+        textInputMarca = view.findViewById(R.id.entrada_produto_item_marca);
 
-        diaValidade = view.findViewById(R.id.entrada_produto_item_validade_dia);
-        mesValidade = view.findViewById(R.id.entrada_produto_item_validade_mes);
-        anoValidade = view.findViewById(R.id.entrada_produto_item_validade_ano);
+        textInputDiaValidade = view.findViewById(R.id.entrada_produto_item_validade_dia);
+        textInputMesValidade = view.findViewById(R.id.entrada_produto_item_validade_mes);
+        textInputAnoValidade = view.findViewById(R.id.entrada_produto_item_validade_ano);
 
-        quantidade = view.findViewById(R.id.entrada_produto_item_quantidade);
-        unidade = view.findViewById(R.id.entrada_produto_item_unidade);
+        textInputQuantidade = view.findViewById(R.id.entrada_produto_item_quantidade);
+        textInputUnidade = view.findViewById(R.id.entrada_produto_item_unidade);
 
-        observacao = view.findViewById(R.id.entrada_produto_item_observacao);
+        textInputObservacao = view.findViewById(R.id.entrada_produto_item_observacao);
+
+        buttonDarEntrada = view.findViewById(R.id.entrada_produto_item_dar_entrada);
+        buttonDarEntrada.setOnClickListener(o -> {
+
+            try {
+
+                String marca = textInputMarca.getText().toString();
+                if(marca.isEmpty()){
+                    throw new Exception("Informe a marca.");
+                }
+
+                String diaValidadeStr = textInputDiaValidade.getText().toString();
+                if(diaValidadeStr.isEmpty()){
+                    throw new Exception("Informe o dia de validade.");
+                }
+
+                int diaValidade = Integer.parseInt(diaValidadeStr);
+                if(diaValidade < 1 || diaValidade > 31){
+                    throw new Exception("O dia de validade é incorreto.");
+                }
+
+                String mesValidadeStr = textInputMesValidade.getText().toString();
+                if(mesValidadeStr.isEmpty()){
+                    throw new Exception("Informe o mês de validade.");
+                }
+
+                int mesValidade = Integer.parseInt(mesValidadeStr);
+                if(mesValidade < 1 || mesValidade > 12){
+                    throw new Exception("O mês de validade é incorreto.");
+                }
+
+                String anoValidadeStr = textInputAnoValidade.getText().toString();
+                if(anoValidadeStr.isEmpty()){
+                    throw new Exception("Informe o ano de validade.");
+                }
+
+                int anoValidade = Integer.parseInt(anoValidadeStr);
+                if(anoValidade < 2015){
+                    throw new Exception("O ano de validade é incorreto.");
+                }
+
+                LocalDate dataValidade;
+                try {
+                    dataValidade = LocalDate.of(anoValidade, mesValidade, diaValidade);
+                }catch (Exception e){
+                    throw new Exception("Não foi informado uma data de validade correta.");
+                }
+
+                String quantidadeStr = textInputQuantidade.getText().toString();
+                if(quantidadeStr.isEmpty()){
+                    throw new Exception("Informe a quantidade.");
+                }
+
+                BigDecimal quantidade = new BigDecimal(quantidadeStr);
+
+                String unidade = textInputUnidade.getText().toString();
+                if(unidade.isEmpty()){
+                    throw new Exception("Informe a unidade.");
+                }
+
+                String observacao = textInputObservacao.getText().toString();
+
+                System.out.println("--------------------------------> Tudo ocorreu bem!");
+
+                produto.setMarca(marca);
+                produto.setDataValidade(dataValidade);
+                produto.setQuantidade(quantidade);
+                produto.setUnidade(unidade);
+                produto.setObservacao(observacao);
+
+            }catch (Exception e){
 
 
-        darEntrada = view.findViewById(R.id.entrada_produto_item_dar_entrada);
-        darEntrada.setOnClickListener( o -> {
+                //TODO: Error dialog
+
+                System.out.println("--------------------------------> Erro: " + e.getMessage());
+            }
 
         });
 
