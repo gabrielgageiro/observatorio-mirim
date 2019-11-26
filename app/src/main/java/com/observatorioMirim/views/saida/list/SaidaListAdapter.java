@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
+import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
 import com.observatorioMirim.api.models.saida.Saida;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
 
@@ -47,7 +48,9 @@ public class SaidaListAdapter extends ArrayAdapter<Saida> {
 
             saida.getSaidaItemList().forEach( s -> produtos.add(new ProdutoDto(s)));
 
-            EntradaProdutoList.open((AppCompatActivity) context, produtos);
+            ProdutoDtoCache.setCache(produtos);
+
+            EntradaProdutoList.open((AppCompatActivity) context);
         });
 
         TextView dataSaida = view.findViewById(R.id.data_saida);

@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
+import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -113,13 +114,14 @@ public class EntradaProdutoItemFragment extends Fragment {
 
                 String observacao = textInputObservacao.getText().toString();
 
-                System.out.println("--------------------------------> Tudo ocorreu bem!");
-
                 produto.setMarca(marca);
                 produto.setDataValidade(dataValidade);
                 produto.setQuantidade(quantidade);
                 produto.setUnidade(unidade);
                 produto.setObservacao(observacao);
+                produto.setEntrada(true);
+
+                EntradaProdutoList.open((MainActivity) getActivity());
 
             }catch (Exception e){
 
