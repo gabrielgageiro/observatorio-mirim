@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:paddingTop="5dp"
+    android:paddingTop="10dp"
     android:paddingBottom="@dimen/cardview_default_elevation">
 
     <androidx.cardview.widget.CardView
@@ -20,7 +20,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:weightSum="8">
+            android:weightSum="6">
 
             <ImageView
                 android:layout_width="0dp"
@@ -31,14 +31,6 @@
                 android:src="@drawable/ic_product" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1.7"
-                android:text="@string/produto_dois_pontos"
-                android:textSize="18sp" />
-
-            <TextView
                 android:id="@+id/nome_produto"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -46,7 +38,7 @@
                 android:textSize="18sp" />
 
             <ImageView
-                android:id="@+id/checkbox"
+                android:id="@+id/list_item_produto_checked"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"

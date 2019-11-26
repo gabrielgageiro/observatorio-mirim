@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
@@ -45,13 +45,9 @@ public class SaidaListAdapter extends ArrayAdapter<Saida> {
 
             ArrayList<ProdutoDto> produtos = new ArrayList<>();
 
-            ProdutoDto p = new ProdutoDto();
-            p.setNome("AAAAA");
+            saida.getSaidaItemList().forEach( s -> produtos.add(new ProdutoDto(s)));
 
-
-            produtos.add(p);
-
-            EntradaProdutoList.open((FragmentActivity) context, produtos);
+            EntradaProdutoList.open((AppCompatActivity) context, produtos);
         });
 
         TextView dataSaida = view.findViewById(R.id.data_saida);

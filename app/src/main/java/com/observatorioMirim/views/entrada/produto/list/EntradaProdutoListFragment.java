@@ -9,6 +9,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 
@@ -18,6 +19,9 @@ public class EntradaProdutoListFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+
+        MainActivity main = (MainActivity) getActivity();
+        main.getBottomNavigationView().setVisibility(View.GONE);
 
         ArrayList<ProdutoDto> produtos = (ArrayList<ProdutoDto>) getArguments().getSerializable("produtos");
 

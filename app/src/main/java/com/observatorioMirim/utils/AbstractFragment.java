@@ -54,17 +54,6 @@ public abstract class AbstractFragment extends Fragment {
                 .commit();
     }
 
-    public static void openFragmentFromActivity(@NonNull final FragmentActivity activity, @NonNull final Fragment fragment, @NonNull final String titulo){
-
-//        System.out.println(("--------->" + activity.getParent().getActionBar()));
-//
-//        activity.getActionBar().setTitle(titulo);
-        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
     @Override
     public void onDetach() {
         ((MainActivity) getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);

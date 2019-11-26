@@ -1,5 +1,7 @@
 package com.observatorioMirim.api.models.produto;
 
+import com.observatorioMirim.api.models.saida.SaidaItem;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,6 +18,11 @@ public class ProdutoDto implements Serializable {
     private boolean entrada = false;
 
     public ProdutoDto() {
+    }
+
+    public ProdutoDto (SaidaItem saidaItem){
+        this.idProduto = saidaItem.getIdProduto();
+        this.nome = saidaItem.getProduto();
     }
 
     public Integer getIdProduto() {
