@@ -1,11 +1,17 @@
 package com.observatorioMirim.utils;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog.PROGRESS_TYPE;
+
 public class SweetUtils {
+
+    private static ProgressDialog dialog;
+    private static SweetAlertDialog dialogSweet;
 
     public static void message(Context context, String titulo, String conteudo, int typeSweetAlert){
         new SweetAlertDialog(context, typeSweetAlert)
@@ -19,10 +25,22 @@ public class SweetUtils {
                 }).show();
     }
 
-    public static void loader(Context context, int typeSweetAlert, String mensagemLoader){
-        SweetAlertDialog dialog = new SweetAlertDialog(context, typeSweetAlert);
-        dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));//Cor do loader
-        dialog.setTitleText(mensagemLoader);
-        dialog.show();
+    public static void loaderSweet(Context context, String mensagemLoader){
+        dialogSweet = new SweetAlertDialog(context, PROGRESS_TYPE);
+        dialogSweet.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));//Cor do loader
+        dialogSweet.setTitleText(mensagemLoader);
+        dialogSweet.show();
+    }
+
+    public static void cancelarLoaderSweet(){
+        dialogSweet.cancel();
+    }
+
+    public static void loaderNativo(Context context, String titulo, String message){
+        dialog = ProgressDialog.show(context, titulo, message, true);
+    }
+
+    public static void cancelarLoaderNativo(){
+        dialog.cancel();
     }
 }

@@ -14,17 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.observatorioMirim.api.API;
-import com.observatorioMirim.api.models.RespostaEscola;
-import com.observatorioMirim.api.models.entrada.Entrada;
-import com.observatorioMirim.api.models.entrada.EntradaAluno;
-import com.observatorioMirim.api.models.entrada.EntradaItem;
 import com.observatorioMirim.api.models.escola.Escola;
-import com.observatorioMirim.api.models.fornecedor.Fornecedor;
-import com.observatorioMirim.api.models.produto.Produto;
 import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,17 +60,22 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Objects.requireNonNull(edit_text_usuario.getText()).length() == 0 && Objects.requireNonNull(edit_text_senha.getText()).length() == 0){
+               /* if(Objects.requireNonNull(edit_text_usuario.getText()).length() == 0 && Objects.requireNonNull(edit_text_senha.getText()).length() == 0){
                     SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário e a senha devem ser preenchidos", SweetAlertDialog.WARNING_TYPE);
                     return;
                 }
 
                 final Escola escola = new Escola(edit_text_usuario.getText().toString(), edit_text_senha.getText().toString());
 
-                login(escola.getUsuario_smart(), escola.getSenha_smart());
+                login(escola.getUsuario_smart(), escola.getSenha_smart());*/
+
             }
         });
         logarAutomaticamente();
+        //SweetUtils.loaderNativo(this, "", "Sincronizando...");
+        //SweetUtils.cancelarLoaderNativo();
+        //SweetUtils.loaderSweet(this, "Sincronizando...");
+        //SweetUtils.cancelarLoaderSweet();
     }
 
     public void setLoginAutomatico() {
@@ -121,15 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(it);
                     }
                 } else {
-                    new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Atenção!")
-                            .setContentText("O usuário ou senha informados estão incorretos")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismissWithAnimation();
-                                }
-                            }).show();
                     SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário ou senha informados estão incorretos", SweetAlertDialog.ERROR_TYPE);
                 }
             }
