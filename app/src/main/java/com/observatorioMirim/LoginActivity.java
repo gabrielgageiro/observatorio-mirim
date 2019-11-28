@@ -19,6 +19,8 @@ import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,15 +62,14 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* if(Objects.requireNonNull(edit_text_usuario.getText()).length() == 0 && Objects.requireNonNull(edit_text_senha.getText()).length() == 0){
+                if(Objects.requireNonNull(edit_text_usuario.getText()).length() == 0 && Objects.requireNonNull(edit_text_senha.getText()).length() == 0){
                     SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário e a senha devem ser preenchidos", SweetAlertDialog.WARNING_TYPE);
                     return;
                 }
 
                 final Escola escola = new Escola(edit_text_usuario.getText().toString(), edit_text_senha.getText().toString());
 
-                login(escola.getUsuario_smart(), escola.getSenha_smart());*/
-
+                login(escola.getUsuario_smart(), escola.getSenha_smart());
             }
         });
         logarAutomaticamente();
