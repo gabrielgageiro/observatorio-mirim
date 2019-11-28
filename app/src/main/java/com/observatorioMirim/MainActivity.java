@@ -21,6 +21,7 @@ import com.observatorioMirim.views.saida.list.SaidaListFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
     private BottomNavigationView bottomNavigationView;
+    private Menu menu;
     private String busca;
 
     @Override
@@ -63,11 +64,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
+        this.menu = menu;
+        super.onCreateOptionsMenu(this.menu);
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.searchable, menu);
-        MenuItem search = menu.findItem(R.id.search);
+        menuInflater.inflate(R.menu.searchable, this.menu);
+        MenuItem search = this.menu.findItem(R.id.search);
         SearchView searchView = (SearchView) search.getActionView();
+        this.menu.setGroupVisible(R.id.menu_group, false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -104,5 +107,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         super.onBackPressed();
+    }
+
+    public void changeMenuVisibleState(boolean visible) {
+        menu.setGroupVisible(R.id.menu_group, visible);
+    }
+    public Menu getMenuVisibleState() {
+        return menu;
     }
 }

@@ -24,7 +24,7 @@ public class EntradaProdutoListFragment extends Fragment {
 
         MainActivity main = (MainActivity) getActivity();
         main.getBottomNavigationView().setVisibility(View.GONE);
-
+        main.changeMenuVisibleState(true);
         ArrayList<ProdutoDto> produtos = (ArrayList<ProdutoDto>) getArguments().getSerializable("produtos");
 
         View view = inflater.inflate(R.layout.fragment_list_produto, container, false);
@@ -47,6 +47,7 @@ public class EntradaProdutoListFragment extends Fragment {
         MainActivity main = (MainActivity) getActivity();
         main.getBottomNavigationView().setVisibility(View.VISIBLE);
         main.getSupportActionBar().setTitle("Entradas");
+        main.changeMenuVisibleState(false);
     }
 
     public static EntradaProdutoListFragment newInstance(final ArrayList<ProdutoDto> produtos){
