@@ -104,8 +104,8 @@ public final class ProdutoDtoDB extends SQLiteOpenHelper {
         db.close();
     }
 
-    public static List<ProdutoDto> list(Context context) {
-        List <ProdutoDto> produtos = new ArrayList<>();
+    public static ArrayList<ProdutoDto> list(Context context) {
+        ArrayList<ProdutoDto> produtos = new ArrayList<>();
 
         SQLiteDatabase db = new ProdutoDtoDB(context).getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA, null);
