@@ -6,6 +6,10 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Saida implements Serializable {
+
+    @SerializedName("Id")
+    private Integer id;
+
     @SerializedName("id_escola")
     private Integer idEscola;
 
@@ -27,8 +31,7 @@ public class Saida implements Serializable {
     @SerializedName("escola")
     private String escola;
 
-    public Saida() {
-    }
+    public Saida() {}
 
     public Saida(Integer idEscola, String observacao, String idUsuario, SaidaItem saidaItem, List<SaidaItem> saidaItemList, Integer idConta, String escola) {
         this.idEscola = idEscola;
@@ -38,6 +41,14 @@ public class Saida implements Serializable {
         this.saidaItemList = saidaItemList;
         this.idConta = idConta;
         this.escola = escola;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getIdEscola() {
