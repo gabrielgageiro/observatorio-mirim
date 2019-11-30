@@ -8,7 +8,9 @@ import java.time.LocalDate;
 
 public class ProdutoDto implements Serializable {
 
+    private Integer id; //Id no banco de dados local
     private Integer idProduto;
+    private Integer idSaida;
     private String nome;
     private String marca;
     private LocalDate dataValidade;
@@ -22,7 +24,16 @@ public class ProdutoDto implements Serializable {
 
     public ProdutoDto (SaidaItem saidaItem){
         this.idProduto = saidaItem.getIdProduto();
+        this.idSaida = saidaItem.getIdSaida();
         this.nome = saidaItem.getProduto();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getIdProduto() {
@@ -31,6 +42,14 @@ public class ProdutoDto implements Serializable {
 
     public void setIdProduto(Integer idProduto) {
         this.idProduto = idProduto;
+    }
+
+    public Integer getIdSaida() {
+        return idSaida;
+    }
+
+    public void setIdSaida(Integer idSaida) {
+        this.idSaida = idSaida;
     }
 
     public String getNome() {
