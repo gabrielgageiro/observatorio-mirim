@@ -1,15 +1,16 @@
-package com.observatorioMirim.api.models.entrada;
+package com.observatorioMirim.api.models.saida;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
 
-public class EntradaItem implements Serializable {
+public class SaidaItem implements Serializable {
+
+    @SerializedName("id_saida")
+    private Integer idSaida;
 
     @SerializedName("id_escola")
     private Integer idEscola;
@@ -20,47 +21,54 @@ public class EntradaItem implements Serializable {
     @SerializedName("id_produto")
     private Integer idProduto;
 
+    @SerializedName("id_usuario")
+    private Integer idUsuario;
+
     @SerializedName("unidade")
     private String unidade;
+
+    @SerializedName("codigo_barras")
+    private String codigoBarras;
+
+    @SerializedName("marca")
+    private String marca;
 
     @SerializedName("quantidade")
     private BigDecimal quantidade;
 
-    @SerializedName("observacao")
-    private String observacao;
-
     @SerializedName("prazo_validade")
     private String prazoValidade;
 
-    @SerializedName("foto")
-    private String foto;
+    @SerializedName("produto")
+    private String produto;
 
     @SerializedName("IdConta")
     private Integer idConta;
 
-    public EntradaItem() {
+    public SaidaItem() {
     }
 
-    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, String prazoValidade, String foto, Integer idConta) {
+    public SaidaItem(Integer idSaida, Integer idEscola, Integer idFornecedor, Integer idProduto, Integer idUsuario, String unidade, String codigoBarras, String marca, BigDecimal quantidade, String prazoValidade, String produto, Integer idConta) {
+        this.idSaida = idSaida;
         this.idEscola = idEscola;
         this.idFornecedor = idFornecedor;
         this.idProduto = idProduto;
+        this.idUsuario = idUsuario;
         this.unidade = unidade;
+        this.codigoBarras = codigoBarras;
+        this.marca = marca;
         this.quantidade = quantidade;
-        this.observacao = observacao;
         this.prazoValidade = prazoValidade;
-        this.foto = foto;
+        this.produto = produto;
         this.idConta = idConta;
     }
 
-    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, Integer idConta) {
-        this.idEscola = idEscola;
-        this.idFornecedor = idFornecedor;
-        this.idProduto = idProduto;
-        this.unidade = unidade;
-        this.quantidade = quantidade;
-        this.observacao = observacao;
-        this.idConta = idConta;
+    public Integer getIdSaida() {
+        return idSaida;
+    }
+
+    public void setIdSaida(Integer idSaida) {
+        this.idSaida = idSaida;
     }
 
     public Integer getIdEscola() {
@@ -87,12 +95,36 @@ public class EntradaItem implements Serializable {
         this.idProduto = idProduto;
     }
 
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public String getUnidade() {
         return unidade;
     }
 
     public void setUnidade(String unidade) {
         this.unidade = unidade;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public BigDecimal getQuantidade() {
@@ -103,20 +135,20 @@ public class EntradaItem implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public String getObservacao() {
-        return observacao;
+    public String getPrazoValidade() {
+        return prazoValidade;
     }
 
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
+    public void setPrazoValidade(String prazoValidade) {
+        this.prazoValidade = prazoValidade;
     }
 
-    public String getFoto() {
-        return foto;
+    public String getProduto() {
+        return produto;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setProduto(String produto) {
+        this.produto = produto;
     }
 
     public Integer getIdConta() {
@@ -126,13 +158,4 @@ public class EntradaItem implements Serializable {
     public void setIdConta(Integer idConta) {
         this.idConta = idConta;
     }
-
-    public String getPrazoValidade() {
-        return prazoValidade;
-    }
-
-    public void setPrazoValidade(String prazoValidade) {
-        this.prazoValidade = prazoValidade;
-    }
 }
-

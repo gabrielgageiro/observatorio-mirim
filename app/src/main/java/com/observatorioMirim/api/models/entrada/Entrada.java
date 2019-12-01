@@ -13,8 +13,8 @@ public class Entrada implements Serializable {
     @SerializedName("id_escola")
     private Integer idEscola;
 
-    @SerializedName("data_hora")
-    private LocalDateTime dataHora;
+    @SerializedName("id_saida")
+    private Integer idSaida;
 
     @SerializedName("observacao")
     private String observacao;
@@ -28,16 +28,24 @@ public class Entrada implements Serializable {
     @SerializedName("listaEntradaAluno")
     private List<EntradaAluno> entradaAlunos = new ArrayList<>();
 
+    @SerializedName("ListaEntrada")
+    private List<Entrada> entradaEntradas = new ArrayList<>();
+
+    @SerializedName("escola")
+    private String escola;
+
     public Entrada() {
     }
 
-    public Entrada(Integer idEscola, LocalDateTime dataHora, String observacao, Integer idConta, List<EntradaItem> entradaItems, List<EntradaAluno> listaEntradaAluno) {
+    public Entrada(Integer idEscola, Integer idSaida, String observacao, Integer idConta, List<EntradaItem> entradaItems, List<EntradaAluno> entradaAlunos, List<Entrada> entradaEntradas, String escola) {
         this.idEscola = idEscola;
-        this.dataHora = dataHora;
+        this.idSaida = idSaida;
         this.observacao = observacao;
         this.idConta = idConta;
         this.entradaItems = entradaItems;
-        this.entradaAlunos = listaEntradaAluno;
+        this.entradaAlunos = entradaAlunos;
+        this.entradaEntradas = entradaEntradas;
+        this.escola = escola;
     }
 
     public Integer getIdEscola() {
@@ -64,14 +72,6 @@ public class Entrada implements Serializable {
         this.idConta = idConta;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
-
     public List<EntradaItem> getEntradaItems() {
         return entradaItems;
     }
@@ -86,5 +86,29 @@ public class Entrada implements Serializable {
 
     public void setEntradaAlunos(List<EntradaAluno> entradaAlunos) {
         this.entradaAlunos = entradaAlunos;
+    }
+
+    public Integer getIdSaida() {
+        return idSaida;
+    }
+
+    public void setIdSaida(Integer idSaida) {
+        this.idSaida = idSaida;
+    }
+
+    public List<Entrada> getEntradaEntradas() {
+        return entradaEntradas;
+    }
+
+    public void setEntradaEntradas(List<Entrada> entradaEntradas) {
+        this.entradaEntradas = entradaEntradas;
+    }
+
+    public String getEscola() {
+        return escola;
+    }
+
+    public void setEscola(String escola) {
+        this.escola = escola;
     }
 }
