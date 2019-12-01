@@ -142,4 +142,10 @@ public final class ProdutoDtoDB extends SQLiteOpenHelper {
         db.delete(TABELA, where,null);
         db.close();
     }
+
+    public static void deleteAll(Context context){
+        SQLiteDatabase db = new ProdutoDtoDB(context).getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABELA);
+        db.close();
+    }
 }
