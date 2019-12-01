@@ -7,11 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.observatorioMirim.api.models.produto.ProdutoDto;
+import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
+import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 import com.observatorioMirim.views.saida.list.SaidaList;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.observatorioMirim.views.saida.list.SaidaListFragment;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
     private BottomNavigationView bottomNavigationView;
@@ -23,14 +28,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_bar);
         initBottomNavigationBar();
 
+        ArrayList<ProdutoDto> produtoDtos = ProdutoDtoDB.list(this);
+
+        if(produtoDtos.size() > 0){
+            //TODO: Popup perguntando se quer continuar ou descartar
+            ProdutoDtoCache.mergeDbApi(produtoDtos, this);
+        }else{
+            SaidaList.open(this);
+        }
+
     }
 
     private void initBottomNavigationBar(){
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemReselectedListener(this);
         bottomNavigationView.setItemIconTintList(null); //necessário para deixar os icones com as cores originais
-
-        SaidaList.open(this);
     }
 
     @Override
