@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.observatorioMirim.api.API;
 import com.observatorioMirim.api.models.saida.Saida;
 import com.observatorioMirim.utils.AbstractFragment;
+import com.observatorioMirim.utils.SweetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ public class SaidaList {
 
     public static void open(@NonNull final AppCompatActivity activity){
 
+        SweetUtils.loaderNativo(activity, "Aguarde", "Carregando as entradas do dia.");
+
         API.getSaidasHoje(new Callback<List<Saida>>() {
             @Override
             public void onResponse(Call<List<Saida>> call, Response<List<Saida>> response) {
@@ -29,11 +32,13 @@ public class SaidaList {
                     ArrayList<Saida> saidas = new ArrayList<>();
                     AbstractFragment.openFragmentFromActivity(activity, SaidaListFragment.newInstance(saidas), TITULO, "SaidaListFragment");
                 }
+
+                SweetUtils.cancelarLoaderNativo();
             }
 
             @Override
             public void onFailure(Call<List<Saida>> call, Throwable t) {
-
+                SweetUtils.cancelarLoaderNativo();
             }
         });
     }
