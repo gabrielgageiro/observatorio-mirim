@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,7 +16,9 @@ import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -127,12 +130,10 @@ public class EntradaProdutoItemFragment extends Fragment {
                 ProdutoDtoDB.save(main, produto);
                 EntradaProdutoList.open(main);
 
+                Toast.makeText(main, "Produto adicionado com sucesso!", Toast.LENGTH_LONG).show();
+
             }catch (Exception e){
-
-
-                //TODO: Error dialog
-
-                System.out.println("--------------------------------> Erro: " + e.getMessage());
+                SweetUtils.message(getActivity(), "Erro:", e.getMessage(), SweetAlertDialog.ERROR_TYPE);
             }
 
         });
