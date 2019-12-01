@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
+import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
 
 import java.math.BigDecimal;
@@ -121,7 +122,10 @@ public class EntradaProdutoItemFragment extends Fragment {
                 produto.setObservacao(observacao);
                 produto.setEntrada(true);
 
-                EntradaProdutoList.open((MainActivity) getActivity());
+                MainActivity main = (MainActivity) getActivity();
+
+                ProdutoDtoDB.save(main, produto);
+                EntradaProdutoList.open(main);
 
             }catch (Exception e){
 
