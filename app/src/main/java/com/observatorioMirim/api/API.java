@@ -1,5 +1,7 @@
 package com.observatorioMirim.api;
 
+import android.content.Context;
+
 import com.observatorioMirim.api.endpoint.AutenticacaoEndPoint;
 import com.observatorioMirim.api.endpoint.EntradaEndPoint;
 import com.observatorioMirim.api.endpoint.FornecedorEndPoint;
@@ -13,6 +15,7 @@ import com.observatorioMirim.api.models.escola.Escola;
 import com.observatorioMirim.api.models.fornecedor.Fornecedor;
 import com.observatorioMirim.api.models.produto.Produto;
 import com.observatorioMirim.api.models.saida.Saida;
+import com.observatorioMirim.utils.Shared;
 
 import java.util.Date;
 import java.util.List;
@@ -53,31 +56,31 @@ public class API {
     }
 
     //Retornar uma lista / Array ?
-    public static void getProdutos(final Integer idConta, final Integer idEscola, final Callback<List<Produto>> callback){
+    public static void getProdutos(Context context, final Callback<List<Produto>> callback){
         ProdutoEndPoint endPoint = retrofit.create(ProdutoEndPoint.class);
         Call<List<Produto>> call;
-        call = endPoint.getProdutos(idConta, idEscola);
+        call = endPoint.getProdutos(Shared.getInt(context, "idConta"), Shared.getInt(context, "idEscola"));
         call.enqueue(callback);
     }
 
-    public static void getProdutoByNome(final Integer idConta, final Integer idEscola, final String nomeProduto, final Callback<Produto> callback){
+    public static void getProdutoByNome(Context context, final String nomeProduto, final Callback<Produto> callback){
         ProdutoEndPoint endPoint = retrofit.create(ProdutoEndPoint.class);
         Call<Produto> call;
-        call = endPoint.getProdutoByNome(idConta, idEscola, nomeProduto);
+        call = endPoint.getProdutoByNome(Shared.getInt(context, "idConta"), Shared.getInt(context, "idEscola"), nomeProduto);
         call.enqueue(callback);
     }
 
-    public static void getProdutoById(final Integer idConta, final Integer idEscola, final Integer idProduto, final Callback<Produto> callback){
+    public static void getProdutoById(Context context, final Integer idProduto, final Callback<Produto> callback){
         ProdutoEndPoint endPoint = retrofit.create(ProdutoEndPoint.class);
         Call<Produto> call;
-        call = endPoint.getProdutoById(idConta, idEscola, idProduto);
+        call = endPoint.getProdutoById(Shared.getInt(context, "idConta"), Shared.getInt(context, "idEscola"), idProduto);
         call.enqueue(callback);
     }
 
-    public static void getProdutoByCodigoBarras(final Integer idConta, final Integer idEscola, final String codigoBarras, final Callback<Produto> callback){
+    public static void getProdutoByCodigoBarras(Context context, final String codigoBarras, final Callback<Produto> callback){
         ProdutoEndPoint endPoint = retrofit.create(ProdutoEndPoint.class);
         Call<Produto> call;
-        call = endPoint.getProdutoByCodigoBarras(idConta, idEscola, codigoBarras);
+        call = endPoint.getProdutoByCodigoBarras(Shared.getInt(context, "idConta"), Shared.getInt(context, "idEscola"), codigoBarras);
         call.enqueue(callback);
     }
 
@@ -87,32 +90,32 @@ public class API {
         call.enqueue(callback);
     }
 
-    public static void getFornecedorByNome(final Integer idConta, final Integer idEscola, final String nomeProduto, final Callback<Fornecedor> callback){
+    public static void getFornecedorByNome(Context context, final String nomeProduto, final Callback<Fornecedor> callback){
         FornecedorEndPoint endPoint = retrofit.create(FornecedorEndPoint.class);
         Call<Fornecedor> call;
-        call = endPoint.getFornecedorByNome(idConta, idEscola, nomeProduto);
+        call = endPoint.getFornecedorByNome(Shared.getInt(context, "idConta"), Shared.getInt(context, "idEscola"), nomeProduto);
         call.enqueue(callback);
     }
 
-    public static void getFornecedorById(final Integer idConta, final Integer idEscola, final Integer idFornecedor, final Callback<Fornecedor> callback){
+    public static void getFornecedorById(Context context, final Integer idProduto, final Callback<Fornecedor> callback){
         FornecedorEndPoint endPoint = retrofit.create(FornecedorEndPoint.class);
         Call<Fornecedor> call;
-        call = endPoint.getFornecedorById(idConta, idEscola, idFornecedor);
+        call = endPoint.getFornecedorById(Shared.getInt(context, "idConta"), Shared.getInt(context, "idEscola"), idProduto);
         call.enqueue(callback);
     }
 
-    public static void getFornecedorByCnpj(final Integer idConta, final Integer idEscola, final String cnpj, final Callback<Fornecedor> callback){
+    public static void getFornecedorByCnpj(Context context, final String cnpj, final Callback<Fornecedor> callback){
         FornecedorEndPoint endPoint = retrofit.create(FornecedorEndPoint.class);
         Call<Fornecedor> call;
-        call = endPoint.getFornecedorByCnpj(idConta, idEscola, cnpj);
+        call = endPoint.getFornecedorByCnpj(Shared.getInt(context, "idConta"), Shared.getInt(context, "idEscola"), cnpj);
         call.enqueue(callback);
     }
 
     //Retornar uma lista / Array
-    public static void getFornecedores(final Integer idConta, final Integer idEscola, final Callback<List<Fornecedor>> callback){
+    public static void getFornecedores(Context context, final Callback<List<Fornecedor>> callback){
         FornecedorEndPoint endPoint = retrofit.create(FornecedorEndPoint.class);
         Call<List<Fornecedor>> call;
-        call = endPoint.getFornecedores(idConta, idEscola);
+        call = endPoint.getFornecedores(Shared.getInt(context, "idConta"), Shared.getInt(context, "idEscola"));
         call.enqueue(callback);
     }
 
