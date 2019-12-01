@@ -107,4 +107,8 @@ public class ProdutoDto implements Serializable {
     public void setEntrada(boolean entrada) {
         this.entrada = entrada;
     }
+
+    public boolean isNew(){
+        return id == null;
+    }
 }
