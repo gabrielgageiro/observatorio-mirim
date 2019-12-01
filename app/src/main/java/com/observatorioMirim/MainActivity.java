@@ -10,11 +10,13 @@ import android.view.MenuItem;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.saida.list.SaidaList;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.observatorioMirim.views.saida.list.SaidaListFragment;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
 
@@ -31,8 +33,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ArrayList<ProdutoDto> produtoDtos = ProdutoDtoDB.list(this);
 
         if(produtoDtos.size() > 0){
-            //TODO: Popup perguntando se quer continuar ou descartar
-            ProdutoDtoCache.mergeDbApi(produtoDtos, this);
+
+            SweetUtils.confirmDialog(this, "Continuar Entrada", "Foi encontrado uma entrada que não foi terminada, você quer continuar de onde parou?", "Continuar", "Descartar",
+                    (SweetAlertDialog sDialog) -> {
+
+                        ProdutoDtoCache.mergeDbApi(produtoDtos, this);
+
+                        sDialog.dismissWithAnimation();
+
+                    }, (SweetAlertDialog sDialog) -> {
+
+                        ProdutoDtoDB.deleteAll(this);
+                        SaidaList.open(this);
+
+                        sDialog.dismissWithAnimation();
+
+                    });
+
         }else{
             SaidaList.open(this);
         }
