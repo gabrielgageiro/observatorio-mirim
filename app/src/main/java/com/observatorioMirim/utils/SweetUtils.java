@@ -43,4 +43,15 @@ public class SweetUtils {
     public static void cancelarLoaderNativo(){
         dialog.cancel();
     }
+
+    public static void confirmDialog(Context context, String titulo, String conteudo, String confirmText, String cancelText, SweetAlertDialog.OnSweetClickListener confirmClick, SweetAlertDialog.OnSweetClickListener cancelClick){
+        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText(titulo)
+                .setContentText(conteudo)
+                .setConfirmText(confirmText)
+                .setConfirmClickListener(confirmClick)
+                .setCancelText(cancelText)
+                .setCancelClickListener(cancelClick)
+                .show();
+    }
 }
