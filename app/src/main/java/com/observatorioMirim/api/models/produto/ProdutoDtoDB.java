@@ -100,6 +100,14 @@ public final class ProdutoDtoDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    public static void save(Context context, ProdutoDto produtoDto){
+        if(produtoDto.isNew()){
+            insert(context, produtoDto);
+        }else {
+            update(context, produtoDto);
+        }
+    }
+
     public static ArrayList<ProdutoDto> list(Context context) {
         ArrayList<ProdutoDto> produtos = new ArrayList<>();
 
