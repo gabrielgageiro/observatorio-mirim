@@ -33,23 +33,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ArrayList<ProdutoDto> produtoDtos = ProdutoDtoDB.list(this);
 
         if(produtoDtos.size() > 0){
-
-            SweetUtils.confirmDialog(this, "Continuar Entrada", "Foi encontrado uma entrada que não foi terminada, você quer continuar de onde parou?", "Continuar", "Descartar",
-                    (SweetAlertDialog sDialog) -> {
-
-                        ProdutoDtoCache.mergeDbApi(produtoDtos, this);
-
-                        sDialog.dismissWithAnimation();
-
-                    }, (SweetAlertDialog sDialog) -> {
-
-                        ProdutoDtoDB.deleteAll(this);
-                        SaidaList.open(this);
-
-                        sDialog.dismissWithAnimation();
-
-                    });
-
+            ProdutoDtoCache.mergeDbApi(produtoDtos, this);
         }else{
             SaidaList.open(this);
         }
