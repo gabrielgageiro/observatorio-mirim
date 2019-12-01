@@ -56,7 +56,7 @@ public final class ProdutoDtoDB extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public static boolean insert(Context context, ProdutoDto produtoDto){
+    public static void insert(Context context, ProdutoDto produtoDto){
         ContentValues valores;
 
         SQLiteDatabase db = new ProdutoDtoDB(context).getWritableDatabase();
@@ -71,14 +71,10 @@ public final class ProdutoDtoDB extends SQLiteOpenHelper {
         valores.put(COLUNA_OBSERVACAO, produtoDto.getObservacao());
         valores.put(COLUNA_ENTRADA, produtoDto.isEntrada());
 
-        long resultado = db.insert(TABELA, null, valores);
+        long id = db.insert(TABELA, null, valores);
         db.close();
 
-        if(resultado != -1){
-            return true;
-        }
-
-        return false;
+        produtoDto.setId((int) id);
     }
 
     public static void update(Context context, ProdutoDto produtoDto){
