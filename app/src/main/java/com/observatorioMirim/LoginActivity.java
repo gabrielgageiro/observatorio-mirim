@@ -106,18 +106,17 @@ public class LoginActivity extends AppCompatActivity {
         API.getEscolaByCodigoSenha(codigoEscola, senhaEscola, new Callback<Escola>() {
             @Override
             public void onResponse(Call<Escola> call, Response<Escola> response) {
-                Integer idConta = response.body().getIdConta();
-                Integer idEscola = response.body().getId();
-
                 if(response != null && response.body() != null){
                     if(response.body().getUsuario_smart().equals(codigoEscola) && response.body().getSenha_smart().equals(senhaEscola)){
-                        Shared.putInt(LoginActivity.this, "idConta", idConta);
-                        Shared.putInt(LoginActivity.this, "idEscola", idEscola);
+                        Shared.putInt(LoginActivity.this, "idConta", response.body().getIdConta());
+                        Shared.putInt(LoginActivity.this, "idEscola", response.body().getId());
 
                         setLoginAutomatico();
 
                         Intent it = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(it);
+                    } else {
+                        SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário ou senha informados estão incorretos", SweetAlertDialog.ERROR_TYPE);
                     }
                 } else {
                     SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário ou senha informados estão incorretos", SweetAlertDialog.ERROR_TYPE);
