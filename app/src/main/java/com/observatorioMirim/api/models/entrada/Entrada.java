@@ -124,8 +124,6 @@ public class Entrada implements Serializable {
         int idConta = Shared.getInt(mainActivity, "idConta");
         int idEscola = Shared.getInt(mainActivity, "idEscola");
 
-        List<EntradaItem> itens = new ArrayList<>();
-
         List<ProdutoDto> produtos = ProdutoDtoDB.list(mainActivity);
         produtos.forEach( p -> {
             EntradaItem item = new EntradaItem(p);
