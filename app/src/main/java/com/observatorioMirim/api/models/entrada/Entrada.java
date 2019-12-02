@@ -1,10 +1,12 @@
 package com.observatorioMirim.api.models.entrada;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.observatorioMirim.MainActivity;
+import com.observatorioMirim.api.models.produto.ProdutoDto;
+import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.utils.Shared;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,5 +112,33 @@ public class Entrada implements Serializable {
 
     public void setEscola(String escola) {
         this.escola = escola;
+    }
+
+    public void addEntradaItem(EntradaItem entradaItem){
+        entradaItems.add(entradaItem);
+    }
+
+    public static Entrada generateEntrada(MainActivity mainActivity){
+        Entrada entrada = new Entrada();
+
+        int idConta = Shared.getInt(mainActivity, "idConta");
+        int idEscola = Shared.getInt(mainActivity, "idEscola");
+
+        List<EntradaItem> itens = new ArrayList<>();
+
+        List<ProdutoDto> produtos = ProdutoDtoDB.list(mainActivity);
+        produtos.forEach( p -> {
+            EntradaItem item = new EntradaItem(p);
+            item.setIdConta(idConta);
+            item.setIdEscola(idEscola);
+
+            entrada.addEntradaItem(item);
+        });
+
+        entrada.setIdSaida(produtos.get(0).getIdSaida());
+        entrada.setIdConta(idConta);
+        entrada.setIdEscola(idEscola);
+
+        return entrada;
     }
 }
