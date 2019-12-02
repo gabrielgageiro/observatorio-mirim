@@ -39,9 +39,9 @@ public class EntradaProdutoListAdapter extends ArrayAdapter<ProdutoDto> {
         produtoMarcado = view.findViewById(R.id.list_item_produto_checked);
         if(!produto.isEntrada()){
             produtoMarcado.setVisibility(View.GONE);
+        } else {
+            produtoMarcado.setVisibility(View.VISIBLE);
         }
-
-//        System.out.println(();
 
         view.setOnClickListener( o -> {
             EntradaProdutoItem.open((AppCompatActivity)context, produto);

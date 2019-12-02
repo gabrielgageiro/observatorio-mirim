@@ -18,6 +18,7 @@ import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
+import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoListFragment;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.math.BigDecimal;
@@ -34,6 +35,7 @@ public class EntradaProdutoItemFragment extends Fragment {
     private TextInputEditText textInputUnidade;
     private TextInputEditText textInputObservacao;
     private Button buttonDarEntrada;
+    private Button buttonCancelarEntrada;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -137,7 +139,8 @@ public class EntradaProdutoItemFragment extends Fragment {
             }
 
         });
-
+        buttonCancelarEntrada = view.findViewById(R.id.cancelar_entrada);
+        buttonCancelarEntrada.setOnClickListener(o -> getActivity().getSupportFragmentManager().popBackStack());
 
         return view;
     }

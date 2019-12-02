@@ -9,19 +9,28 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.Produto;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
+import com.observatorioMirim.cadastro.aluno.AlunoFragment;
+import com.observatorioMirim.utils.AbstractFragment;
+import com.observatorioMirim.utils.SweetUtils;
+import com.observatorioMirim.views.entrada.produto.item.EntradaProdutoItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class EntradaProdutoListFragment extends Fragment {
     private SearchView searchView = null;
@@ -30,6 +39,7 @@ public class EntradaProdutoListFragment extends Fragment {
     ArrayList<ProdutoDto> produtos;
     EntradaProdutoListAdapter saidaListAdapter;
     ListView listaProduto;
+    Button buttonTerminei;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -40,20 +50,53 @@ public class EntradaProdutoListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_list_produto, container, false);
         listaProduto = view.findViewById(R.id.list_produto);
-
+        System.out.println("OOOOi");
         saidaListAdapter = new EntradaProdutoListAdapter(getActivity(), produtos);
         listaProduto.setAdapter(saidaListAdapter);
         setHasOptionsMenu(true);
+        buttonTerminei = view.findViewById(R.id.entrada_produto_item_dar_entrada);
+
+        buttonTerminei.setOnClickListener(o-> {
+            boolean possuiItemNaoLancado = false;
+            for (ProdutoDto p : produtos) {
+                if (!p.isEntrada()) {
+                    possuiItemNaoLancado = true;
+                    break;
+                }
+            }
+            if(possuiItemNaoLancado){
+                SweetUtils.message(getContext(), "Atenção!", "Você possui produtos não lançados", SweetAlertDialog.WARNING_TYPE);
+            } else {
+            AbstractFragment.openFragmentFromActivity(main, AlunoFragment.create(), "Alunos", AlunoFragment.TAG);
+            }
+        });
+
         return view;
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.searchable, menu);
+        initSearchButton(menu);
+        initAdicionarNoVoProdutoButton(menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void initAdicionarNoVoProdutoButton(Menu menu) {
+        MenuItem addProdutoItem = menu.findItem(R.id.add_novo_produto);
+
+        addProdutoItem.setOnMenuItemClickListener(item -> {
+            EntradaProdutoItem.open((AppCompatActivity) getContext(), new ProdutoDto());
+        return true;
+        });
+    }
+
+    private void initSearchButton(Menu menu) {
         MenuItem searchItem = menu.findItem(R.id.search);
+
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
-        if(searchItem != null){
+        if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
 
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -70,7 +113,7 @@ public class EntradaProdutoListFragment extends Fragment {
                 query = query.toLowerCase();
                 final List<ProdutoDto> filtro = new ArrayList<>();
 
-                for (ProdutoDto p : produtos){
+                for (ProdutoDto p : produtos) {
                     String text = p.getNome().toLowerCase();
 
                     if (text.contains(query)) {
@@ -84,21 +127,17 @@ public class EntradaProdutoListFragment extends Fragment {
             }
         };
         searchView.setOnQueryTextListener(queryTextListener);
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-
-        //TODO: Exibir popup confirmando
-
         MainActivity main = (MainActivity) getActivity();
         main.getBottomNavigationView().setVisibility(View.VISIBLE);
         main.getSupportActionBar().setTitle("Entradas");
     }
 
-    public static EntradaProdutoListFragment newInstance(final ArrayList<ProdutoDto> produtos){
+    public static EntradaProdutoListFragment newInstance(final ArrayList<ProdutoDto> produtos) {
 
         EntradaProdutoListFragment entradaProdutoListFragment = new EntradaProdutoListFragment();
 
