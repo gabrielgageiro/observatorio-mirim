@@ -20,6 +20,6 @@
     <string name="dar_entrada">Dar Entrada</string>
     <string name="produto_dois_pontos">Produto: </string>
     <string name="terminei">Terminei</string>
-    <string name="cancelar">cancelar</string>
+    <string name="cancelar_entrada">Cancelar Entrada</string>
     <string name="informe_os_alunos">Informe os alunos</string>
 </resources>

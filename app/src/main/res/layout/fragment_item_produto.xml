@@ -185,28 +185,29 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/cancelar_entrada"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancelar"
-                android:textColor="#fff"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:backgroundTint="@color/colorPrimary"
-                />
+            android:layout_height="match_parent"
+            android:gravity="end|bottom"
+            android:orientation="vertical">
             <Button
                 android:id="@+id/entrada_produto_item_dar_entrada"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dar_entrada"
                 android:textColor="#fff"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:backgroundTint="@color/colorPrimary"
+                />
+
+            <Button
+                android:id="@+id/cancelar_entrada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cancelar_entrada"
+                android:textColor="#fff"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/red_btn_bg_color"
                 />
 
         </LinearLayout>
