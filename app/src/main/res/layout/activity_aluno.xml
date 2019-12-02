@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,28 +15,36 @@
             android:id="@+id/mainTagAutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapWords"
             android:completionThreshold="1"
+            android:hint="@string/informe_os_alunos"
             android:imeOptions="actionDone"
-            android:hint="Alunos"
-            />
+            android:inputType="textCapWords" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/mainTagChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:chipSpacingVertical="4dp"
-            />
+            app:chipSpacingVertical="4dp" />
 
     </LinearLayout>
 
-    <!--<Button-->
-    <!--android:id="@+id/btn_proximo"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="PROXIMO"-->
-    <!--android:textColor="@color/colorPrimaryDark"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/entrada_produto_item_dar_entrada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/terminei"
+            android:textColor="#fff" />
+
+    </LinearLayout>
 
 </RelativeLayout>

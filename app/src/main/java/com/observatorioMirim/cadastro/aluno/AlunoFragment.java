@@ -9,16 +9,13 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.utils.AbstractFragment;
 
@@ -26,11 +23,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AlunoFragment extends AbstractFragment {
-    //todo listaAlunos sao os alunos da entrada. o cadastro dos alunos devem vir da API
-    private List<String> listaAlunos = Arrays.asList("Gabriel", "Lucas", "Marcelo B", "Marcelo R", "Dani", "Cassio");
+    public static final String TAG = "AlunosFragment";
     private AutoCompleteTextView autoCompleteTextView;
     private ChipGroup chipGroup;
 
@@ -50,23 +45,23 @@ public class AlunoFragment extends AbstractFragment {
 
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.mainTagAutoCompleteTextView);
         chipGroup = view.findViewById(R.id.mainTagChipGroup);
-        loadTagsUi(autoCompleteTextView, chipGroup, new ArrayList<String>(), listaAlunos);
+        loadTagsUi(autoCompleteTextView, chipGroup, new ArrayList<String>());
         return view;
     }
 
-    private void loadTagsUi(AutoCompleteTextView autoCompleteTextView, ChipGroup chipGroup, List<String> atuaisChips, List<String> allAlunos) {
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, allAlunos);
+    private void loadTagsUi(AutoCompleteTextView autoCompleteTextView, ChipGroup chipGroup, List<String> atuaisChips) {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteTextView.setAdapter(arrayAdapter);
 
         autoCompleteTextView.setOnItemClickListener((adapterView, view, position, id) -> {
             String nome = adapterView.getItemAtPosition(position).toString();
-            insertOrCreateAluno(nome);
+            addChipToGroup(nome, chipGroup, new ArrayList<>());
             autoCompleteTextView.setText(null);
         });
 
         autoCompleteTextView.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                insertOrCreateAluno(textView.getText().toString());
+                addChipToGroup(textView.getText().toString(), chipGroup, new ArrayList<String>());
                 textView.setText(null);
                 return true;
             }
@@ -103,10 +98,9 @@ public class AlunoFragment extends AbstractFragment {
         });
     }
 
-    private void insertOrCreateAluno(String aluno) {
-        //todo listaAlunos sao os alunos da entrada. o cadastro dos alunos devem vir da API
-        addChipToGroup(aluno, chipGroup, new ArrayList<String>());
-        return;
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Produtos");
     }
-
 }

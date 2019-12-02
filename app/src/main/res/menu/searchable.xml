@@ -2,16 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/menu_group">
-    <item
-        android:id="@+id/search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Pesquisar"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom" />
-    <item
-        android:id="@+id/ler_produto"
-        android:title="Ler"
-        app:actionViewClass="android.widget.Button"
-        app:showAsAction="collapseActionView|ifRoom" />
+        <item
+            android:id="@+id/search"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="Pesquisar"
+            app:actionViewClass="android.widget.SearchView"
+            app:showAsAction="collapseActionView|ifRoom" />
+        <item
+            android:id="@+id/ler_produto"
+            android:title="Ler"
+            app:actionViewClass="android.widget.Button"
+            app:showAsAction="collapseActionView|ifRoom" />
+        <item
+            android:id="@+id/add_novo_produto"
+            android:title="+"
+            app:actionViewClass="android.widget.Button"
+            app:showAsAction="collapseActionView|ifRoom" />
     </group>
 </menu>

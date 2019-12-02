@@ -183,16 +183,33 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/entrada_produto_item_dar_entrada"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/dar_entrada"
-            android:textColor="#fff"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:backgroundTint="@color/colorPrimary"
-            />
+            android:gravity="end"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/cancelar_entrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancelar"
+                android:textColor="#fff"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/colorPrimary"
+                />
+            <Button
+                android:id="@+id/entrada_produto_item_dar_entrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dar_entrada"
+                android:textColor="#fff"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/colorPrimary"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 
