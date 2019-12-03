@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.utils.Shared;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -54,8 +55,8 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
     public static void insert(Context context, EntradaDto entradaDto){
         SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
         ContentValues valores = new ContentValues();
-        valores.put(COLUNA_ID_CONTA, entradaDto.getIdConta());
-        valores.put(COLUNA_ID_ESCOLA, entradaDto.getIdEscola());
+        valores.put(COLUNA_ID_CONTA, Shared.getInt(context, "idConta"));
+        valores.put(COLUNA_ID_ESCOLA, Shared.getInt(context, "idEscola"));
         valores.put(COLUNA_ID_SAIDA, entradaDto.getIdSaida());
         valores.put(COLUNA_OBSERVACAO, entradaDto.getObservacao());
         valores.put(COLUNA_FINALIZADA, entradaDto.isFinalizada());
