@@ -17,11 +17,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
+import com.observatorioMirim.api.API;
 import com.observatorioMirim.api.models.produto.Produto;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
+import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
 import com.observatorioMirim.cadastro.aluno.AlunoFragment;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.SweetUtils;
@@ -31,6 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EntradaProdutoListFragment extends Fragment {
     private SearchView searchView = null;
@@ -50,7 +56,6 @@ public class EntradaProdutoListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_list_produto, container, false);
         listaProduto = view.findViewById(R.id.list_produto);
-        System.out.println("OOOOi");
         saidaListAdapter = new EntradaProdutoListAdapter(getActivity(), produtos);
         listaProduto.setAdapter(saidaListAdapter);
         setHasOptionsMenu(true);
@@ -69,6 +74,34 @@ public class EntradaProdutoListFragment extends Fragment {
             } else {
             AbstractFragment.openFragmentFromActivity(main, AlunoFragment.create(), "Alunos", AlunoFragment.TAG);
             }
+        });
+
+        SwipeRefreshLayout refreshLayout = view.findViewById(R.id.swipe_refresh_produto);
+        refreshLayout.setOnRefreshListener(() -> {
+            Toast.makeText(getContext(), "DEU CERTO", Toast.LENGTH_LONG).show();
+            API.getProdutos(getContext(), (new Callback<List<Produto>>() {
+                @Override
+                public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
+                    if(response != null && response.body() != null && !response.body().isEmpty()){
+                        List<ProdutoDto> list = new ArrayList<>();
+                        response.body().forEach(produto -> {
+                            //TODO: Ver de onde vem os produtos.
+//                            list.add(new ProdutoDto(null, produto.getIdConta(), ));
+                        });
+
+                    }
+                    SweetUtils.cancelarLoaderNativo();
+                }
+
+                @Override
+                public void onFailure(Call<List<Produto>> call, Throwable t) {
+                    SweetUtils.cancelarLoaderNativo();
+                }
+            }));
+            produtos = (ArrayList<ProdutoDto>) getArguments().getSerializable("produtos");
+            listaProduto.setAdapter(new EntradaProdutoListAdapter(getActivity(), produtos));
+            refreshLayout.setRefreshing(false);
+            //TODO BUSCAR OS NOVOS PRODUTOS
         });
 
         return view;

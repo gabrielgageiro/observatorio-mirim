@@ -18,13 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="25dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:text="@string/entradas_dois_pontos" />
+            android:layout_marginBottom="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,6 +27,12 @@
                 android:textStyle="bold"
                 android:id="@+id/entrada_produto_item_nome"
                 />
+<!--            <Spinner-->
+<!--                android:id="@+id/spinner_entrada"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                style="@style/spinner_style"-->
+<!--                android:spinnerMode="dropdown"/>-->
 
         </LinearLayout>
 
@@ -154,14 +154,20 @@
                 android:hint="@string/unidade"
                 android:layout_weight="1"
                 >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/entrada_produto_item_unidade"
+                <Spinner
+                    android:id="@+id/spinner1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters"
-                    android:maxLines="1"
-                    android:nextFocusDown="@+id/entrada_produto_item_observacao"/>
+                    android:layout_height="match_parent"
+                    style="@style/spinner_style"
+                    android:spinnerMode="dropdown"/>
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/entrada_produto_item_unidade"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="textCapCharacters"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:nextFocusDown="@+id/entrada_produto_item_observacao"/>-->
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

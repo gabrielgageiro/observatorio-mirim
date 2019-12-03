@@ -1,5 +1,7 @@
 package com.observatorioMirim.api.models.produto;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
@@ -92,5 +94,11 @@ public class Produto implements Serializable {
 
     public void setEscola(String escola) {
         this.escola = escola;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return nome;
     }
 }

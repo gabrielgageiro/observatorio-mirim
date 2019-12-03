@@ -1,5 +1,7 @@
 package com.observatorioMirim.utils;
 
+import androidx.annotation.NonNull;
+
 public enum UnidadeProduto {
 
     UNIDADE( "Unidade"),
@@ -16,6 +18,13 @@ public enum UnidadeProduto {
     }
 
     public String getDescricao(){
+        return descricao;
+    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
         return descricao;
     }
 }
