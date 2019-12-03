@@ -86,7 +86,7 @@ public class EntradaProdutoListFragment extends Fragment {
                         List<ProdutoDto> list = new ArrayList<>();
                         response.body().forEach(produto -> {
                             //TODO: Ver de onde vem os produtos.
-                            list.add(new ProdutoDto(null, produto.getIdConta(), ));
+//                            list.add(new ProdutoDto(null, produto.getIdConta(), ));
                         });
 
                     }
@@ -97,7 +97,7 @@ public class EntradaProdutoListFragment extends Fragment {
                 public void onFailure(Call<List<Produto>> call, Throwable t) {
                     SweetUtils.cancelarLoaderNativo();
                 }
-            }););
+            }));
             produtos = (ArrayList<ProdutoDto>) getArguments().getSerializable("produtos");
             listaProduto.setAdapter(new EntradaProdutoListAdapter(getActivity(), produtos));
             refreshLayout.setRefreshing(false);
