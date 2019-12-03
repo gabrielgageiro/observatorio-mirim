@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 import com.observatorioMirim.utils.SweetUtils;
+import com.observatorioMirim.utils.UnidadeProduto;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoListFragment;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -44,6 +47,15 @@ public class EntradaProdutoItemFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_item_produto, container, false);
 
+        //get the spinner from the xml.
+        Spinner dropdown = view.findViewById(R.id.spinner1);
+//create a list of items for the spinner.
+        UnidadeProduto[] items = UnidadeProduto.values();
+//create an adapter to describe how the items are displayed, adapters are used in several places in android.
+//There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<UnidadeProduto> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
+//set the spinners adapter to the previously created one.
+        dropdown.setAdapter(adapter);
 
         textViewNome = view.findViewById(R.id.entrada_produto_item_nome);
         textViewNome.setText(produto.getNome());

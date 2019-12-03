@@ -155,13 +155,21 @@
                 android:layout_weight="1"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/entrada_produto_item_unidade"
+
+                <Spinner
+                    android:id="@+id/spinner1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters"
-                    android:maxLines="1"
-                    android:nextFocusDown="@+id/entrada_produto_item_observacao"/>
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown"/>
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/entrada_produto_item_unidade"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="textCapCharacters"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:nextFocusDown="@+id/entrada_produto_item_observacao"/>-->
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
