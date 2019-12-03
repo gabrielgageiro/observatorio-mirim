@@ -133,7 +133,7 @@ public class Entrada implements Serializable {
             entrada.addEntradaItem(item);
         });
 
-        entrada.setIdSaida(produtos.get(0).getIdSaida());
+        entrada.setIdSaida(produtos.get(0).getIdEntrada());
         entrada.setIdConta(idConta);
         entrada.setIdEscola(idEscola);
 

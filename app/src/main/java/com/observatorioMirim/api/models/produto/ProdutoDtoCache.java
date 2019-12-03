@@ -60,7 +60,7 @@ public final class ProdutoDtoCache {
                                 sDialog.dismissWithAnimation();
 
                                 response.body().forEach( s -> {
-                                    if(s.getId().intValue() == produtosDb.get(0).getIdSaida()){
+                                    if(s.getId().intValue() == produtosDb.get(0).getIdEntrada()){
                                         s.getSaidaItemList().forEach(i -> {
                                             ProdutoDto dto = dtoPorId.get(i.getIdProduto());
 

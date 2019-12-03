@@ -10,7 +10,7 @@ public class ProdutoDto implements Serializable {
 
     private Integer id; //Id no banco de dados local
     private Integer idProduto;
-    private Integer idSaida;
+    private Integer idEntrada; //Id local da entrada
     private String nome;
     private String marca;
     private LocalDate dataValidade;
@@ -24,7 +24,6 @@ public class ProdutoDto implements Serializable {
 
     public ProdutoDto (SaidaItem saidaItem){
         this.idProduto = saidaItem.getIdProduto();
-        this.idSaida = saidaItem.getIdSaida();
         this.nome = saidaItem.getProduto();
     }
 
@@ -44,12 +43,12 @@ public class ProdutoDto implements Serializable {
         this.idProduto = idProduto;
     }
 
-    public Integer getIdSaida() {
-        return idSaida;
+    public Integer getIdEntrada() {
+        return idEntrada;
     }
 
-    public void setIdSaida(Integer idSaida) {
-        this.idSaida = idSaida;
+    public void setIdEntrada(Integer idEntrada) {
+        this.idEntrada = idEntrada;
     }
 
     public String getNome() {
