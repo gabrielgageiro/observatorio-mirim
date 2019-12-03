@@ -154,8 +154,6 @@
                 android:hint="@string/unidade"
                 android:layout_weight="1"
                 >
-
-
                 <Spinner
                     android:id="@+id/spinner1"
                     android:layout_width="match_parent"
