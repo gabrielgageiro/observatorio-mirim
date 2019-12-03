@@ -96,6 +96,8 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
         db.delete(TABELA, where,null);
         db.close();
+
+        ProdutoDtoDB.deleteByIdEntrada(context, id);
     }
 
     public static EntradaDto getBySaida(Context context, int idSaida) {
