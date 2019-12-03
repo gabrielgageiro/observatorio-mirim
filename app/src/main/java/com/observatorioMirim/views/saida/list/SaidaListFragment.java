@@ -25,6 +25,8 @@ public class SaidaListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
+        ((MainActivity) getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
+
         saidas = (ArrayList<Saida>) getArguments().getSerializable("saidas");
 
         if (saidas.isEmpty()) {
