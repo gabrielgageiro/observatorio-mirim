@@ -13,6 +13,7 @@ import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
+import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoListFragment;
 import com.observatorioMirim.views.saida.list.SaidaList;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.upload.UploadFragment;
@@ -102,8 +103,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         if(fragmentAtual instanceof SaidaListFragment || fragmentAtual instanceof UploadFragment){
             return;
+        }else if(fragmentAtual instanceof EntradaProdutoListFragment){
+            SweetUtils.confirmDialog(this, "Cancelar Entrada", "Tem certeza que você que desistir dessa entrada? Todos os lançamentos serão perdidos", "Ficar", "Desistir",
+                    SweetAlertDialog::dismissWithAnimation,
+                    (SweetAlertDialog sDialog) -> {
+                        //Cancela a entrada atual
+                        EntradaDtoDB.delete(this, Shared.getInt(this, "entradaAtual"));
+                        Shared.putInt(this, "entradaAtual", -1);
+
+                        SaidaList.open(this);
+
+                        sDialog.dismissWithAnimation();
+
+                    });
+        }else{
+            super.onBackPressed();
         }
 
-        super.onBackPressed();
     }
 }
