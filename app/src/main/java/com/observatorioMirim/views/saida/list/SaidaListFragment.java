@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.saida.Saida;
 
@@ -38,9 +39,9 @@ public class SaidaListFragment extends Fragment {
 
         refreshLayout = view.findViewById(R.id.swipe_refresh_saida);
         refreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(getContext(), "DEU CERTO SAIDA", Toast.LENGTH_LONG).show();
             saidas = (ArrayList<Saida>) getArguments().getSerializable("saidas");
 
+            SaidaList.open((MainActivity) getActivity());
             listaSaida.setAdapter(new SaidaListAdapter(getActivity(), saidas));
             refreshLayout.setRefreshing(false);
         });
