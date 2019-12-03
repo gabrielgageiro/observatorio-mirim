@@ -147,4 +147,12 @@ public final class ProdutoDtoDB extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABELA);
         db.close();
     }
+
+    public static void deleteByIdEntrada(Context context, int idEntrada){
+        String where = COLUNA_ID_ENTRADA + " = " + idEntrada;
+
+        SQLiteDatabase db = new ProdutoDtoDB(context).getWritableDatabase();
+        db.delete(TABELA, where,null);
+        db.close();
+    }
 }
