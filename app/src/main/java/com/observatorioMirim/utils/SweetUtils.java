@@ -33,7 +33,9 @@ public class SweetUtils {
     }
 
     public static void cancelarLoaderSweet(){
-        dialogSweet.cancel();
+        if(dialogSweet != null){
+            dialogSweet.cancel();
+        }
     }
 
     public static void loaderNativo(Context context, String titulo, String message){
