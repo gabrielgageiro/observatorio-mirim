@@ -73,10 +73,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         logarAutomaticamente();
-        //SweetUtils.loaderNativo(this, "", "Sincronizando...");
-        //SweetUtils.cancelarLoaderNativo();
-        //SweetUtils.loaderSweet(this, "Sincronizando...");
-        //SweetUtils.cancelarLoaderSweet();
     }
 
     public void setLoginAutomatico() {
@@ -115,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         Intent it = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(it);
+                        SweetUtils.loaderSweet(LoginActivity.this, "Entrando...");
                     } else {
                         SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário ou senha informados estão incorretos", SweetAlertDialog.ERROR_TYPE);
                     }
@@ -134,5 +131,4 @@ public class LoginActivity extends AppCompatActivity {
     public void unLogin(){
         Shared.putBoolean(LoginActivity.this, "logarAutomaticamente", false);
     }
-
 }
