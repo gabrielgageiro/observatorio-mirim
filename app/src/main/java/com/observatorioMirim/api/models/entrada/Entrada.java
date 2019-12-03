@@ -1,10 +1,8 @@
 package com.observatorioMirim.api.models.entrada;
 
 import com.google.gson.annotations.SerializedName;
-import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
-import com.observatorioMirim.utils.Shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,15 +37,11 @@ public class Entrada implements Serializable {
     public Entrada() {
     }
 
-    public Entrada(Integer idEscola, Integer idSaida, String observacao, Integer idConta, List<EntradaItem> entradaItems, List<EntradaAluno> entradaAlunos, List<Entrada> entradaEntradas, String escola) {
-        this.idEscola = idEscola;
-        this.idSaida = idSaida;
-        this.observacao = observacao;
-        this.idConta = idConta;
-        this.entradaItems = entradaItems;
-        this.entradaAlunos = entradaAlunos;
-        this.entradaEntradas = entradaEntradas;
-        this.escola = escola;
+    public Entrada(EntradaDto entradaDto) {
+        this.idEscola = entradaDto.getIdEscola();
+        this.idSaida = entradaDto.getIdSaida();
+        this.observacao = entradaDto.getObservacao();
+        this.idConta = entradaDto.getIdConta();
     }
 
     public Integer getIdEscola() {
