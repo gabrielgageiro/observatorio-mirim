@@ -155,4 +155,15 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
 
         return null;
     }
+
+    public static int countSincronizacoesPendentes(Context context){ //Retorna o id da entrada não finalizada
+        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 1", null);
+
+        if (cursor.moveToFirst()) {
+            return Integer.parseInt(cursor.getString(0));
+        }
+
+        return 0;
+    }
 }
