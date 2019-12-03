@@ -1,5 +1,7 @@
 package com.observatorioMirim.api.models.entrada;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
@@ -112,24 +114,31 @@ public class Entrada implements Serializable {
         entradaItems.add(entradaItem);
     }
 
-    public static Entrada generateEntrada(MainActivity mainActivity){
-        Entrada entrada = new Entrada();
+    public void addEntradaAluno(EntradaAluno entradaAluno){
+        entradaAlunos.add(entradaAluno);
+    }
 
-        int idConta = Shared.getInt(mainActivity, "idConta");
-        int idEscola = Shared.getInt(mainActivity, "idEscola");
+    public static Entrada generateEntrada(Context context, EntradaDto entradaDto){
+        Entrada entrada = new Entrada(entradaDto);
 
-        List<ProdutoDto> produtos = ProdutoDtoDB.list(mainActivity);
+
+        List<ProdutoDto> produtos = ProdutoDtoDB.listByEntrada(context, entradaDto.getId());
         produtos.forEach( p -> {
             EntradaItem item = new EntradaItem(p);
-            item.setIdConta(idConta);
-            item.setIdEscola(idEscola);
+            item.setIdConta(entrada.getIdConta());
+            item.setIdEscola(entrada.getIdEscola());
 
             entrada.addEntradaItem(item);
         });
 
-        entrada.setIdSaida(produtos.get(0).getIdEntrada());
-        entrada.setIdConta(idConta);
-        entrada.setIdEscola(idEscola);
+        List<EntradaAlunoDto> alunos = EntradaAlunoDtoDB.listByEntrada(context, entradaDto.getId());
+        alunos.forEach( a -> {
+            EntradaAluno item = new EntradaAluno(a);
+            item.setIdConta(entrada.getIdConta());
+            item.setIdEscola(entrada.getIdEscola());
+
+            entrada.addEntradaAluno(item);
+        });
 
         return entrada;
     }
