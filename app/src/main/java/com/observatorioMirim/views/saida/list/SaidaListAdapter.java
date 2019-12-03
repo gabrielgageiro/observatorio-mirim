@@ -10,9 +10,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.observatorioMirim.R;
+import com.observatorioMirim.api.models.entrada.EntradaDto;
+import com.observatorioMirim.api.models.entrada.EntradaDtoDB;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
+import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 import com.observatorioMirim.api.models.saida.Saida;
+import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
 
 import java.time.LocalDate;
@@ -44,9 +48,19 @@ public class SaidaListAdapter extends ArrayAdapter<Saida> {
 
         view.setOnClickListener(o -> {
 
-            ArrayList<ProdutoDto> produtos = new ArrayList<>();
+            EntradaDto entradaDto = new EntradaDto(saida);
 
-            saida.getSaidaItemList().forEach( s -> produtos.add(new ProdutoDto(s)));
+            EntradaDtoDB.save(context, entradaDto);
+            int entradaId = entradaDto.getId();
+            Shared.putInt(context, "entradaAtual", entradaId);
+
+            ArrayList<ProdutoDto> produtos = new ArrayList<>();
+            saida.getSaidaItemList().forEach( s -> {
+                ProdutoDto dto = new ProdutoDto(s);
+                dto.setIdEntrada(entradaId);
+                ProdutoDtoDB.save(context, dto);
+                produtos.add(dto);
+            });
 
             ProdutoDtoCache.setCache(produtos);
 
