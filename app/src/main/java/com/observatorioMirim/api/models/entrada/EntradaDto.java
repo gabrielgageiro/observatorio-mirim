@@ -1,5 +1,7 @@
 package com.observatorioMirim.api.models.entrada;
 
+import com.observatorioMirim.api.models.saida.Saida;
+
 public class EntradaDto {
 
     private Integer id;
@@ -8,6 +10,14 @@ public class EntradaDto {
     private Integer idSaida;
     private String observacao;
     private boolean finalizada = false;
+
+    public EntradaDto() {}
+
+    public EntradaDto(Saida saida) {
+        this.idEscola = saida.getIdEscola();
+        this.idConta = saida.getIdConta();
+        this.idSaida = saida.getId();
+    }
 
     public Integer getId() {
         return id;
