@@ -2,6 +2,8 @@ package com.observatorioMirim.api.models.entrada;
 
 import com.observatorioMirim.api.models.saida.Saida;
 
+import java.time.LocalDate;
+
 public class EntradaDto {
 
     private Integer id;
@@ -10,6 +12,7 @@ public class EntradaDto {
     private Integer idSaida;
     private String observacao;
     private boolean finalizada = false;
+    private LocalDate data;
 
     public EntradaDto() {}
 
@@ -65,6 +68,14 @@ public class EntradaDto {
 
     public void setFinalizada(boolean finalizada) {
         this.finalizada = finalizada;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public boolean isNew(){

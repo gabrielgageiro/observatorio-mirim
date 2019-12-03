@@ -6,6 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 public final class EntradaDtoDB extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "observatorio_mirirm";
@@ -18,6 +24,7 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
     private static final String COLUNA_ID_SAIDA = "id_saida";
     private static final String COLUNA_OBSERVACAO = "observacao";
     private static final String COLUNA_FINALIZADA = "finalizada";
+    private static final String COLUNA_DATA = "data";
 
     public EntradaDtoDB(Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -31,7 +38,8 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
                 + COLUNA_ID_ESCOLA + " integer,"
                 + COLUNA_ID_SAIDA + " integer,"
                 + COLUNA_OBSERVACAO + " text,"
-                + COLUNA_FINALIZADA + " integer"
+                + COLUNA_FINALIZADA + " integer,"
+                + COLUNA_DATA + " text"
                 +")";
 
         sqLiteDatabase.execSQL(sql);
@@ -51,6 +59,7 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         valores.put(COLUNA_ID_SAIDA, entradaDto.getIdSaida());
         valores.put(COLUNA_OBSERVACAO, entradaDto.getObservacao());
         valores.put(COLUNA_FINALIZADA, entradaDto.isFinalizada());
+        valores.put(COLUNA_DATA, LocalDate.now().toString());
         long id = db.insert(TABELA, null, valores);
         db.close();
 
@@ -103,9 +112,12 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
             entradaDto.setObservacao(cursor.getString(4));
             entradaDto.setFinalizada("1".equals(cursor.getString(5)));
 
+            db.close();
+
             return entradaDto;
         }
 
+        db.close();
         return null;
     }
 }
