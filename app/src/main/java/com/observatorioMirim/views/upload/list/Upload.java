@@ -7,7 +7,7 @@ import com.observatorioMirim.utils.AbstractFragment;
 
 public class Upload {
 
-    private static final String TITULO = "Entradas";
+    private static final String TITULO = "Sincronizar";
 
     public static void open(@NonNull final AppCompatActivity activity){
         AbstractFragment.openFragmentFromActivity(activity, UploadFragment.newInstance(), TITULO, "UploadFragment");
