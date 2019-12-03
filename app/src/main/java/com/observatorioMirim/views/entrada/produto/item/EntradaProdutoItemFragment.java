@@ -46,15 +46,12 @@ public class EntradaProdutoItemFragment extends Fragment {
         ProdutoDto produto = (ProdutoDto) getArguments().getSerializable("produto");
 
         View view = inflater.inflate(R.layout.fragment_item_produto, container, false);
-
-        //get the spinner from the xml.
         Spinner dropdown = view.findViewById(R.id.spinner1);
-//create a list of items for the spinner.
+
         UnidadeProduto[] items = UnidadeProduto.values();
-//create an adapter to describe how the items are displayed, adapters are used in several places in android.
-//There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<UnidadeProduto> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
-//set the spinners adapter to the previously created one.
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         dropdown.setAdapter(adapter);
 
         textViewNome = view.findViewById(R.id.entrada_produto_item_nome);
