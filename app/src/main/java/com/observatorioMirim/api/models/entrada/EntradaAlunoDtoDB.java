@@ -16,6 +16,7 @@ public final class EntradaAlunoDtoDB extends SQLiteOpenHelper {
 
     private static final String TABELA = "alunos_dto";
     private static final String COLUNA_ID = "id";
+    private static final String COLUNA_ID_ENTRADA = "id_entrada";
     private static final String COLUNA_NOME = "nome";
 
     public EntradaAlunoDtoDB(Context context) {
@@ -26,6 +27,7 @@ public final class EntradaAlunoDtoDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String sql = "CREATE TABLE " + TABELA + " ("
                 + COLUNA_ID + " integer primary key autoincrement,"
+                + COLUNA_ID_ENTRADA + " integer,"
                 + COLUNA_NOME + " text"
                 +")";
 
@@ -45,6 +47,7 @@ public final class EntradaAlunoDtoDB extends SQLiteOpenHelper {
 
         for(EntradaAlunoDto a : alunos){
             valores = new ContentValues();
+            valores.put(COLUNA_ID_ENTRADA, a.getIdEntrada());
             valores.put(COLUNA_NOME, a.getNome());
 
             db.insert(TABELA, null, valores);
@@ -54,16 +57,18 @@ public final class EntradaAlunoDtoDB extends SQLiteOpenHelper {
 
     }
 
-    public static ArrayList<EntradaAlunoDto> list(Context context) {
+    public static ArrayList<EntradaAlunoDto> listByEntrada(Context context, Integer entradaId) {
         ArrayList<EntradaAlunoDto> alunos = new ArrayList<>();
 
         SQLiteDatabase db = new EntradaAlunoDtoDB(context).getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA, null);
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA + " WHERE " + COLUNA_ID_ENTRADA + " = " + entradaId, null);
 
         if (cursor.moveToFirst()) {
             do {
                 EntradaAlunoDto aluno = new EntradaAlunoDto();
-                aluno.setNome(cursor.getString(1));
+                aluno.setId(Integer.parseInt(cursor.getString(0)));
+                aluno.setIdEntrada(Integer.parseInt(cursor.getString(1)));
+                aluno.setNome(cursor.getString(2));
                 alunos.add(aluno);
             } while (cursor.moveToNext());
         }
