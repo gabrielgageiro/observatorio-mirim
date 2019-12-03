@@ -122,4 +122,37 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         db.close();
         return null;
     }
+
+    public static void deleteEntradasNaoFinalizadasAnteriores(Context context){ //Retorna os ids das entradas removidas
+        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUNA_ID + "," + COLUNA_DATA + " FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 0", null);
+
+        Set<Integer> ids = new HashSet<>();
+        LocalDate hoje = LocalDate.now();
+
+        if (cursor.moveToFirst()) {
+            do {
+                LocalDate data = LocalDate.parse(cursor.getString(1));
+
+                if(data != null && data.isBefore(hoje)){
+                    ids.add(Integer.parseInt(cursor.getString(0)));
+                }
+            }while (cursor.moveToNext());
+        }
+
+        ids.forEach( i -> {
+            delete(context, i);
+        });
+    }
+
+    public static Integer existeEntradaNaoFinalizada(Context context){ //Retorna o id da entrada não finalizada
+        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUNA_ID + " FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 0", null);
+
+        if (cursor.moveToFirst()) {
+            return Integer.parseInt(cursor.getString(0));
+        }
+
+        return null;
+    }
 }
