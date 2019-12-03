@@ -43,8 +43,7 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public static int insert(Context context, EntradaDto entradaDto){
-
+    public static void insert(Context context, EntradaDto entradaDto){
         SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put(COLUNA_ID_CONTA, entradaDto.getIdConta());
@@ -55,7 +54,7 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         long id = db.insert(TABELA, null, valores);
         db.close();
 
-        return (int) id;
+        entradaDto.setId((int) id);
     }
 
     public static void update(Context context, EntradaDto entradaDto){
