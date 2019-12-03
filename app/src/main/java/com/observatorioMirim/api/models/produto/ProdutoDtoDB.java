@@ -107,6 +107,22 @@ public final class ProdutoDtoDB extends SQLiteOpenHelper {
         }
     }
 
+    private static ProdutoDto cursorToProdutoDto(Cursor cursor){
+        ProdutoDto produtoDto = new ProdutoDto();
+        produtoDto.setId(Integer.parseInt(cursor.getString(0)));
+        produtoDto.setIdProduto(Integer.parseInt(cursor.getString(1)));
+        produtoDto.setIdEntrada(Integer.parseInt(cursor.getString(2)));
+        produtoDto.setNome(cursor.getString(3));
+        produtoDto.setMarca(cursor.getString(4));
+        produtoDto.setDataValidade(cursor.getString(5) != null ? LocalDate.parse(cursor.getString(5)) : null);
+        produtoDto.setQuantidade(cursor.getString(6) != null ? new BigDecimal(cursor.getString(6)) : null);
+        produtoDto.setUnidade(cursor.getString(7));
+        produtoDto.setObservacao(cursor.getString(8));
+        produtoDto.setEntrada(cursor.getString(9).equals("1"));
+
+        return produtoDto;
+    }
+
     public static ArrayList<ProdutoDto> list(Context context) {
         ArrayList<ProdutoDto> produtos = new ArrayList<>();
 
@@ -115,19 +131,22 @@ public final class ProdutoDtoDB extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                ProdutoDto produtoDto = new ProdutoDto();
-                produtoDto.setId(Integer.parseInt(cursor.getString(0)));
-                produtoDto.setIdProduto(Integer.parseInt(cursor.getString(1)));
-                produtoDto.setIdEntrada(Integer.parseInt(cursor.getString(2)));
-                produtoDto.setNome(cursor.getString(3));
-                produtoDto.setMarca(cursor.getString(4));
-                produtoDto.setDataValidade(cursor.getString(5) != null ? LocalDate.parse(cursor.getString(5)) : null);
-                produtoDto.setQuantidade(cursor.getString(6) != null ? new BigDecimal(cursor.getString(6)) : null);
-                produtoDto.setUnidade(cursor.getString(7));
-                produtoDto.setObservacao(cursor.getString(8));
-                produtoDto.setEntrada(cursor.getString(9).equals("1"));
+                produtos.add(cursorToProdutoDto(cursor));
+            } while (cursor.moveToNext());
+        }
 
-                produtos.add(produtoDto);
+        return produtos;
+    }
+
+    public static ArrayList<ProdutoDto> listByEntrada(Context context, Integer idEntrada) {
+        ArrayList<ProdutoDto> produtos = new ArrayList<>();
+
+        SQLiteDatabase db = new ProdutoDtoDB(context).getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA + " WHERE " + COLUNA_ID_ENTRADA + " = " + idEntrada, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                produtos.add(cursorToProdutoDto(cursor));
             } while (cursor.moveToNext());
         }
 
