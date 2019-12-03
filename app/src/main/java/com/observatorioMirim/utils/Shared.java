@@ -103,7 +103,7 @@ public class Shared {
      *          Chave a ser encontrada.
      * @return
      */
-    public static final int getInt(final Context context, final String key) {
+    public static final Integer getInt(final Context context, final String key) {
         return PreferenceManager.getDefaultSharedPreferences(context).getInt(key, 0);
     }
 
