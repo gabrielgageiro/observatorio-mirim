@@ -1,4 +1,4 @@
-package com.observatorioMirim.api.models.entrada;
+package com.observatorioMirim.api.models.entrada.item;
 
 import com.google.gson.annotations.SerializedName;
 import com.observatorioMirim.api.models.produto.ProdutoDto;

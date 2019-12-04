@@ -3,6 +3,10 @@ package com.observatorioMirim.api.models.entrada;
 import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAluno;
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDto;
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDB;
+import com.observatorioMirim.api.models.entrada.item.EntradaItem;
 import com.observatorioMirim.api.models.produto.ProdutoDto;
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 

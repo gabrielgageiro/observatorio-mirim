@@ -1,4 +1,4 @@
-package com.observatorioMirim.api.models.entrada;
+package com.observatorioMirim.api.models.entrada.aluno;
 
 import java.io.Serializable;
 

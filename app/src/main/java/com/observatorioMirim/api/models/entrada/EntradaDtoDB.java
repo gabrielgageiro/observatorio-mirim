@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDB;
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 import com.observatorioMirim.utils.Shared;
 
