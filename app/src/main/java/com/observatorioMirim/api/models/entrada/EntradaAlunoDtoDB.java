@@ -76,6 +76,14 @@ public final class EntradaAlunoDtoDB extends SQLiteOpenHelper {
         return alunos;
     }
 
+    public static void deleteByIdEntrada(Context context, int idEntrada){
+        String where = COLUNA_ID_ENTRADA + " = " + idEntrada;
+
+        SQLiteDatabase db = new EntradaAlunoDtoDB(context).getWritableDatabase();
+        db.delete(TABELA, where,null);
+        db.close();
+    }
+
     public static void deleteAll(Context context){
         SQLiteDatabase db = new EntradaAlunoDtoDB(context).getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA);
