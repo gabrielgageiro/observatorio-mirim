@@ -15,10 +15,10 @@ import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoListFragment;
 import com.observatorioMirim.views.saida.list.SaidaList;
-import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.upload.UploadFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.observatorioMirim.views.saida.list.SaidaListFragment;
+import com.observatorioMirim.views.upload.list.Upload;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemReselectedListener {
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 SaidaList.open(this);
                 break;
             case R.id.menu_sincronizar:
-                AbstractFragment.openFragmentFromActivity(this, UploadFragment.create());
+                Upload.open(this);
                 break;
         }
         return true;

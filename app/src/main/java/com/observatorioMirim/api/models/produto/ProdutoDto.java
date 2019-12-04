@@ -1,5 +1,7 @@
 package com.observatorioMirim.api.models.produto;
 
+import androidx.annotation.NonNull;
+
 import com.observatorioMirim.api.models.saida.SaidaItem;
 
 import java.io.Serializable;
@@ -109,5 +111,11 @@ public class ProdutoDto implements Serializable {
 
     public boolean isNew(){
         return id == null;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return nome;
     }
 }

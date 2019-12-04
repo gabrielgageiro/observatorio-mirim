@@ -19,10 +19,8 @@ public class EntradaAluno implements Serializable {
     public EntradaAluno() {
     }
 
-    public EntradaAluno(Integer idEscola, String nomeAluno, Integer idConta) {
-        this.idEscola = idEscola;
-        this.nomeAluno = nomeAluno;
-        this.idConta = idConta;
+    public EntradaAluno(EntradaAlunoDto entradaAlunoDto) {
+        this.nomeAluno = entradaAlunoDto.getNome();
     }
 
     public Integer getIdEscola() {

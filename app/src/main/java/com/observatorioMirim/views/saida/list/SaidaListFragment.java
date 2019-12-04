@@ -20,9 +20,9 @@ import com.observatorioMirim.LoginActivity;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.saida.Saida;
-import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
+import com.observatorioMirim.utils.AbstractFragment;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
@@ -36,12 +36,14 @@ public class SaidaListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
-        ((MainActivity) getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getBottomNavigationView().setVisibility(View.VISIBLE);
 
         saidas = (ArrayList<Saida>) getArguments().getSerializable("saidas");
 
         if (saidas.isEmpty()) {
-            return inflater.inflate(R.layout.fragment_list_saida_vazio, container, false);
+            AbstractFragment.openFragmentFromActivity(activity, SaidaVaziaListFragment.newInstance(),"Entradas");
+//            return inflater.inflate(R.layout.fragment_list_saida_vazio, container, false);
         }
 
         View view = inflater.inflate(R.layout.fragment_list_saida, container, false);

@@ -7,9 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.utils.Shared;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public final class EntradaDtoDB extends SQLiteOpenHelper {
@@ -54,8 +57,8 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
     public static void insert(Context context, EntradaDto entradaDto){
         SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
         ContentValues valores = new ContentValues();
-        valores.put(COLUNA_ID_CONTA, entradaDto.getIdConta());
-        valores.put(COLUNA_ID_ESCOLA, entradaDto.getIdEscola());
+        valores.put(COLUNA_ID_CONTA, Shared.getInt(context, "idConta"));
+        valores.put(COLUNA_ID_ESCOLA, Shared.getInt(context, "idEscola"));
         valores.put(COLUNA_ID_SAIDA, entradaDto.getIdSaida());
         valores.put(COLUNA_OBSERVACAO, entradaDto.getObservacao());
         valores.put(COLUNA_FINALIZADA, entradaDto.isFinalizada());
@@ -98,29 +101,33 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         db.close();
 
         ProdutoDtoDB.deleteByIdEntrada(context, id);
+        EntradaAlunoDtoDB.deleteByIdEntrada(context, id);
     }
 
-    public static EntradaDto getBySaida(Context context, int idSaida) {
+    public static List<EntradaDto> listAllPendentes(Context context) {
 
         SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA + " WHERE " + COLUNA_ID_SAIDA + " = " + idSaida, null);
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 1", null);
+
+        List<EntradaDto> entradas = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
-            EntradaDto entradaDto = new EntradaDto();
-            entradaDto.setId(Integer.parseInt(cursor.getString(0)));
-            entradaDto.setIdConta(Integer.parseInt(cursor.getString(1)));
-            entradaDto.setIdEscola(Integer.parseInt(cursor.getString(2)));
-            entradaDto.setIdSaida(Integer.parseInt(cursor.getString(3)));
-            entradaDto.setObservacao(cursor.getString(4));
-            entradaDto.setFinalizada("1".equals(cursor.getString(5)));
+            do{
+                EntradaDto entradaDto = new EntradaDto();
+                entradaDto.setId(Integer.parseInt(cursor.getString(0)));
+                entradaDto.setIdConta(Integer.parseInt(cursor.getString(1)));
+                entradaDto.setIdEscola(Integer.parseInt(cursor.getString(2)));
+                entradaDto.setIdSaida(Integer.parseInt(cursor.getString(3)));
+                entradaDto.setObservacao(cursor.getString(4));
+                entradaDto.setFinalizada("1".equals(cursor.getString(5)));
 
-            db.close();
+                entradas.add(entradaDto);
+            }while (cursor.moveToNext());
 
-            return entradaDto;
         }
 
         db.close();
-        return null;
+        return entradas;
     }
 
     public static void deleteEntradasNaoFinalizadasAnteriores(Context context){ //Retorna os ids das entradas removidas
@@ -154,5 +161,16 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         }
 
         return null;
+    }
+
+    public static int countSincronizacoesPendentes(Context context){ //Retorna o id da entrada não finalizada
+        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 1", null);
+
+        if (cursor.moveToFirst()) {
+            return Integer.parseInt(cursor.getString(0));
+        }
+
+        return 0;
     }
 }
