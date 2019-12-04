@@ -1,4 +1,4 @@
-package com.observatorioMirim.api.models.produto;
+package com.observatorioMirim.api.models.entrada.item;
 
 import com.observatorioMirim.api.models.saida.SaidaItem;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class ProdutoDto implements Serializable {
+public class EntradaItemDto implements Serializable {
 
     private Integer id; //Id no banco de dados local
     private Integer idProduto;
@@ -19,10 +19,10 @@ public class ProdutoDto implements Serializable {
     private String observacao;
     private boolean entrada = false;
 
-    public ProdutoDto() {
+    public EntradaItemDto() {
     }
 
-    public ProdutoDto (SaidaItem saidaItem){
+    public EntradaItemDto(SaidaItem saidaItem){
         this.idProduto = saidaItem.getIdProduto();
         this.nome = saidaItem.getProduto();
     }

@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.observatorioMirim.api.models.entrada.EntradaDtoDB;
-import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
-import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoCache;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                         sDialog.dismissWithAnimation();
 
-                        ProdutoDtoCache.setCache(ProdutoDtoDB.listByEntrada(this, entradaId));
+                        EntradaItemDtoCache.setCache(EntradaItemDtoDao.listByEntrada(this, entradaId));
 
                         EntradaProdutoList.open(this);
 

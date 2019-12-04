@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDB;
-import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 import com.observatorioMirim.utils.Shared;
 
 import java.time.LocalDate;
@@ -101,7 +101,7 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         db.delete(TABELA, where,null);
         db.close();
 
-        ProdutoDtoDB.deleteByIdEntrada(context, id);
+        EntradaItemDtoDao.deleteByIdEntrada(context, id);
         EntradaAlunoDtoDB.deleteByIdEntrada(context, id);
     }
 

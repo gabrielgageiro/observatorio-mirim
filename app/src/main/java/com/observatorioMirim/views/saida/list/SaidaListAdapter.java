@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.entrada.EntradaDto;
 import com.observatorioMirim.api.models.entrada.EntradaDtoDB;
-import com.observatorioMirim.api.models.produto.ProdutoDto;
-import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
-import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoCache;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 import com.observatorioMirim.api.models.saida.Saida;
 import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
@@ -54,15 +54,15 @@ public class SaidaListAdapter extends ArrayAdapter<Saida> {
             int entradaId = entradaDto.getId();
             Shared.putInt(context, "entradaAtual", entradaId);
 
-            ArrayList<ProdutoDto> produtos = new ArrayList<>();
+            ArrayList<EntradaItemDto> produtos = new ArrayList<>();
             saida.getSaidaItemList().forEach( s -> {
-                ProdutoDto dto = new ProdutoDto(s);
+                EntradaItemDto dto = new EntradaItemDto(s);
                 dto.setIdEntrada(entradaId);
-                ProdutoDtoDB.save(context, dto);
+                EntradaItemDtoDao.save(context, dto);
                 produtos.add(dto);
             });
 
-            ProdutoDtoCache.setCache(produtos);
+            EntradaItemDtoCache.setCache(produtos);
 
             EntradaProdutoList.open((AppCompatActivity) context);
         });

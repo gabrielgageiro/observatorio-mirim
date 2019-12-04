@@ -7,8 +7,8 @@ import com.observatorioMirim.api.models.entrada.aluno.EntradaAluno;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDto;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDB;
 import com.observatorioMirim.api.models.entrada.item.EntradaItem;
-import com.observatorioMirim.api.models.produto.ProdutoDto;
-import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -126,7 +126,7 @@ public class Entrada implements Serializable {
         Entrada entrada = new Entrada(entradaDto);
 
 
-        List<ProdutoDto> produtos = ProdutoDtoDB.listByEntrada(context, entradaDto.getId());
+        List<EntradaItemDto> produtos = EntradaItemDtoDao.listByEntrada(context, entradaDto.getId());
         produtos.forEach( p -> {
             EntradaItem item = new EntradaItem(p);
             item.setIdConta(entrada.getIdConta());

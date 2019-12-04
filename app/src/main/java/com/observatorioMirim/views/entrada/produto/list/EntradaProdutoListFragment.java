@@ -22,9 +22,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.API;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
 import com.observatorioMirim.api.models.produto.Produto;
-import com.observatorioMirim.api.models.produto.ProdutoDto;
-import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
 import com.observatorioMirim.cadastro.aluno.AlunoFragment;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.SweetUtils;
@@ -42,7 +41,7 @@ public class EntradaProdutoListFragment extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     public static final String TAG = "EntradaProdutoListFragment";
-    ArrayList<ProdutoDto> produtos;
+    ArrayList<EntradaItemDto> produtos;
     EntradaProdutoListAdapter saidaListAdapter;
     ListView listaProduto;
     Button buttonTerminei;
@@ -52,7 +51,7 @@ public class EntradaProdutoListFragment extends Fragment {
 
         MainActivity main = (MainActivity) getActivity();
         main.getBottomNavigationView().setVisibility(View.GONE);
-        produtos = (ArrayList<ProdutoDto>) getArguments().getSerializable("produtos");
+        produtos = (ArrayList<EntradaItemDto>) getArguments().getSerializable("produtos");
 
         View view = inflater.inflate(R.layout.fragment_list_produto, container, false);
         listaProduto = view.findViewById(R.id.list_produto);
@@ -63,7 +62,7 @@ public class EntradaProdutoListFragment extends Fragment {
 
         buttonTerminei.setOnClickListener(o-> {
             boolean possuiItemNaoLancado = false;
-            for (ProdutoDto p : produtos) {
+            for (EntradaItemDto p : produtos) {
                 if (!p.isEntrada()) {
                     possuiItemNaoLancado = true;
                     break;
@@ -83,10 +82,10 @@ public class EntradaProdutoListFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
                     if(response != null && response.body() != null && !response.body().isEmpty()){
-                        List<ProdutoDto> list = new ArrayList<>();
+                        List<EntradaItemDto> list = new ArrayList<>();
                         response.body().forEach(produto -> {
                             //TODO: Ver de onde vem os produtos.
-//                            list.add(new ProdutoDto(null, produto.getIdConta(), ));
+//                            list.add(new EntradaItemDto(null, produto.getIdConta(), ));
                         });
 
                     }
@@ -98,7 +97,7 @@ public class EntradaProdutoListFragment extends Fragment {
                     SweetUtils.cancelarLoaderNativo();
                 }
             }));
-            produtos = (ArrayList<ProdutoDto>) getArguments().getSerializable("produtos");
+            produtos = (ArrayList<EntradaItemDto>) getArguments().getSerializable("produtos");
             listaProduto.setAdapter(new EntradaProdutoListAdapter(getActivity(), produtos));
             refreshLayout.setRefreshing(false);
             //TODO BUSCAR OS NOVOS PRODUTOS
@@ -119,7 +118,7 @@ public class EntradaProdutoListFragment extends Fragment {
         MenuItem addProdutoItem = menu.findItem(R.id.add_novo_produto);
 
         addProdutoItem.setOnMenuItemClickListener(item -> {
-            EntradaProdutoItem.open((AppCompatActivity) getContext(), new ProdutoDto());
+            EntradaProdutoItem.open((AppCompatActivity) getContext(), new EntradaItemDto());
         return true;
         });
     }
@@ -144,9 +143,9 @@ public class EntradaProdutoListFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String query) {
                 query = query.toLowerCase();
-                final List<ProdutoDto> filtro = new ArrayList<>();
+                final List<EntradaItemDto> filtro = new ArrayList<>();
 
-                for (ProdutoDto p : produtos) {
+                for (EntradaItemDto p : produtos) {
                     String text = p.getNome().toLowerCase();
 
                     if (text.contains(query)) {
@@ -170,7 +169,7 @@ public class EntradaProdutoListFragment extends Fragment {
         main.getSupportActionBar().setTitle("Entradas");
     }
 
-    public static EntradaProdutoListFragment newInstance(final ArrayList<ProdutoDto> produtos) {
+    public static EntradaProdutoListFragment newInstance(final ArrayList<EntradaItemDto> produtos) {
 
         EntradaProdutoListFragment entradaProdutoListFragment = new EntradaProdutoListFragment();
 
