@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.observatorioMirim.api.models.entrada.EntradaDtoDB;
+import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoCache;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 import com.observatorioMirim.utils.Shared;
@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         initBottomNavigationBar();
 
         //Limpa tudo que é antigo
-        EntradaDtoDB.deleteEntradasNaoFinalizadasAnteriores(this);
+        EntradaDtoDao.deleteEntradasNaoFinalizadasAnteriores(this);
 
         //Verifica se tem algo não finalizado
-        Integer entradaId = EntradaDtoDB.existeEntradaNaoFinalizada(this);
+        Integer entradaId = EntradaDtoDao.existeEntradaNaoFinalizada(this);
 
         if(entradaId != null){
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     }, (SweetAlertDialog sDialog) -> {
 
                         //Caso não queira continuar, limpa tudo que é incompleto
-                        EntradaDtoDB.delete(this, entradaId);
+                        EntradaDtoDao.delete(this, entradaId);
                         SaidaList.open(this);
 
                         sDialog.dismissWithAnimation();
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     SweetAlertDialog::dismissWithAnimation,
                     (SweetAlertDialog sDialog) -> {
                         //Cancela a entrada atual
-                        EntradaDtoDB.delete(this, Shared.getInt(this, "entradaAtual"));
+                        EntradaDtoDao.delete(this, Shared.getInt(this, "entradaAtual"));
                         Shared.putInt(this, "entradaAtual", -1);
 
                         SaidaList.open(this);

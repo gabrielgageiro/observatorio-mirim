@@ -15,7 +15,7 @@ import com.observatorioMirim.api.API;
 import com.observatorioMirim.api.models.RespostaEscola;
 import com.observatorioMirim.api.models.entrada.Entrada;
 import com.observatorioMirim.api.models.entrada.EntradaDto;
-import com.observatorioMirim.api.models.entrada.EntradaDtoDB;
+import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
 import com.observatorioMirim.utils.SweetUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -33,7 +33,7 @@ public class UploadFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
-        int total = EntradaDtoDB.countSincronizacoesPendentes(getActivity());
+        int total = EntradaDtoDao.countSincronizacoesPendentes(getActivity());
         if(total < 1){
             return inflater.inflate(R.layout.fragment_upload_vazio, container, false);
         }
@@ -46,7 +46,7 @@ public class UploadFragment extends Fragment {
         buttonSincronizar = view.findViewById(R.id.sincronizar);
         buttonSincronizar.setOnClickListener( o -> {
 
-            List<EntradaDto> entradaDtos = EntradaDtoDB.listAllPendentes(getActivity());
+            List<EntradaDto> entradaDtos = EntradaDtoDao.listAllPendentes(getActivity());
 
             for(EntradaDto e : entradaDtos){
                 Entrada entrada = Entrada.generateEntrada(getActivity(), e);
@@ -54,7 +54,7 @@ public class UploadFragment extends Fragment {
                 API.postEntrada(entrada, new Callback<RespostaEscola>() {
                     @Override
                     public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
-                        EntradaDtoDB.delete(getActivity(), e.getId());
+                        EntradaDtoDao.delete(getActivity(), e.getId());
                     }
 
                     @Override

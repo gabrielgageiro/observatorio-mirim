@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.entrada.EntradaDto;
-import com.observatorioMirim.api.models.entrada.EntradaDtoDB;
+import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoCache;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
@@ -50,7 +50,7 @@ public class SaidaListAdapter extends ArrayAdapter<Saida> {
 
             EntradaDto entradaDto = new EntradaDto(saida);
 
-            EntradaDtoDB.save(context, entradaDto);
+            EntradaDtoDao.save(context, entradaDto);
             int entradaId = entradaDto.getId();
             Shared.putInt(context, "entradaAtual", entradaId);
 
