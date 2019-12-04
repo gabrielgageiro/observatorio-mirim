@@ -12,9 +12,6 @@ import java.util.List;
 
 public final class EntradaAlunoDtoDao{
 
-    private static final String DB_NAME = "observatorio_mirirm";
-    private static final int VERSION = 1;
-
     private static final String TABELA = "alunos_dto";
     private static final String COLUNA_ID = "id";
     private static final String COLUNA_ID_ENTRADA = "id_entrada";
