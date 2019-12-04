@@ -15,7 +15,7 @@ public class EntradaItem implements Serializable {
     private Integer idProduto;
 
     @SerializedName("marca")
-    private Integer marca;
+    private String marca;
 
     @SerializedName("unidade")
     private String unidade;
@@ -40,6 +40,7 @@ public class EntradaItem implements Serializable {
 
     public EntradaItem(EntradaItemDto entradaItemDto) {
         this.idProduto = entradaItemDto.getIdProduto();
+        this.marca = entradaItemDto.getMarca();
         this.unidade = entradaItemDto.getUnidade();
         this.quantidade = entradaItemDto.getQuantidade();
         this.observacao = entradaItemDto.getObservacao();
@@ -54,11 +55,11 @@ public class EntradaItem implements Serializable {
         this.idEscola = idEscola;
     }
 
-    public Integer getMarca() {
+    public String getMarca() {
         return marca;
     }
 
-    public void setMarca(Integer marca) {
+    public void setMarca(String marca) {
         this.marca = marca;
     }
 
