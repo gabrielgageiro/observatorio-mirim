@@ -12,20 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
-import com.observatorioMirim.api.API;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
-import com.observatorioMirim.api.models.produto.Produto;
-import com.observatorioMirim.cadastro.aluno.AlunoFragment;
-import com.observatorioMirim.utils.AbstractFragment;
+import com.observatorioMirim.views.entrada.aluno.EntradaAluno;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.entrada.produto.item.EntradaProdutoItem;
 
@@ -33,9 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class EntradaProdutoListFragment extends Fragment {
     private SearchView searchView = null;
@@ -54,13 +46,15 @@ public class EntradaProdutoListFragment extends Fragment {
         produtos = (ArrayList<EntradaItemDto>) getArguments().getSerializable("produtos");
 
         View view = inflater.inflate(R.layout.fragment_list_produto, container, false);
-        listaProduto = view.findViewById(R.id.list_produto);
-        saidaListAdapter = new EntradaProdutoListAdapter(getActivity(), produtos);
-        listaProduto.setAdapter(saidaListAdapter);
-        setHasOptionsMenu(true);
-        buttonTerminei = view.findViewById(R.id.entrada_produto_item_dar_entrada);
 
-        buttonTerminei.setOnClickListener(o-> {
+        setHasOptionsMenu(true);
+
+        saidaListAdapter = new EntradaProdutoListAdapter(getActivity(), produtos);
+        listaProduto = view.findViewById(R.id.list_produto);
+        listaProduto.setAdapter(saidaListAdapter);
+
+        buttonTerminei = view.findViewById(R.id.entrada_produto_item_dar_entrada);
+        buttonTerminei.setOnClickListener(o -> {
             boolean possuiItemNaoLancado = false;
             for (EntradaItemDto p : produtos) {
                 if (!p.isEntrada()) {
@@ -71,7 +65,7 @@ public class EntradaProdutoListFragment extends Fragment {
             if(possuiItemNaoLancado){
                 SweetUtils.message(getContext(), "Atenção!", "Você possui produtos não lançados", SweetAlertDialog.WARNING_TYPE);
             } else {
-            AbstractFragment.openFragmentFromActivity(main, AlunoFragment.create(), "Alunos", AlunoFragment.TAG);
+                EntradaAluno.open((MainActivity) getActivity());
             }
         });
 

@@ -1,4 +1,4 @@
-package com.observatorioMirim.cadastro.aluno;
+package com.observatorioMirim.views.entrada.aluno;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,46 +14,37 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
-import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
-import com.observatorioMirim.utils.AbstractFragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
-public class AlunoFragment extends AbstractFragment {
-    public static final String TAG = "AlunosFragment";
+public class EntradaAlunoFragment extends Fragment {
+
     private AutoCompleteTextView autoCompleteTextView;
     private ChipGroup chipGroup;
     private Button botaoTerminei;
     private List<String> alunos = new ArrayList<>();
     private TextInputEditText textInputObservacao;
 
-    private AlunoFragment(Integer key, String titulo) {
-        super(key, titulo);
-    }
-
-    public static AlunoFragment create() {
-        return new AlunoFragment(R.layout.activity_aluno, "Entrada");
-    }
-
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.mainTagAutoCompleteTextView);
+
+        View view = inflater.inflate(R.layout.fragment_aluno, container, false);
+
+        autoCompleteTextView = view.findViewById(R.id.mainTagAutoCompleteTextView);
         chipGroup = view.findViewById(R.id.mainTagChipGroup);
-        loadTagsUi(autoCompleteTextView, chipGroup, new ArrayList<String>());
+        loadTagsUi(autoCompleteTextView, chipGroup, new ArrayList<>());
 
-        botaoTerminei = (Button) view.findViewById(R.id.botao_terminar_aluno);
-        textInputObservacao = (TextInputEditText) view.findViewById(R.id.aluno_observacao);
+        textInputObservacao = view.findViewById(R.id.aluno_observacao);
 
+        botaoTerminei = view.findViewById(R.id.botao_terminar_aluno);
         botaoTerminei.setOnClickListener(onClick -> {
             Toast.makeText(getContext(), "Vai para outra tela", Toast.LENGTH_LONG).show();
             for (int i = 0; i< chipGroup.getChildCount() ; i++){
@@ -109,15 +100,14 @@ public class AlunoFragment extends AbstractFragment {
         chip.setClickable(true);
         chip.setCloseIconVisible(true);
         chipGroup.addView(chip);
+        chip.setTextSize(22);
         chip.setOnCloseIconClickListener(o -> {
             chipGroup.removeView(chip);
             items.remove(nome);
         });
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Produtos");
+    public static EntradaAlunoFragment newInstance(){
+        return new EntradaAlunoFragment();
     }
 }
