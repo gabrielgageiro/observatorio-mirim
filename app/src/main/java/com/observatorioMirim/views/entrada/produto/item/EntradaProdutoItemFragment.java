@@ -38,13 +38,11 @@ import retrofit2.Response;
 
 public class EntradaProdutoItemFragment extends Fragment {
 
-    private TextView textViewNome;
     private TextInputEditText textInputMarca;
     private TextInputEditText textInputDiaValidade;
     private TextInputEditText textInputMesValidade;
     private TextInputEditText textInputAnoValidade;
     private TextInputEditText textInputQuantidade;
-    private TextInputEditText textInputUnidade;
     private TextInputEditText textInputObservacao;
     private Button buttonDarEntrada;
     private Button buttonCancelarEntrada;
@@ -60,7 +58,6 @@ public class EntradaProdutoItemFragment extends Fragment {
         textInputMesValidade = view.findViewById(R.id.entrada_produto_item_validade_mes);
         textInputAnoValidade = view.findViewById(R.id.entrada_produto_item_validade_ano);
         textInputQuantidade = view.findViewById(R.id.entrada_produto_item_quantidade);
-        textInputUnidade = view.findViewById(R.id.entrada_produto_item_unidade);
         textInputObservacao = view.findViewById(R.id.entrada_produto_item_observacao);
 
         Spinner spinnerUnidade = view.findViewById(R.id.spinner1);
@@ -72,6 +69,21 @@ public class EntradaProdutoItemFragment extends Fragment {
 
         if(produto != null){
             spinnerNome.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, Collections.singletonList(produto)));
+            textInputMarca.setText(produto.getMarca());
+            LocalDate dataValidade = produto.getDataValidade();
+
+//            if(dataValidade != null){
+//                textInputDiaValidade.setText(dataValidade.getDayOfMonth());
+//                textInputMesValidade.setText(dataValidade.getMonthValue());
+//                textInputAnoValidade.setText(dataValidade.getYear());
+//            }
+
+            textInputQuantidade.setText(produto.getQuantidade() != null ? produto.getQuantidade().toString() : "");
+            boolean b = produto.getUnidade() != null && !produto.getUnidade().isEmpty();
+            Toast.makeText(getContext(), String.valueOf(b), Toast.LENGTH_LONG).show();
+//            ArrayAdapter<UnidadeProduto> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, produto.getUnidade() != null && !produto.getUnidade().isEmpty() ? Collections.singletonList(UnidadeProduto.valueOf(produto.getUnidade())) : items);
+            spinnerUnidade.setAdapter(adapter);
+            textInputObservacao.setText(produto.getObservacao());
         } else {
             API.getProdutos(getContext(), new Callback<List<Produto>>() {
                 @Override
@@ -89,7 +101,6 @@ public class EntradaProdutoItemFragment extends Fragment {
         buttonDarEntrada = view.findViewById(R.id.entrada_produto_item_dar_entrada);
 
         buttonDarEntrada.setOnClickListener(o -> {
-
             try {
 
                 String marca = textInputMarca.getText().toString();
@@ -147,7 +158,7 @@ public class EntradaProdutoItemFragment extends Fragment {
                 }
 
                 String observacao = textInputObservacao.getText().toString();
-
+Toast.makeText(getContext(), dataValidade.toString(), Toast.LENGTH_LONG).show();
                 produto.setMarca(marca);
                 produto.setDataValidade(dataValidade);
                 produto.setQuantidade(quantidade);
@@ -160,7 +171,7 @@ public class EntradaProdutoItemFragment extends Fragment {
                 ProdutoDtoDB.save(main, produto);
                 EntradaProdutoList.open(main);
 
-                Toast.makeText(main, "Produto adicionado com sucesso!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(main, "Produto adicionado com sucesso!", Toast.LENGTH_LONG).show();
 
             }catch (Exception e){
                 SweetUtils.message(getActivity(), "Erro:", e.getMessage(), SweetAlertDialog.ERROR_TYPE);
