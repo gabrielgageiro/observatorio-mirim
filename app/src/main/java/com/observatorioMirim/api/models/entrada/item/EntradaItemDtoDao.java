@@ -25,7 +25,7 @@ public final class EntradaItemDtoDao {
     private static final String COLUNA_OBSERVACAO = "observacao";
     private static final String COLUNA_ENTRADA = "entrada";
 
-    public static String CREATE = "CREATE TABLE " + TABELA + " ("
+    public static final String CREATE = "CREATE TABLE " + TABELA + " ("
             + COLUNA_ID + " integer primary key autoincrement,"
             + COLUNA_ID_PRODUTO + " integer,"
             + COLUNA_ID_ENTRADA + " integer,"
@@ -38,7 +38,7 @@ public final class EntradaItemDtoDao {
             + COLUNA_ENTRADA + " integer"
             +")";
 
-    public static String DROP = "DROP TABLE IF EXISTS " + TABELA;
+    public static final String DROP = "DROP TABLE IF EXISTS " + TABELA;
 
     public static void insert(Context context, EntradaItemDto entradaItemDto){
         ContentValues valores;

@@ -3,7 +3,7 @@ package com.observatorioMirim.utils;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-public class DbGateway {
+public final class DbGateway {
 
     private static DbGateway gw;
     private SQLiteDatabase db;
