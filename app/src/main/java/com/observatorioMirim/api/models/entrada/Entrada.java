@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.gson.annotations.SerializedName;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAluno;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDto;
-import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDB;
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDao;
 import com.observatorioMirim.api.models.entrada.item.EntradaItem;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
@@ -135,7 +135,7 @@ public class Entrada implements Serializable {
             entrada.addEntradaItem(item);
         });
 
-        List<EntradaAlunoDto> alunos = EntradaAlunoDtoDB.listByEntrada(context, entradaDto.getId());
+        List<EntradaAlunoDto> alunos = EntradaAlunoDtoDao.listByEntrada(context, entradaDto.getId());
         alunos.forEach( a -> {
             EntradaAluno item = new EntradaAluno(a);
             item.setIdConta(entrada.getIdConta());
