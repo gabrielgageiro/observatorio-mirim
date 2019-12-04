@@ -4,9 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDao;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
+import com.observatorioMirim.utils.DbGateway;
 import com.observatorioMirim.utils.Shared;
 
 import java.time.LocalDate;
@@ -15,10 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class EntradaDtoDB extends SQLiteOpenHelper {
-
-    private static final String DB_NAME = "observatorio_mirirm";
-    private static final int VERSION = 1;
+public final class EntradaDtoDao {
 
     private static final String TABELA = "entradas_dto";
     private static final String COLUNA_ID = "id";
@@ -29,33 +27,20 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
     private static final String COLUNA_FINALIZADA = "finalizada";
     private static final String COLUNA_DATA = "data";
 
-    public EntradaDtoDB(Context context) {
-        super(context, DB_NAME, null, VERSION);
-    }
+    public static final String CREATE = "CREATE TABLE " + TABELA + " ("
+            + COLUNA_ID + " integer primary key autoincrement,"
+            + COLUNA_ID_CONTA + " integer,"
+            + COLUNA_ID_ESCOLA + " integer,"
+            + COLUNA_ID_SAIDA + " integer,"
+            + COLUNA_OBSERVACAO + " text,"
+            + COLUNA_FINALIZADA + " integer,"
+            + COLUNA_DATA + " text"
+            +")";
 
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE " + TABELA + " ("
-                + COLUNA_ID + " integer primary key autoincrement,"
-                + COLUNA_ID_CONTA + " integer,"
-                + COLUNA_ID_ESCOLA + " integer,"
-                + COLUNA_ID_SAIDA + " integer,"
-                + COLUNA_OBSERVACAO + " text,"
-                + COLUNA_FINALIZADA + " integer,"
-                + COLUNA_DATA + " text"
-                +")";
-
-        sqLiteDatabase.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABELA);
-        onCreate(sqLiteDatabase);
-    }
+    public static final String DROP = "DROP TABLE IF EXISTS " + TABELA;
 
     public static void insert(Context context, EntradaDto entradaDto){
-        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
         ContentValues valores = new ContentValues();
         valores.put(COLUNA_ID_CONTA, Shared.getInt(context, "idConta"));
         valores.put(COLUNA_ID_ESCOLA, Shared.getInt(context, "idEscola"));
@@ -64,13 +49,12 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         valores.put(COLUNA_FINALIZADA, entradaDto.isFinalizada());
         valores.put(COLUNA_DATA, LocalDate.now().toString());
         long id = db.insert(TABELA, null, valores);
-        db.close();
 
         entradaDto.setId((int) id);
     }
 
     public static void update(Context context, EntradaDto entradaDto){
-        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
 
         String where = COLUNA_ID + " = " + entradaDto.getId();
 
@@ -82,7 +66,6 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         valores.put(COLUNA_FINALIZADA, entradaDto.isFinalizada());
 
         db.update(TABELA, valores, where,null);
-        db.close();
     }
 
     public static void save(Context context, EntradaDto entradaDto){
@@ -96,17 +79,16 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
     public static void delete(Context context, int id){
         String where = COLUNA_ID + " = " + id;
 
-        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
         db.delete(TABELA, where,null);
-        db.close();
 
-        ProdutoDtoDB.deleteByIdEntrada(context, id);
-        EntradaAlunoDtoDB.deleteByIdEntrada(context, id);
+        EntradaItemDtoDao.deleteByIdEntrada(context, id);
+        EntradaAlunoDtoDao.deleteByIdEntrada(context, id);
     }
 
     public static List<EntradaDto> listAllPendentes(Context context) {
 
-        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
         Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 1", null);
 
         List<EntradaDto> entradas = new ArrayList<>();
@@ -126,12 +108,11 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
 
         }
 
-        db.close();
         return entradas;
     }
 
     public static void deleteEntradasNaoFinalizadasAnteriores(Context context){ //Retorna os ids das entradas removidas
-        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
         Cursor cursor = db.rawQuery("SELECT " + COLUNA_ID + "," + COLUNA_DATA + " FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 0", null);
 
         Set<Integer> ids = new HashSet<>();
@@ -153,7 +134,7 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
     }
 
     public static Integer existeEntradaNaoFinalizada(Context context){ //Retorna o id da entrada não finalizada
-        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
         Cursor cursor = db.rawQuery("SELECT " + COLUNA_ID + " FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 0", null);
 
         if (cursor.moveToFirst()) {
@@ -164,7 +145,7 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
     }
 
     public static int countSincronizacoesPendentes(Context context){ //Retorna o id da entrada não finalizada
-        SQLiteDatabase db = new EntradaDtoDB(context).getWritableDatabase();
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 1", null);
 
         if (cursor.moveToFirst()) {

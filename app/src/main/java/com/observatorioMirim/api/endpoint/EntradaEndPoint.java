@@ -2,9 +2,8 @@ package com.observatorioMirim.api.endpoint;
 
 import com.observatorioMirim.api.models.RespostaEscola;
 import com.observatorioMirim.api.models.entrada.Entrada;
-import com.observatorioMirim.api.models.entrada.EntradaAluno;
-import com.observatorioMirim.api.models.entrada.EntradaItem;
-import com.observatorioMirim.api.models.produto.Produto;
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAluno;
+import com.observatorioMirim.api.models.entrada.item.EntradaItem;
 
 import java.util.List;
 

@@ -43,7 +43,9 @@ public class SweetUtils {
     }
 
     public static void cancelarLoaderNativo(){
-        dialog.cancel();
+        if(dialog != null) {
+            dialog.cancel();
+        }
     }
 
     public static void confirmDialog(Context context, String titulo, String conteudo, String confirmText, String cancelText, SweetAlertDialog.OnSweetClickListener confirmClick, SweetAlertDialog.OnSweetClickListener cancelClick){

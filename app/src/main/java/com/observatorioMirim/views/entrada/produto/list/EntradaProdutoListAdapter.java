@@ -10,18 +10,18 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.observatorioMirim.R;
-import com.observatorioMirim.api.models.produto.ProdutoDto;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
 import com.observatorioMirim.views.entrada.produto.item.EntradaProdutoItem;
 
 import java.util.List;
 
-public class EntradaProdutoListAdapter extends ArrayAdapter<ProdutoDto> {
+public class EntradaProdutoListAdapter extends ArrayAdapter<EntradaItemDto> {
 
     private Context context;
-    private List<ProdutoDto> produtos;
+    private List<EntradaItemDto> produtos;
     private ImageView produtoMarcado;
 
-    public EntradaProdutoListAdapter(Context context, List<ProdutoDto> produtos) {
+    public EntradaProdutoListAdapter(Context context, List<EntradaItemDto> produtos) {
         super(context, 0, produtos);
         this.produtos = produtos;
         this.context = context;
@@ -30,7 +30,7 @@ public class EntradaProdutoListAdapter extends ArrayAdapter<ProdutoDto> {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        ProdutoDto produto = produtos.get(i);
+        EntradaItemDto produto = produtos.get(i);
 
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.list_item_produto, null);

@@ -17,14 +17,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.API;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 import com.observatorioMirim.api.models.produto.Produto;
-import com.observatorioMirim.api.models.produto.ProdutoDto;
-import com.observatorioMirim.api.models.produto.ProdutoDtoCache;
-import com.observatorioMirim.api.models.produto.ProdutoDtoDB;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.utils.UnidadeProduto;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
-import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoListFragment;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.math.BigDecimal;
@@ -49,7 +47,7 @@ public class EntradaProdutoItemFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        ProdutoDto produto = (ProdutoDto) getArguments().getSerializable("produto");
+        EntradaItemDto produto = (EntradaItemDto) getArguments().getSerializable("produto");
 
         View view = inflater.inflate(R.layout.fragment_item_produto, container, false);
 
@@ -168,7 +166,7 @@ Toast.makeText(getContext(), dataValidade.toString(), Toast.LENGTH_LONG).show();
 
                 MainActivity main = (MainActivity) getActivity();
 
-                ProdutoDtoDB.save(main, produto);
+                EntradaItemDtoDao.save(main, produto);
                 EntradaProdutoList.open(main);
 
 //                Toast.makeText(main, "Produto adicionado com sucesso!", Toast.LENGTH_LONG).show();
@@ -190,7 +188,7 @@ Toast.makeText(getContext(), dataValidade.toString(), Toast.LENGTH_LONG).show();
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("Produtos");
     }
 
-    public static EntradaProdutoItemFragment newInstance(final ProdutoDto produto){
+    public static EntradaProdutoItemFragment newInstance(final EntradaItemDto produto){
 
         EntradaProdutoItemFragment entradaProdutoListFragment = new EntradaProdutoItemFragment();
         Bundle args = new Bundle();

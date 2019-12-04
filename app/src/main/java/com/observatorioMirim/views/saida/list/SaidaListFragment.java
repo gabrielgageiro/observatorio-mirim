@@ -1,7 +1,12 @@
 package com.observatorioMirim.views.saida.list;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -11,17 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.observatorioMirim.LoginActivity;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.saida.Saida;
+import com.observatorioMirim.utils.SweetUtils;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.observatorioMirim.utils.AbstractFragment;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 
 public class SaidaListFragment extends Fragment {
     SwipeRefreshLayout refreshLayout;
     ArrayList<Saida> saidas;
     ListView listaSaida;
+    Group colaboradores;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -41,6 +51,8 @@ public class SaidaListFragment extends Fragment {
 
         SaidaListAdapter saidaListAdapter = new SaidaListAdapter(getActivity(), saidas);
         listaSaida.setAdapter(saidaListAdapter);
+
+        setHasOptionsMenu(true);
 
         refreshLayout = view.findViewById(R.id.swipe_refresh_saida);
         refreshLayout.setOnRefreshListener(() -> {
@@ -63,5 +75,31 @@ public class SaidaListFragment extends Fragment {
         saidaListFragment.setArguments(args);
 
         return saidaListFragment;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.buttons_entradas, menu);
+        initButtons(menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void initButtons(Menu menu) {
+        MenuItem colaboradores = menu.findItem(R.id.colaboradores);
+        MenuItem logout = menu.findItem(R.id.logout);
+
+        colaboradores.setOnMenuItemClickListener(item -> {
+            System.out.println("ksaokasoks");
+            return true;
+        });
+
+        logout.setOnMenuItemClickListener(item -> {
+            //perguntar se deseja deslogar
+            SweetUtils.confirmDialog(getContext(), "oi", "oi", "oi", "oi", (SweetAlertDialog sDialog) -> {}, (SweetAlertDialog sDialog) -> {});
+            //Shared.putBoolean(getContext(), "logarAutomaticamente", false);
+            //Intent it = new Intent(getContext(), LoginActivity.class);
+            //startActivity(it);
+            return true;
+        });
     }
 }
