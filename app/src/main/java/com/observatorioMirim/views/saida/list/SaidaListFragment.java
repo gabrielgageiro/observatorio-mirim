@@ -20,6 +20,7 @@ import com.observatorioMirim.LoginActivity;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.saida.Saida;
+import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.observatorioMirim.utils.AbstractFragment;
@@ -89,16 +90,19 @@ public class SaidaListFragment extends Fragment {
         MenuItem logout = menu.findItem(R.id.logout);
 
         colaboradores.setOnMenuItemClickListener(item -> {
-            System.out.println("ksaokasoks");
+            SweetUtils.message(getContext(), "Colaboradores","Aplicativo desenvolvido pelos alunos do curso de Ciência da Computação em conjunto ao curso de Ciências Contábeis.\n UNESC - 2019.", SweetAlertDialog.CUSTOM_IMAGE_TYPE);
             return true;
         });
 
         logout.setOnMenuItemClickListener(item -> {
-            //perguntar se deseja deslogar
-            SweetUtils.confirmDialog(getContext(), "oi", "oi", "oi", "oi", (SweetAlertDialog sDialog) -> {}, (SweetAlertDialog sDialog) -> {});
-            //Shared.putBoolean(getContext(), "logarAutomaticamente", false);
-            //Intent it = new Intent(getContext(), LoginActivity.class);
-            //startActivity(it);
+            SweetUtils.confirmDialog(getContext(), "Confirme sua ação", "Deseja realmente sair?", "Confirmar", "Cancelar",
+                    (SweetAlertDialog sDialog) -> {
+                        Shared.putBoolean(getContext(), "logarAutomaticamente", false);
+                        Intent it = new Intent(getContext(), LoginActivity.class);
+                        startActivity(it);
+                    },
+
+                    SweetAlertDialog::dismissWithAnimation);
             return true;
         });
     }
