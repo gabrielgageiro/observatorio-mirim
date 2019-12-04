@@ -10,8 +10,9 @@ public class EntradaAlunoDto implements Serializable {
 
     public EntradaAlunoDto() {}
 
-    public EntradaAlunoDto(String nome) {
+    public EntradaAlunoDto(String nome, Integer idEntrada) {
         this.nome = nome;
+        this.idEntrada = idEntrada;
     }
 
     public Integer getId() {
