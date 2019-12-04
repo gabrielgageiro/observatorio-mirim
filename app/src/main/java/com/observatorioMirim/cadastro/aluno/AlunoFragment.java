@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputEditText;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.utils.AbstractFragment;
@@ -28,24 +31,38 @@ public class AlunoFragment extends AbstractFragment {
     public static final String TAG = "AlunosFragment";
     private AutoCompleteTextView autoCompleteTextView;
     private ChipGroup chipGroup;
+    private Button botaoTerminei;
+    private List<String> alunos = new ArrayList<>();
+    private TextInputEditText textInputObservacao;
 
     private AlunoFragment(Integer key, String titulo) {
         super(key, titulo);
     }
 
     public static AlunoFragment create() {
-        return new AlunoFragment(R.layout.activity_entrada, "Entrada");
+        return new AlunoFragment(R.layout.activity_aluno, "Entrada");
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        /*Entry chip section*/
-
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.mainTagAutoCompleteTextView);
         chipGroup = view.findViewById(R.id.mainTagChipGroup);
         loadTagsUi(autoCompleteTextView, chipGroup, new ArrayList<String>());
+
+        botaoTerminei = (Button) view.findViewById(R.id.botao_terminar_aluno);
+        textInputObservacao = (TextInputEditText) view.findViewById(R.id.aluno_observacao);
+
+        botaoTerminei.setOnClickListener(onClick -> {
+            Toast.makeText(getContext(), "Vai para outra tela", Toast.LENGTH_LONG).show();
+            for (int i = 0; i< chipGroup.getChildCount() ; i++){
+                Chip chip = (Chip) chipGroup.getChildAt(i);
+                alunos.add(chip.getText().toString());
+            }
+            alunos.forEach(s-> System.out.println(s));
+        });
+
         return view;
     }
 
