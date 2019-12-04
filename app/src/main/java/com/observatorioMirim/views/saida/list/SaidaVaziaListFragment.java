@@ -17,10 +17,11 @@ import com.observatorioMirim.api.models.saida.Saida;
 import com.observatorioMirim.utils.AbstractFragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
-public class SaidaListFragment extends Fragment {
+public class SaidaVaziaListFragment extends Fragment {
     SwipeRefreshLayout refreshLayout;
-    ArrayList<Saida> saidas;
     ListView listaSaida;
 
     @Override
@@ -29,39 +30,21 @@ public class SaidaListFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         activity.getBottomNavigationView().setVisibility(View.VISIBLE);
 
-        saidas = (ArrayList<Saida>) getArguments().getSerializable("saidas");
-
-        if (saidas.isEmpty()) {
-            AbstractFragment.openFragmentFromActivity(activity, SaidaVaziaListFragment.newInstance(),"Entradas");
-//            return inflater.inflate(R.layout.fragment_list_saida_vazio, container, false);
-        }
-
-        View view = inflater.inflate(R.layout.fragment_list_saida, container, false);
-        listaSaida = view.findViewById(R.id.list_saida);
-
-        SaidaListAdapter saidaListAdapter = new SaidaListAdapter(getActivity(), saidas);
+        View view = inflater.inflate(R.layout.fragment_list_saida_vazio, container, false);
+        listaSaida = view.findViewById(R.id.list_saida_vazio);
+        SaidaVaziaListAdapter saidaListAdapter = new SaidaVaziaListAdapter(getActivity(), Collections.singletonList("s"));
         listaSaida.setAdapter(saidaListAdapter);
 
         refreshLayout = view.findViewById(R.id.swipe_refresh_saida);
         refreshLayout.setOnRefreshListener(() -> {
-            saidas = (ArrayList<Saida>) getArguments().getSerializable("saidas");
-
             SaidaList.open((MainActivity) getActivity());
-            listaSaida.setAdapter(new SaidaListAdapter(getActivity(), saidas));
             refreshLayout.setRefreshing(false);
         });
 
         return view;
     }
 
-    public static SaidaListFragment newInstance(final ArrayList<Saida> saidas) {
-
-        SaidaListFragment saidaListFragment = new SaidaListFragment();
-
-        Bundle args = new Bundle();
-        args.putSerializable("saidas", saidas);
-        saidaListFragment.setArguments(args);
-
-        return saidaListFragment;
+    public static SaidaVaziaListFragment newInstance() {
+        return new SaidaVaziaListFragment();
     }
 }
