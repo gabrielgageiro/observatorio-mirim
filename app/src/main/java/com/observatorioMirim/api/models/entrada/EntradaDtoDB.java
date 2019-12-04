@@ -101,6 +101,7 @@ public final class EntradaDtoDB extends SQLiteOpenHelper {
         db.close();
 
         ProdutoDtoDB.deleteByIdEntrada(context, id);
+        EntradaAlunoDtoDB.deleteByIdEntrada(context, id);
     }
 
     public static List<EntradaDto> listAllPendentes(Context context) {
