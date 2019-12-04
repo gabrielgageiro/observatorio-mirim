@@ -16,8 +16,10 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
+import com.observatorioMirim.api.API;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
+import com.observatorioMirim.api.models.produto.Produto;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.utils.UnidadeProduto;
 import com.observatorioMirim.views.entrada.produto.list.EntradaProdutoList;
@@ -25,6 +27,12 @@ import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EntradaProdutoItemFragment extends Fragment {
 
@@ -45,9 +53,6 @@ public class EntradaProdutoItemFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_item_produto, container, false);
 
-        textViewNome = view.findViewById(R.id.entrada_produto_item_nome);
-        textViewNome.setText(produto.getNome());
-
         textInputMarca = view.findViewById(R.id.entrada_produto_item_marca);
         textInputDiaValidade = view.findViewById(R.id.entrada_produto_item_validade_dia);
         textInputMesValidade = view.findViewById(R.id.entrada_produto_item_validade_mes);
@@ -61,22 +66,23 @@ public class EntradaProdutoItemFragment extends Fragment {
         ArrayAdapter<UnidadeProduto> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUnidade.setAdapter(adapter);
-//        Spinner spinnerNome = view.findViewById(R.id.spinner_entrada);
-//
-//        API.getProdutos(getContext(), new Callback<List<Produto>>() {
-//            @Override
-//            public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
-//                spinnerNome.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, response.body()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Produto>> call, Throwable t) {
-//
-//            }
-//        });
-//        spinnerNome.setOnItemClickListener((parent, view1, position, id) -> {});
+        Spinner spinnerNome = view.findViewById(R.id.spinner_entrada);
 
+        if(produto != null){
+            spinnerNome.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, Collections.singletonList(produto)));
+        } else {
+            API.getProdutos(getContext(), new Callback<List<Produto>>() {
+                @Override
+                public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
+                    spinnerNome.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, response.body()));
+                }
 
+                @Override
+                public void onFailure(Call<List<Produto>> call, Throwable t) {
+
+                }
+            });
+        }
 
         buttonDarEntrada = view.findViewById(R.id.entrada_produto_item_dar_entrada);
 
@@ -174,7 +180,6 @@ public class EntradaProdutoItemFragment extends Fragment {
     public static EntradaProdutoItemFragment newInstance(final EntradaItemDto produto){
 
         EntradaProdutoItemFragment entradaProdutoListFragment = new EntradaProdutoItemFragment();
-
         Bundle args = new Bundle();
         args.putSerializable("produto", produto);
         entradaProdutoListFragment.setArguments(args);

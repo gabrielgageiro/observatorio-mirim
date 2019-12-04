@@ -77,7 +77,6 @@ public class EntradaProdutoListFragment extends Fragment {
 
         SwipeRefreshLayout refreshLayout = view.findViewById(R.id.swipe_refresh_produto);
         refreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(getContext(), "DEU CERTO", Toast.LENGTH_LONG).show();
             API.getProdutos(getContext(), (new Callback<List<Produto>>() {
                 @Override
                 public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
@@ -115,11 +114,12 @@ public class EntradaProdutoListFragment extends Fragment {
     }
 
     private void initAdicionarNoVoProdutoButton(Menu menu) {
-        MenuItem addProdutoItem = menu.findItem(R.id.add_novo_produto);
+            MenuItem addProdutoItem = menu.findItem(R.id.add_novo_produto);
 
-        addProdutoItem.setOnMenuItemClickListener(item -> {
+            addProdutoItem.setOnMenuItemClickListener(item -> {
+
             EntradaProdutoItem.open((AppCompatActivity) getContext(), new EntradaItemDto());
-        return true;
+            return true;
         });
     }
 
