@@ -2,11 +2,10 @@ package com.observatorioMirim.api.models.entrada.item;
 
 import com.observatorioMirim.api.models.saida.SaidaItem;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class EntradaItemDto implements Serializable {
+public class EntradaItemDto {
 
     private Integer id; //Id no banco de dados local
     private Integer idProduto;
