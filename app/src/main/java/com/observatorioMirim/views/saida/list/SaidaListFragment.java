@@ -2,6 +2,8 @@ package com.observatorioMirim.views.saida.list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -39,6 +41,8 @@ public class SaidaListFragment extends Fragment {
         SaidaListAdapter saidaListAdapter = new SaidaListAdapter(getActivity(), saidas);
         listaSaida.setAdapter(saidaListAdapter);
 
+        setHasOptionsMenu(true);
+
         refreshLayout = view.findViewById(R.id.swipe_refresh_saida);
         refreshLayout.setOnRefreshListener(() -> {
             saidas = (ArrayList<Saida>) getArguments().getSerializable("saidas");
@@ -60,5 +64,11 @@ public class SaidaListFragment extends Fragment {
         saidaListFragment.setArguments(args);
 
         return saidaListFragment;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.buttons_entradas, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
