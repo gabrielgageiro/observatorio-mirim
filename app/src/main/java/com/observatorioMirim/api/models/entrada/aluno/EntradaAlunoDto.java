@@ -1,8 +1,6 @@
-package com.observatorioMirim.api.models.entrada;
+package com.observatorioMirim.api.models.entrada.aluno;
 
-import java.io.Serializable;
-
-public class EntradaAlunoDto implements Serializable {
+public class EntradaAlunoDto{
 
     private Integer id;
     private Integer idEntrada; //Id local da entrada

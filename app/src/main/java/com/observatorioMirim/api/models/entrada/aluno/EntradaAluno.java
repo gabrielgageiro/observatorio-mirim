@@ -1,9 +1,8 @@
-package com.observatorioMirim.api.models.entrada;
+package com.observatorioMirim.api.models.entrada.aluno;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 public class EntradaAluno implements Serializable {
 
