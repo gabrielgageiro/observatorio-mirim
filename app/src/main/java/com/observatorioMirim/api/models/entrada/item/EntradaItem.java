@@ -11,11 +11,11 @@ public class EntradaItem implements Serializable {
     @SerializedName("id_escola")
     private Integer idEscola;
 
-    @SerializedName("id_fornecedor")
-    private Integer idFornecedor;
-
     @SerializedName("id_produto")
     private Integer idProduto;
+
+    @SerializedName("marca")
+    private Integer marca;
 
     @SerializedName("unidade")
     private String unidade;
@@ -46,28 +46,6 @@ public class EntradaItem implements Serializable {
         this.prazoValidade = entradaItemDto.getDataValidade().toString();
     }
 
-    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, String prazoValidade, String foto, Integer idConta) {
-        this.idEscola = idEscola;
-        this.idFornecedor = idFornecedor;
-        this.idProduto = idProduto;
-        this.unidade = unidade;
-        this.quantidade = quantidade;
-        this.observacao = observacao;
-        this.prazoValidade = prazoValidade;
-        this.foto = foto;
-        this.idConta = idConta;
-    }
-
-    public EntradaItem(Integer idEscola, Integer idFornecedor, Integer idProduto, String unidade, BigDecimal quantidade, String observacao, Integer idConta) {
-        this.idEscola = idEscola;
-        this.idFornecedor = idFornecedor;
-        this.idProduto = idProduto;
-        this.unidade = unidade;
-        this.quantidade = quantidade;
-        this.observacao = observacao;
-        this.idConta = idConta;
-    }
-
     public Integer getIdEscola() {
         return idEscola;
     }
@@ -76,12 +54,12 @@ public class EntradaItem implements Serializable {
         this.idEscola = idEscola;
     }
 
-    public Integer getIdFornecedor() {
-        return idFornecedor;
+    public Integer getMarca() {
+        return marca;
     }
 
-    public void setIdFornecedor(Integer idFornecedor) {
-        this.idFornecedor = idFornecedor;
+    public void setMarca(Integer marca) {
+        this.marca = marca;
     }
 
     public Integer getIdProduto() {
