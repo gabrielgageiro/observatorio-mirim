@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:text="Informe os alunos que participaram da entrada:"
+        android:text="@string/desc_alunos_entrada"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -38,20 +38,20 @@
             android:layout_height="wrap_content"
             app:chipSpacingVertical="4dp" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="@string/desc_obs_entrada"
+            android:textSize="20sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/observacao"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -62,6 +62,15 @@
                 android:maxLines="20"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/botao_terminar_aluno"
             android:layout_width="match_parent"

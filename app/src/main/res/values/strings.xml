@@ -22,4 +22,6 @@
     <string name="terminei">Terminei</string>
     <string name="cancelar_entrada">Cancelar Entrada</string>
     <string name="informe_os_alunos">Alunos</string>
+    <string name="desc_alunos_entrada">Informe os alunos que participaram da entrada:</string>
+    <string name="desc_obs_entrada">Caso seja necessário, informe uma observação para a entrada:</string>
 </resources>
