@@ -34,7 +34,7 @@ public class UploadFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         int total = EntradaDtoDB.countSincronizacoesPendentes(getActivity());
-        if(total > 1){
+        if(total < 1){
             return inflater.inflate(R.layout.fragment_upload_vazio, container, false);
         }
 
