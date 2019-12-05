@@ -32,6 +32,7 @@ import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class EntradaAlunoFragment extends Fragment {
@@ -66,8 +67,12 @@ public class EntradaAlunoFragment extends Fragment {
         sincronizarEntradaDepois = view.findViewById(R.id.sincronizar_entrada_depois);
         sincronizarEntradaDepois.setOnClickListener(onClick -> {
             try {
+
+                List<String> alunosStr = validarAlunos(); //Validacao deve ocorre antes do update
+
                 int entradaId = updateEntrada();
-                saveNomeAlunos(entradaId);
+                saveNomeAlunos(alunosStr, entradaId);
+
                 Toast.makeText(getContext(), "Entrada finalizada com sucesso!", Toast.LENGTH_LONG).show();
                 SaidaList.open((MainActivity) getActivity());
             }catch (Exception e){
@@ -128,20 +133,33 @@ public class EntradaAlunoFragment extends Fragment {
         });
     }
 
-    private void saveNomeAlunos(int entradaId) throws Exception {
+    private List<String> validarAlunos() throws Exception {
 
-        List<EntradaAlunoDto> alunoDtos = new ArrayList<>();
+        List<String> alunosStr = new ArrayList<>();
 
         for (int i = 0; i< chipGroup.getChildCount() ; i++){
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            alunoDtos.add(new EntradaAlunoDto(chip.getText().toString(), entradaId));
+
+            String alunoStr = chip.getText().toString();
+
+            if(alunoStr.trim().isEmpty()){
+                throw new Exception("Nome de aluno não pode ser vazio!");
+            }else if(alunoStr.trim().length() > 1){
+                throw new Exception( alunoStr + " não é um nome válido!");
+            }
+
+            alunosStr.add(alunoStr);
         }
 
-        if(alunoDtos.isEmpty()){
+        if(alunosStr.isEmpty()){
             throw new Exception("Você precisa informar pelo menos um aluno!");
         }
 
-        EntradaAlunoDtoDao.insertAll(getActivity(), alunoDtos);
+        return alunosStr;
+    }
+
+    private void saveNomeAlunos(List<String> alunosStr, int entradaId) {
+        EntradaAlunoDtoDao.insertAll(getActivity(), alunosStr.stream().map( s -> new EntradaAlunoDto(s, entradaId)).collect(Collectors.toList()));
     }
 
     private int updateEntrada(){
