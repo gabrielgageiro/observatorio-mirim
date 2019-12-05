@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Escola> call, Throwable t) {
-                t.printStackTrace();
+                SweetUtils.message(LoginActivity.this, "Atenção!", "Erro ao conectar com o servidor.", SweetAlertDialog.ERROR_TYPE);
             }
         });
     }
