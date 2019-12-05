@@ -1,6 +1,9 @@
 package com.observatorioMirim.api.models.entrada;
 
+import android.content.Context;
+
 import com.observatorioMirim.api.models.saida.Saida;
+import com.observatorioMirim.utils.Shared;
 
 import java.time.LocalDate;
 
@@ -20,6 +23,10 @@ public class EntradaDto {
         this.idEscola = saida.getIdEscola();
         this.idConta = saida.getIdConta();
         this.idSaida = saida.getId();
+    }
+
+    public static EntradaDto getEntradaAtual(Context context){
+        return EntradaDtoDao.findById(context, Shared.getInt(context, "entradaAtual"));
     }
 
     public Integer getId() {

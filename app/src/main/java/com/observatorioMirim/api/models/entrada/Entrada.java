@@ -125,7 +125,6 @@ public class Entrada implements Serializable {
     public static Entrada generateEntrada(Context context, EntradaDto entradaDto){
         Entrada entrada = new Entrada(entradaDto);
 
-
         List<EntradaItemDto> produtos = EntradaItemDtoDao.listByEntrada(context, entradaDto.getId());
         produtos.forEach( p -> {
             EntradaItem item = new EntradaItem(p);

@@ -28,7 +28,6 @@ import com.observatorioMirim.api.models.entrada.EntradaDto;
 import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDto;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDao;
-import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.saida.list.SaidaList;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -49,6 +48,7 @@ public class EntradaAlunoFragment extends Fragment {
     private Button sincronizarEntradaAgora;
     private Button sincronizarEntradaDepois;
     private TextInputEditText textInputObservacao;
+    private boolean jaSalvo = false; //Indica se os dados já foram salvos
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,10 +64,21 @@ public class EntradaAlunoFragment extends Fragment {
         sincronizarEntradaAgora = view.findViewById(R.id.sincronizar_entrada_agora);
         sincronizarEntradaAgora.setOnClickListener(onClick -> {
             try {
+
+                SweetUtils.loaderNativo(getActivity(), "Sincronizando", "Aguarde enquanto a entrada é sincronizada.");
+
                 List<String> alunosStr = validarAlunos(); //Validacao deve ocorrer antes do update
 
-                EntradaDto entradaDto = updateEntrada();
-                saveNomeAlunos(alunosStr, entradaDto.getId());
+                EntradaDto entradaDto;
+
+                if(!jaSalvo){
+                    entradaDto = updateEntrada();
+                    saveNomeAlunos(alunosStr, entradaDto.getId());
+
+                    jaSalvo = true;
+                }else{
+                    entradaDto = EntradaDto.getEntradaAtual(getActivity());
+                }
 
                 Entrada entrada = Entrada.generateEntrada(getActivity(), entradaDto);
 
@@ -75,17 +86,20 @@ public class EntradaAlunoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
                         EntradaDtoDao.delete(getActivity(), entradaDto.getId());
+                        SweetUtils.cancelarLoaderNativo();
                         Toast.makeText(getContext(), "Entrada enviada com sucesso!", Toast.LENGTH_LONG).show();
                         SaidaList.open((MainActivity) getActivity());
                     }
 
                     @Override
                     public void onFailure(Call<RespostaEscola> call, Throwable t) {
+                        SweetUtils.cancelarLoaderNativo();
                         SweetUtils.message(getActivity(), "Erro", "Não foi possível sincronizar, verifique sua conexão com a internet.", SweetAlertDialog.ERROR_TYPE);
                     }
                 });
 
             }catch (Exception e){
+                SweetUtils.cancelarLoaderNativo();
                 SweetUtils.message(getActivity(), "Erro:", e.getMessage(), SweetAlertDialog.ERROR_TYPE);
             }
         });
@@ -189,14 +203,20 @@ public class EntradaAlunoFragment extends Fragment {
     }
 
     private EntradaDto updateEntrada(){
-        int idEntrada = Shared.getInt(getActivity(), "entradaAtual");
-
-        EntradaDto entradaDto = EntradaDtoDao.findById(getActivity(), idEntrada);
+        EntradaDto entradaDto = EntradaDto.getEntradaAtual(getActivity());
         entradaDto.setObservacao(textInputObservacao.getText().toString());
         entradaDto.setFinalizada(true);
         EntradaDtoDao.save(getActivity(), entradaDto);
 
         return entradaDto;
+    }
+
+    private boolean isJaSalvo() {
+        return jaSalvo;
+    }
+
+    private void setJaSalvo(boolean jaSalvo) {
+        this.jaSalvo = jaSalvo;
     }
 
     public static EntradaAlunoFragment newInstance(){
