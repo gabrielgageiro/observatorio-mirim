@@ -24,7 +24,7 @@
                     android:id="@+id/login_logo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/logo_morro_fumaca"
+                    android:src="@drawable/observatorio_logo_oficial"
                     android:layout_marginTop="80dp"
                     android:layout_marginBottom="15dp"/>
 
@@ -74,11 +74,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="LOGIN"
-                    android:background="@drawable/drawable_login"
+                    android:background="@drawable/drawable_button"
                     android:textColor="#fff"
                     android:layout_marginLeft="@android:dimen/notification_large_icon_width"
                     android:layout_marginRight="@android:dimen/notification_large_icon_width"
                     android:layout_marginTop="30sp"
+                    android:backgroundTint="@color/colorPrimary"
                     />
 
         </LinearLayout>
