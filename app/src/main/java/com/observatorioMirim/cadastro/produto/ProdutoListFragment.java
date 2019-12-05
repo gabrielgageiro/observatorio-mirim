@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
-import com.observatorioMirim.cadastro.aluno.AlunoFragment;
 import com.observatorioMirim.utils.AbstractFragment;
 import com.observatorioMirim.utils.ListFrament;
 

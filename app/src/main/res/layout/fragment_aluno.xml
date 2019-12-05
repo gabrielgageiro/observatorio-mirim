@@ -5,7 +5,17 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:padding="10dp"
     >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/desc_alunos_entrada"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +29,8 @@
             android:completionThreshold="1"
             android:hint="@string/informe_os_alunos"
             android:imeOptions="actionDone"
-            android:inputType="textCapWords" />
+            android:inputType="textCapWords"
+            android:textSize="22sp"/>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/mainTagChipGroup"
@@ -27,20 +38,20 @@
             android:layout_height="wrap_content"
             app:chipSpacingVertical="4dp" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="@string/desc_obs_entrada"
+            android:textSize="20sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/observacao"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -51,14 +62,31 @@
                 android:maxLines="20"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
         <Button
-            android:id="@+id/botao_terminar_aluno"
+            android:id="@+id/sincronizar_entrada_agora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
-            android:text="@string/terminei"
+            android:text="@string/sincronizar_agora"
             android:layout_gravity="bottom"
-            android:textColor="#fff" />
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/sincronizar_entrada_depois"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sincronizar_depois"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="bottom" />
 
     </LinearLayout>
 

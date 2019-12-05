@@ -76,6 +76,26 @@ public final class EntradaDtoDao {
         }
     }
 
+    public static EntradaDto findById(Context context, Integer id) {
+
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA + " WHERE " + COLUNA_ID + " = " + id, null);
+
+        if (cursor.moveToFirst()) {
+            EntradaDto entradaDto = new EntradaDto();
+            entradaDto.setId(Integer.parseInt(cursor.getString(0)));
+            entradaDto.setIdConta(Integer.parseInt(cursor.getString(1)));
+            entradaDto.setIdEscola(Integer.parseInt(cursor.getString(2)));
+            entradaDto.setIdSaida(Integer.parseInt(cursor.getString(3)));
+            entradaDto.setObservacao(cursor.getString(4));
+            entradaDto.setFinalizada("1".equals(cursor.getString(5)));
+
+            return entradaDto;
+        }
+
+        return null;
+    }
+
     public static void delete(Context context, int id){
         String where = COLUNA_ID + " = " + id;
 
