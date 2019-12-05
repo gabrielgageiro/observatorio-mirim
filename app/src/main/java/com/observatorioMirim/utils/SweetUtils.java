@@ -12,6 +12,8 @@ public class SweetUtils {
 
     private static ProgressDialog dialog;
     private static SweetAlertDialog dialogSweet;
+    private static final String ERROR_CONECTAR_INTERNET = "Não foi possível sincronizar, verifique sua conexão com a internet.";
+    private static final String ERROR_MESSAGE = "Erro";
 
     public static void message(Context context, String titulo, String conteudo, int typeSweetAlert){
         new SweetAlertDialog(context, typeSweetAlert)
@@ -57,5 +59,17 @@ public class SweetUtils {
                 .setCancelText(cancelText)
                 .setCancelClickListener(cancelClick)
                 .show();
+    }
+
+    public static void onErrorConnectionInternet(Context context){
+        new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText(ERROR_MESSAGE)
+                .setContentText(ERROR_CONECTAR_INTERNET)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                }).show();
     }
 }
