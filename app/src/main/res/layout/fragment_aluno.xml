@@ -72,13 +72,21 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/botao_terminar_aluno"
+            android:id="@+id/sincronizar_entrada_agora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
-            android:text="@string/terminei"
+            android:text="@string/sincronizar_agora"
             android:layout_gravity="bottom"
-            android:textColor="#fff" />
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/sincronizar_entrada_depois"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sincronizar_depois"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="bottom" />
 
     </LinearLayout>
 

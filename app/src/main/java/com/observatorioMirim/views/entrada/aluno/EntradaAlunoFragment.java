@@ -19,7 +19,16 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
+import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
+import com.observatorioMirim.api.models.entrada.EntradaDto;
+import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDto;
+import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDao;
+import com.observatorioMirim.utils.Shared;
+import com.observatorioMirim.utils.SweetUtils;
+import com.observatorioMirim.views.saida.list.SaidaList;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +38,8 @@ public class EntradaAlunoFragment extends Fragment {
 
     private AutoCompleteTextView autoCompleteTextView;
     private ChipGroup chipGroup;
-    private Button botaoTerminei;
-    private List<String> alunos = new ArrayList<>();
+    private Button sincronizarEntradaAgora;
+    private Button sincronizarEntradaDepois;
     private TextInputEditText textInputObservacao;
 
     @Override
@@ -44,14 +53,26 @@ public class EntradaAlunoFragment extends Fragment {
 
         textInputObservacao = view.findViewById(R.id.aluno_observacao);
 
-        botaoTerminei = view.findViewById(R.id.botao_terminar_aluno);
-        botaoTerminei.setOnClickListener(onClick -> {
-            Toast.makeText(getContext(), "Vai para outra tela", Toast.LENGTH_LONG).show();
-            for (int i = 0; i< chipGroup.getChildCount() ; i++){
-                Chip chip = (Chip) chipGroup.getChildAt(i);
-                alunos.add(chip.getText().toString());
+        sincronizarEntradaAgora = view.findViewById(R.id.sincronizar_entrada_agora);
+        sincronizarEntradaAgora.setOnClickListener(onClick -> {
+//            Toast.makeText(getContext(), "Vai para outra tela", Toast.LENGTH_LONG).show();
+//            for (int i = 0; i< chipGroup.getChildCount() ; i++){
+//                Chip chip = (Chip) chipGroup.getChildAt(i);
+//                alunos.add(chip.getText().toString());
+//            }
+//            alunos.forEach(s-> System.out.println(s));
+        });
+
+        sincronizarEntradaDepois = view.findViewById(R.id.sincronizar_entrada_depois);
+        sincronizarEntradaDepois.setOnClickListener(onClick -> {
+            try {
+                int entradaId = updateEntrada();
+                saveNomeAlunos(entradaId);
+                Toast.makeText(getContext(), "Entrada finalizada com sucesso!", Toast.LENGTH_LONG).show();
+                SaidaList.open((MainActivity) getActivity());
+            }catch (Exception e){
+                SweetUtils.message(getActivity(), "Erro:", e.getMessage(), SweetAlertDialog.ERROR_TYPE);
             }
-            alunos.forEach(s-> System.out.println(s));
         });
 
         return view;
@@ -105,6 +126,33 @@ public class EntradaAlunoFragment extends Fragment {
             chipGroup.removeView(chip);
             items.remove(nome);
         });
+    }
+
+    private void saveNomeAlunos(int entradaId) throws Exception {
+
+        List<EntradaAlunoDto> alunoDtos = new ArrayList<>();
+
+        for (int i = 0; i< chipGroup.getChildCount() ; i++){
+            Chip chip = (Chip) chipGroup.getChildAt(i);
+            alunoDtos.add(new EntradaAlunoDto(chip.getText().toString(), entradaId));
+        }
+
+        if(alunoDtos.isEmpty()){
+            throw new Exception("Você precisa informar pelo menos um aluno!");
+        }
+
+        EntradaAlunoDtoDao.insertAll(getActivity(), alunoDtos);
+    }
+
+    private int updateEntrada(){
+        int idEntrada = Shared.getInt(getActivity(), "entradaAtual");
+
+        EntradaDto entradaDto = EntradaDtoDao.findById(getActivity(), idEntrada);
+        entradaDto.setObservacao(textInputObservacao.getText().toString());
+        entradaDto.setFinalizada(true);
+        EntradaDtoDao.save(getActivity(), entradaDto);
+
+        return idEntrada;
     }
 
     public static EntradaAlunoFragment newInstance(){
