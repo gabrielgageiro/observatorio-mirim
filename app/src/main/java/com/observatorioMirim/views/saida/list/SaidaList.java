@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.observatorioMirim.api.API;
 import com.observatorioMirim.api.models.saida.Saida;
 import com.observatorioMirim.utils.AbstractFragment;
+import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public class SaidaList {
     public static void open(@NonNull final AppCompatActivity activity){
 
         SweetUtils.loaderNativo(activity, "Aguarde", "Carregando as entradas do dia.");
+
+        Shared.putInt(activity, "entradaAtual", -1);
 
         API.getSaidasHoje(new Callback<List<Saida>>() {
             @Override
