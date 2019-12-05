@@ -55,12 +55,6 @@ public class EntradaAlunoFragment extends Fragment {
 
         sincronizarEntradaAgora = view.findViewById(R.id.sincronizar_entrada_agora);
         sincronizarEntradaAgora.setOnClickListener(onClick -> {
-//            Toast.makeText(getContext(), "Vai para outra tela", Toast.LENGTH_LONG).show();
-//            for (int i = 0; i< chipGroup.getChildCount() ; i++){
-//                Chip chip = (Chip) chipGroup.getChildAt(i);
-//                alunos.add(chip.getText().toString());
-//            }
-//            alunos.forEach(s-> System.out.println(s));
         });
 
         sincronizarEntradaDepois = view.findViewById(R.id.sincronizar_entrada_depois);

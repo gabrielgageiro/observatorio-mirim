@@ -58,6 +58,7 @@ public final class EntradaItemDtoDao {
         long id = db.insert(TABELA, null, valores);
 
         entradaItemDto.setId((int) id);
+        EntradaItemDtoCache.addCache(entradaItemDto);
     }
 
     public static void update(Context context, EntradaItemDto entradaItemDto){
