@@ -75,33 +75,6 @@ public class EntradaProdutoListFragment extends Fragment {
             }
         });
 
-        SwipeRefreshLayout refreshLayout = view.findViewById(R.id.swipe_refresh_produto);
-        refreshLayout.setOnRefreshListener(() -> {
-            API.getProdutos(getContext(), (new Callback<List<Produto>>() {
-                @Override
-                public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
-                    if(response != null && response.body() != null && !response.body().isEmpty()){
-                        List<EntradaItemDto> list = new ArrayList<>();
-                        response.body().forEach(produto -> {
-                            //TODO: Ver de onde vem os produtos.
-//                            list.add(new EntradaItemDto(null, produto.getIdConta(), ));
-                        });
-
-                    }
-                    SweetUtils.cancelarLoaderNativo();
-                }
-
-                @Override
-                public void onFailure(Call<List<Produto>> call, Throwable t) {
-                    SweetUtils.cancelarLoaderNativo();
-                }
-            }));
-            produtos = (ArrayList<EntradaItemDto>) getArguments().getSerializable("produtos");
-            listaProduto.setAdapter(new EntradaProdutoListAdapter(getActivity(), produtos));
-            refreshLayout.setRefreshing(false);
-            //TODO BUSCAR OS NOVOS PRODUTOS
-        });
-
         return view;
     }
 
