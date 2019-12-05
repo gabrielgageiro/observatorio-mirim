@@ -75,9 +75,6 @@ public class EntradaProdutoItemFragment extends Fragment {
             LocalDate dataValidade = produto.getDataValidade();
 
             if(dataValidade != null){
-                System.out.println(dataValidade.getDayOfMonth());
-                System.out.println(dataValidade.getMonthValue());
-                System.out.println(dataValidade.getYear());
                 textInputDiaValidade.setText(String.valueOf(dataValidade.getDayOfMonth()));
                 textInputMesValidade.setText(String.valueOf(dataValidade.getMonthValue()));
                 textInputAnoValidade.setText(String.valueOf(dataValidade.getYear()));
