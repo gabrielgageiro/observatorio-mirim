@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,8 +26,10 @@ import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +45,7 @@ public class EntradaProdutoItemFragment extends Fragment {
     private TextInputEditText textInputObservacao;
     private Button buttonDarEntrada;
     private Button buttonCancelarEntrada;
+    private ArrayAdapter<UnidadeProduto> adapter;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -60,33 +62,35 @@ public class EntradaProdutoItemFragment extends Fragment {
 
         Spinner spinnerUnidade = view.findViewById(R.id.spinner1);
         UnidadeProduto[] items = UnidadeProduto.values();
-        ArrayAdapter<UnidadeProduto> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerUnidade.setAdapter(adapter);
+
         Spinner spinnerNome = view.findViewById(R.id.spinner_entrada);
 
         if(produto != null){
             spinnerNome.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, Collections.singletonList(produto)));
+
+            ArrayAdapter<UnidadeProduto> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, produto.getUnidade() != null ? Collections.singletonList(UnidadeProduto.valueOf(produto.getUnidade())) : Arrays.asList(items));
+            spinnerUnidade.setAdapter(adapter);
+
             textInputMarca.setText(produto.getMarca());
             LocalDate dataValidade = produto.getDataValidade();
 
-//            if(dataValidade != null){
-//                textInputDiaValidade.setText(dataValidade.getDayOfMonth());
-//                textInputMesValidade.setText(dataValidade.getMonthValue());
-//                textInputAnoValidade.setText(dataValidade.getYear());
-//            }
+            if(dataValidade != null){
+                textInputDiaValidade.setText(String.valueOf(dataValidade.getDayOfMonth()));
+                textInputMesValidade.setText(String.valueOf(dataValidade.getMonthValue()));
+                textInputAnoValidade.setText(String.valueOf(dataValidade.getYear()));
+            }
 
             textInputQuantidade.setText(produto.getQuantidade() != null ? produto.getQuantidade().toString() : "");
-            boolean b = produto.getUnidade() != null && !produto.getUnidade().isEmpty();
-            Toast.makeText(getContext(), String.valueOf(b), Toast.LENGTH_LONG).show();
-//            ArrayAdapter<UnidadeProduto> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, produto.getUnidade() != null && !produto.getUnidade().isEmpty() ? Collections.singletonList(UnidadeProduto.valueOf(produto.getUnidade())) : items);
-            spinnerUnidade.setAdapter(adapter);
+
             textInputObservacao.setText(produto.getObservacao());
         } else {
             API.getProdutos(getContext(), new Callback<List<Produto>>() {
                 @Override
                 public void onResponse(Call<List<Produto>> call, Response<List<Produto>> response) {
                     spinnerNome.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, response.body()));
+                    adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerUnidade.setAdapter(adapter);
                 }
 
                 @Override
@@ -150,26 +154,18 @@ public class EntradaProdutoItemFragment extends Fragment {
 
                 BigDecimal quantidade = new BigDecimal(quantidadeStr);
 
+                String nome = spinnerNome.getSelectedItem().toString();
                 String unidade = spinnerUnidade.getSelectedItem().toString();
                 if(unidade.isEmpty()){
                     throw new Exception("Informe a unidade.");
                 }
 
                 String observacao = textInputObservacao.getText().toString();
-Toast.makeText(getContext(), dataValidade.toString(), Toast.LENGTH_LONG).show();
-                produto.setMarca(marca);
-                produto.setDataValidade(dataValidade);
-                produto.setQuantidade(quantidade);
-                produto.setUnidade(unidade);
-                produto.setObservacao(observacao);
-                produto.setEntrada(true);
 
                 MainActivity main = (MainActivity) getActivity();
 
-                EntradaItemDtoDao.save(main, produto);
+                EntradaItemDtoDao.save(main, setValuesProduto(produto, nome, marca, dataValidade, quantidade, unidade, observacao, true));
                 EntradaProdutoList.open(main);
-
-//                Toast.makeText(main, "Produto adicionado com sucesso!", Toast.LENGTH_LONG).show();
 
             }catch (Exception e){
                 SweetUtils.message(getActivity(), "Erro:", e.getMessage(), SweetAlertDialog.ERROR_TYPE);
@@ -180,6 +176,21 @@ Toast.makeText(getContext(), dataValidade.toString(), Toast.LENGTH_LONG).show();
         buttonCancelarEntrada.setOnClickListener(o -> getActivity().getSupportFragmentManager().popBackStack());
 
         return view;
+    }
+
+    private EntradaItemDto setValuesProduto(EntradaItemDto produto, String nome, String marca, LocalDate dataValidade, BigDecimal quantidade, String unidade, String observacao, boolean b) {
+        if(produto == null){
+            produto = new EntradaItemDto();
+        }
+        produto.setNome(nome);
+        produto.setMarca(marca);
+        produto.setDataValidade(dataValidade);
+        produto.setQuantidade(quantidade);
+        produto.setUnidade(unidade);
+        produto.setObservacao(observacao);
+        produto.setEntrada(true);
+
+        return produto;
     }
 
     @Override

@@ -13,4 +13,8 @@ public final class EntradaItemDtoCache {
     public static void setCache(ArrayList<EntradaItemDto> cache) {
         EntradaItemDtoCache.cache = cache;
     }
+
+    public static void addCache(EntradaItemDto entradaItemDto) {
+        EntradaItemDtoCache.cache.add(entradaItemDto);
+    }
 }

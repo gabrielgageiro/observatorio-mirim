@@ -85,7 +85,7 @@ public class EntradaProdutoListFragment extends Fragment {
 
             addProdutoItem.setOnMenuItemClickListener(item -> {
 
-            EntradaProdutoItem.open((AppCompatActivity) getContext(), new EntradaItemDto());
+            EntradaProdutoItem.open((AppCompatActivity) getContext(), null); // necessario mandar null
             return true;
         });
     }
