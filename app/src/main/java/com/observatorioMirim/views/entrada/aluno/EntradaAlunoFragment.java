@@ -21,6 +21,9 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
+import com.observatorioMirim.api.API;
+import com.observatorioMirim.api.models.RespostaEscola;
+import com.observatorioMirim.api.models.entrada.Entrada;
 import com.observatorioMirim.api.models.entrada.EntradaDto;
 import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDto;
@@ -32,6 +35,11 @@ import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class EntradaAlunoFragment extends Fragment {
@@ -55,19 +63,42 @@ public class EntradaAlunoFragment extends Fragment {
 
         sincronizarEntradaAgora = view.findViewById(R.id.sincronizar_entrada_agora);
         sincronizarEntradaAgora.setOnClickListener(onClick -> {
-//            Toast.makeText(getContext(), "Vai para outra tela", Toast.LENGTH_LONG).show();
-//            for (int i = 0; i< chipGroup.getChildCount() ; i++){
-//                Chip chip = (Chip) chipGroup.getChildAt(i);
-//                alunos.add(chip.getText().toString());
-//            }
-//            alunos.forEach(s-> System.out.println(s));
+            try {
+                List<String> alunosStr = validarAlunos(); //Validacao deve ocorrer antes do update
+
+                EntradaDto entradaDto = updateEntrada();
+                saveNomeAlunos(alunosStr, entradaDto.getId());
+
+                Entrada entrada = Entrada.generateEntrada(getActivity(), entradaDto);
+
+                API.postEntrada(entrada, new Callback<RespostaEscola>() {
+                    @Override
+                    public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
+                        EntradaDtoDao.delete(getActivity(), entradaDto.getId());
+                        Toast.makeText(getContext(), "Entrada enviada com sucesso!", Toast.LENGTH_LONG).show();
+                        SaidaList.open((MainActivity) getActivity());
+                    }
+
+                    @Override
+                    public void onFailure(Call<RespostaEscola> call, Throwable t) {
+                        SweetUtils.message(getActivity(), "Erro", "Não foi possível sincronizar, verifique sua conexão com a internet.", SweetAlertDialog.ERROR_TYPE);
+                    }
+                });
+
+            }catch (Exception e){
+                SweetUtils.message(getActivity(), "Erro:", e.getMessage(), SweetAlertDialog.ERROR_TYPE);
+            }
         });
 
         sincronizarEntradaDepois = view.findViewById(R.id.sincronizar_entrada_depois);
         sincronizarEntradaDepois.setOnClickListener(onClick -> {
             try {
-                int entradaId = updateEntrada();
-                saveNomeAlunos(entradaId);
+
+                List<String> alunosStr = validarAlunos(); //Validacao deve ocorrer antes do update
+
+                int entradaId = updateEntrada().getId();
+                saveNomeAlunos(alunosStr, entradaId);
+
                 Toast.makeText(getContext(), "Entrada finalizada com sucesso!", Toast.LENGTH_LONG).show();
                 SaidaList.open((MainActivity) getActivity());
             }catch (Exception e){
@@ -128,23 +159,36 @@ public class EntradaAlunoFragment extends Fragment {
         });
     }
 
-    private void saveNomeAlunos(int entradaId) throws Exception {
+    private List<String> validarAlunos() throws Exception {
 
-        List<EntradaAlunoDto> alunoDtos = new ArrayList<>();
+        List<String> alunosStr = new ArrayList<>();
 
         for (int i = 0; i< chipGroup.getChildCount() ; i++){
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            alunoDtos.add(new EntradaAlunoDto(chip.getText().toString(), entradaId));
+
+            String alunoStr = chip.getText().toString();
+
+            if(alunoStr.trim().isEmpty()){
+                throw new Exception("Nome de aluno não pode ser vazio!");
+            }else if(alunoStr.trim().length() < 2){
+                throw new Exception( alunoStr + " não é um nome válido!");
+            }
+
+            alunosStr.add(alunoStr);
         }
 
-        if(alunoDtos.isEmpty()){
+        if(alunosStr.isEmpty()){
             throw new Exception("Você precisa informar pelo menos um aluno!");
         }
 
-        EntradaAlunoDtoDao.insertAll(getActivity(), alunoDtos);
+        return alunosStr;
     }
 
-    private int updateEntrada(){
+    private void saveNomeAlunos(List<String> alunosStr, int entradaId) {
+        EntradaAlunoDtoDao.insertAll(getActivity(), alunosStr.stream().map( s -> new EntradaAlunoDto(s, entradaId)).collect(Collectors.toList()));
+    }
+
+    private EntradaDto updateEntrada(){
         int idEntrada = Shared.getInt(getActivity(), "entradaAtual");
 
         EntradaDto entradaDto = EntradaDtoDao.findById(getActivity(), idEntrada);
@@ -152,7 +196,7 @@ public class EntradaAlunoFragment extends Fragment {
         entradaDto.setFinalizada(true);
         EntradaDtoDao.save(getActivity(), entradaDto);
 
-        return idEntrada;
+        return entradaDto;
     }
 
     public static EntradaAlunoFragment newInstance(){

@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 
 public enum UnidadeProduto {
 
-    UNIDADE( "Unidade"),
-    LITRO("Litro"),
+    Unidade( "Unidade"),
+    Litro("Litro"),
     ML("ML"),
-    KG("Kg"),
-    GR("Grama"),
-    CX("Caixa");
+    Kg("Kg"),
+    Grama("Grama"),
+    Caixa("Caixa");
 
     private String descricao;
 

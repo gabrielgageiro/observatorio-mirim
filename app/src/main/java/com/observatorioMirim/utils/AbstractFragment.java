@@ -64,7 +64,6 @@ public abstract class AbstractFragment extends Fragment {
 
     @Override
     public void onDetach() {
-//        ((MainActivity) getActivity()).getMenuVisibleState().setGroupVisible();
         ((MainActivity) getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
         super.onDetach();
     }
