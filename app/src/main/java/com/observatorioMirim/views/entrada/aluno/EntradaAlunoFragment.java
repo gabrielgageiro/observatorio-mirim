@@ -28,6 +28,8 @@ import com.observatorioMirim.api.models.entrada.EntradaDto;
 import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDto;
 import com.observatorioMirim.api.models.entrada.aluno.EntradaAlunoDtoDao;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
+import com.observatorioMirim.utils.Contexto;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.saida.list.SaidaList;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -77,7 +79,7 @@ public class EntradaAlunoFragment extends Fragment {
 
                     jaSalvo = true;
                 }else{
-                    entradaDto = EntradaDto.getEntradaAtual(getActivity());
+                    entradaDto = Contexto.getEntradaAtual(getActivity());
                 }
 
                 Entrada entrada = Entrada.generateEntrada(getActivity(), entradaDto);
@@ -85,7 +87,12 @@ public class EntradaAlunoFragment extends Fragment {
                 API.postEntrada(entrada, new Callback<RespostaEscola>() {
                     @Override
                     public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
-                        EntradaDtoDao.delete(getActivity(), entradaDto.getId());
+//                        EntradaDtoDao.delete(getActivity(), entradaDto.getId());
+                        EntradaItemDtoDao.listByEntrada(getActivity(), Contexto.getIdEntradaAtual(getActivity())).forEach( i -> {
+                            i.setUpload(true);
+                            i.setEntrada(false);
+                            EntradaItemDtoDao.save(getActivity(), i);
+                        });
                         SweetUtils.cancelarLoaderNativo();
                         Toast.makeText(getContext(), "Entrada enviada com sucesso!", Toast.LENGTH_LONG).show();
                         SaidaList.open((MainActivity) getActivity());
@@ -203,7 +210,7 @@ public class EntradaAlunoFragment extends Fragment {
     }
 
     private EntradaDto updateEntrada(){
-        EntradaDto entradaDto = EntradaDto.getEntradaAtual(getActivity());
+        EntradaDto entradaDto = Contexto.getEntradaAtual(getActivity());
         entradaDto.setObservacao(textInputObservacao.getText().toString());
         entradaDto.setFinalizada(true);
         EntradaDtoDao.save(getActivity(), entradaDto);

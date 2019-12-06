@@ -25,10 +25,6 @@ public class EntradaDto {
         this.idSaida = saida.getId();
     }
 
-    public static EntradaDto getEntradaAtual(Context context){
-        return EntradaDtoDao.findById(context, Shared.getInt(context, "entradaAtual"));
-    }
-
     public Integer getId() {
         return id;
     }

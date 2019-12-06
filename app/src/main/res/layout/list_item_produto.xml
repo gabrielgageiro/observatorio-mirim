@@ -20,7 +20,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:weightSum="6">
+            android:weightSum="7">
 
             <ImageView
                 android:layout_width="0dp"
@@ -36,6 +36,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/list_item_produto_upload"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_up" />
 
             <ImageView
                 android:id="@+id/list_item_produto_checked"

@@ -20,6 +20,7 @@ public class EntradaProdutoListAdapter extends ArrayAdapter<EntradaItemDto> {
     private Context context;
     private List<EntradaItemDto> produtos;
     private ImageView produtoMarcado;
+    private ImageView produtoUpload;
 
     public EntradaProdutoListAdapter(Context context, List<EntradaItemDto> produtos) {
         super(context, 0, produtos);
@@ -41,6 +42,13 @@ public class EntradaProdutoListAdapter extends ArrayAdapter<EntradaItemDto> {
             produtoMarcado.setVisibility(View.GONE);
         } else {
             produtoMarcado.setVisibility(View.VISIBLE);
+        }
+
+        produtoUpload = view.findViewById(R.id.list_item_produto_upload);
+        if(!produto.isUpload()){
+            produtoUpload.setVisibility(View.GONE);
+        } else {
+            produtoUpload.setVisibility(View.VISIBLE);
         }
 
         view.setOnClickListener( o -> {
