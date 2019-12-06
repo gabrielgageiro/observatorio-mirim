@@ -2,6 +2,7 @@ package com.observatorioMirim.views.entrada.produto.list;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,11 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
@@ -35,6 +40,7 @@ public class EntradaProdutoListFragment extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     public static final String TAG = "EntradaProdutoListFragment";
+
     ArrayList<EntradaItemDto> produtos;
     EntradaProdutoListAdapter saidaListAdapter;
     ListView listaProduto;
@@ -80,7 +86,32 @@ public class EntradaProdutoListFragment extends Fragment {
         inflater.inflate(R.menu.searchable, menu);
         initSearchButton(menu);
         initAdicionarNoVoProdutoButton(menu);
+        initLerCodigoBarrasButton(menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void initLerCodigoBarrasButton(Menu menu) {
+        MenuItem menuCamera = menu.findItem(R.id.ler_produto);
+
+        menuCamera.setOnMenuItemClickListener(item -> {
+            new IntentIntegrator(getActivity()).initiateScan();
+            return false;
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        System.out.println(result.getContents());
+        if(result != null) {
+            if(result.getContents() == null) {
+                Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void initAdicionarNoVoProdutoButton(Menu menu) {
