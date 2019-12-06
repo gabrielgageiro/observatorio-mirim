@@ -19,8 +19,9 @@ public class EntradaItemDto implements Serializable {
     private BigDecimal quantidade;
     private String unidade;
     private String observacao;
-    private boolean entrada = false;
-    private boolean upload = false;
+    private boolean entrada = false; //Indica se foi preenchido na entrada atual
+    private boolean upload = false; //Indica se já foi enviado ao servidor
+    private boolean preenchido = false; //Indica se já foi preenchido pelo menos uma vez
 
     public EntradaItemDto() {
     }
@@ -120,6 +121,14 @@ public class EntradaItemDto implements Serializable {
 
     public void setUpload(boolean upload) {
         this.upload = upload;
+    }
+
+    public boolean isPreenchido() {
+        return preenchido;
+    }
+
+    public void setPreenchido(boolean preenchido) {
+        this.preenchido = preenchido;
     }
 
     @NonNull

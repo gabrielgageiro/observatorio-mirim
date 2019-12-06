@@ -24,7 +24,6 @@ public final class EntradaDtoDao {
     private static final String COLUNA_ID_ESCOLA = "id_escola";
     private static final String COLUNA_ID_SAIDA = "id_saida";
     private static final String COLUNA_OBSERVACAO = "observacao";
-    private static final String COLUNA_FINALIZADA = "finalizada";
     private static final String COLUNA_DATA = "data";
 
     public static final String CREATE = "CREATE TABLE " + TABELA + " ("
@@ -33,7 +32,6 @@ public final class EntradaDtoDao {
             + COLUNA_ID_ESCOLA + " integer,"
             + COLUNA_ID_SAIDA + " integer,"
             + COLUNA_OBSERVACAO + " text,"
-            + COLUNA_FINALIZADA + " integer,"
             + COLUNA_DATA + " text"
             +")";
 
@@ -46,7 +44,6 @@ public final class EntradaDtoDao {
         valores.put(COLUNA_ID_ESCOLA, Shared.getInt(context, "idEscola"));
         valores.put(COLUNA_ID_SAIDA, entradaDto.getIdSaida());
         valores.put(COLUNA_OBSERVACAO, entradaDto.getObservacao());
-        valores.put(COLUNA_FINALIZADA, entradaDto.isFinalizada());
         valores.put(COLUNA_DATA, LocalDate.now().toString());
         long id = db.insert(TABELA, null, valores);
 
@@ -63,7 +60,6 @@ public final class EntradaDtoDao {
         valores.put(COLUNA_ID_CONTA, entradaDto.getIdConta());
         valores.put(COLUNA_ID_ESCOLA, entradaDto.getIdEscola());
         valores.put(COLUNA_OBSERVACAO, entradaDto.getObservacao());
-        valores.put(COLUNA_FINALIZADA, entradaDto.isFinalizada());
 
         db.update(TABELA, valores, where,null);
     }
@@ -88,8 +84,7 @@ public final class EntradaDtoDao {
             entradaDto.setIdEscola(Integer.parseInt(cursor.getString(2)));
             entradaDto.setIdSaida(Integer.parseInt(cursor.getString(3)));
             entradaDto.setObservacao(cursor.getString(4));
-            entradaDto.setFinalizada("1".equals(cursor.getString(5)));
-            entradaDto.setData(LocalDate.parse(cursor.getString(6)));
+            entradaDto.setData(LocalDate.parse(cursor.getString(5)));
 
             return entradaDto;
         }
@@ -110,7 +105,7 @@ public final class EntradaDtoDao {
     public static List<EntradaDto> listAllPendentes(Context context) {
 
         SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
-        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 1", null);
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABELA + " AS e WHERE EXISTS (SELECT id FROM produtos_dto AS p WHERE p.id_entrada = e.id AND p.upload = 0 AND p.preenchido = 1)", null);
 
         List<EntradaDto> entradas = new ArrayList<>();
 
@@ -122,7 +117,6 @@ public final class EntradaDtoDao {
                 entradaDto.setIdEscola(Integer.parseInt(cursor.getString(2)));
                 entradaDto.setIdSaida(Integer.parseInt(cursor.getString(3)));
                 entradaDto.setObservacao(cursor.getString(4));
-                entradaDto.setFinalizada("1".equals(cursor.getString(5)));
 
                 entradas.add(entradaDto);
             }while (cursor.moveToNext());
@@ -130,50 +124,6 @@ public final class EntradaDtoDao {
         }
 
         return entradas;
-    }
-
-    public static void deleteEntradasNaoFinalizadasAnteriores(Context context){ //Retorna os ids das entradas removidas
-        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + COLUNA_ID + "," + COLUNA_DATA + " FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 0", null);
-
-        Set<Integer> ids = new HashSet<>();
-        LocalDate hoje = LocalDate.now();
-
-        if (cursor.moveToFirst()) {
-            do {
-                LocalDate data = LocalDate.parse(cursor.getString(1));
-
-                if(data != null && data.isBefore(hoje)){
-                    ids.add(Integer.parseInt(cursor.getString(0)));
-                }
-            }while (cursor.moveToNext());
-        }
-
-        ids.forEach( i -> {
-            delete(context, i);
-        });
-    }
-
-    public static Integer existeEntradaNaoFinalizada(Context context){ //Retorna o id da entrada não finalizada
-        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + COLUNA_ID + " FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 0", null);
-
-        if (cursor.moveToFirst()) {
-            return Integer.parseInt(cursor.getString(0));
-        }
-
-        return null;
-    }
-
-    public static int countSincronizacoesPendentes(Context context){ //Retorna o id da entrada não finalizada
-        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABELA + " WHERE " + COLUNA_FINALIZADA + " = 1", null);
-
-        if (cursor.moveToFirst()) {
-            return Integer.parseInt(cursor.getString(0));
-        }
-
-        return 0;
     }
 
     public static Integer exitsEntradaDoDia(Context context){ //Retorna os ids das entradas removidas

@@ -101,22 +101,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         if(fragmentAtual instanceof SaidaListFragment || fragmentAtual instanceof UploadFragment){
             return;
-        }else if(fragmentAtual instanceof EntradaProdutoListFragment){
-            SweetUtils.confirmDialog(this, "Cancelar Entrada", "Tem certeza que você que desistir dessa entrada? Todos os lançamentos serão perdidos", "Ficar", "Desistir",
-                    SweetAlertDialog::dismissWithAnimation,
-                    (SweetAlertDialog sDialog) -> {
-                        //Cancela a entrada atual
-                        EntradaDtoDao.delete(this, Shared.getInt(this, "entradaAtual"));
-                        Shared.putInt(this, "entradaAtual", -1);
-
-                        SaidaList.open(this);
-
-                        sDialog.dismissWithAnimation();
-
-                    });
-        }else{
-            super.onBackPressed();
         }
+
+//        else if(fragmentAtual instanceof EntradaProdutoListFragment){
+//            SweetUtils.confirmDialog(this, "Cancelar Entrada", "Tem certeza que você que desistir dessa entrada? Todos os lançamentos serão perdidos", "Ficar", "Desistir",
+//                    SweetAlertDialog::dismissWithAnimation,
+//                    (SweetAlertDialog sDialog) -> {
+//                        //Cancela a entrada atual
+//                        EntradaDtoDao.delete(this, Shared.getInt(this, "entradaAtual"));
+//                        Shared.putInt(this, "entradaAtual", -1);
+//
+//                        SaidaList.open(this);
+//
+//                        sDialog.dismissWithAnimation();
+//
+//                    });
+//        }else{
+            super.onBackPressed();
+//        }
 
     }
 }

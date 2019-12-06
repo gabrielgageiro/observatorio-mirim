@@ -25,6 +25,7 @@ public final class EntradaItemDtoDao {
     private static final String COLUNA_OBSERVACAO = "observacao";
     private static final String COLUNA_ENTRADA = "entrada";
     private static final String COLUNA_UPLOAD = "upload";
+    private static final String COLUNA_PREENCHIDO = "preenchido";
 
     public static final String CREATE = "CREATE TABLE " + TABELA + " ("
             + COLUNA_ID + " integer primary key autoincrement,"
@@ -37,7 +38,8 @@ public final class EntradaItemDtoDao {
             + COLUNA_UNIDADE + " text,"
             + COLUNA_OBSERVACAO + " text,"
             + COLUNA_ENTRADA + " integer,"
-            + COLUNA_UPLOAD + " integer"
+            + COLUNA_UPLOAD + " integer,"
+            + COLUNA_PREENCHIDO + " integer"
             +")";
 
     public static final String DROP = "DROP TABLE IF EXISTS " + TABELA;
@@ -57,6 +59,7 @@ public final class EntradaItemDtoDao {
         valores.put(COLUNA_OBSERVACAO, entradaItemDto.getObservacao());
         valores.put(COLUNA_ENTRADA, entradaItemDto.isEntrada());
         valores.put(COLUNA_UPLOAD, entradaItemDto.isUpload());
+        valores.put(COLUNA_PREENCHIDO, entradaItemDto.isPreenchido());
 
         long id = db.insert(TABELA, null, valores);
 
@@ -82,6 +85,7 @@ public final class EntradaItemDtoDao {
         valores.put(COLUNA_OBSERVACAO, entradaItemDto.getObservacao());
         valores.put(COLUNA_ENTRADA, entradaItemDto.isEntrada());
         valores.put(COLUNA_UPLOAD, entradaItemDto.isUpload());
+        valores.put(COLUNA_PREENCHIDO, entradaItemDto.isPreenchido());
 
         db.update(TABELA, valores, where,null);
     }
@@ -107,6 +111,7 @@ public final class EntradaItemDtoDao {
         entradaItemDto.setObservacao(cursor.getString(8));
         entradaItemDto.setEntrada(cursor.getString(9).equals("1"));
         entradaItemDto.setUpload(cursor.getString(10).equals("1"));
+        entradaItemDto.setPreenchido(cursor.getString(11).equals("1"));
 
         return entradaItemDto;
     }
@@ -146,5 +151,16 @@ public final class EntradaItemDtoDao {
 
         SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
         db.delete(TABELA, where,null);
+    }
+
+    public static int countItensPendentes(Context context){ //Retorna o id da entrada não finalizada
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABELA + " WHERE " + COLUNA_PREENCHIDO + " = 1 AND " + COLUNA_UPLOAD + " = 0", null);
+
+        if (cursor.moveToFirst()) {
+            return Integer.parseInt(cursor.getString(0));
+        }
+
+        return 0;
     }
 }

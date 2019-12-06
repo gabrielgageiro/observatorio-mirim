@@ -14,7 +14,6 @@ public class EntradaDto {
     private Integer idConta;
     private Integer idSaida;
     private String observacao;
-    private boolean finalizada = false;
     private LocalDate data;
 
     public EntradaDto() {}
@@ -63,14 +62,6 @@ public class EntradaDto {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
-    }
-
-    public boolean isFinalizada() {
-        return finalizada;
-    }
-
-    public void setFinalizada(boolean finalizada) {
-        this.finalizada = finalizada;
     }
 
     public LocalDate getData() {

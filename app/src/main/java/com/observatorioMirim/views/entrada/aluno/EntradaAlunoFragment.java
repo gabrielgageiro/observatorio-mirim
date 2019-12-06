@@ -88,11 +88,7 @@ public class EntradaAlunoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
 //                        EntradaDtoDao.delete(getActivity(), entradaDto.getId());
-                        EntradaItemDtoDao.listByEntrada(getActivity(), Contexto.getIdEntradaAtual(getActivity())).forEach( i -> {
-                            i.setUpload(true);
-                            i.setEntrada(false);
-                            EntradaItemDtoDao.save(getActivity(), i);
-                        });
+                        updateItens(true);
                         SweetUtils.cancelarLoaderNativo();
                         Toast.makeText(getContext(), "Entrada enviada com sucesso!", Toast.LENGTH_LONG).show();
                         SaidaList.open((MainActivity) getActivity());
@@ -119,6 +115,8 @@ public class EntradaAlunoFragment extends Fragment {
 
                 int entradaId = updateEntrada().getId();
                 saveNomeAlunos(alunosStr, entradaId);
+
+                updateItens(false);
 
                 Toast.makeText(getContext(), "Entrada finalizada com sucesso!", Toast.LENGTH_LONG).show();
                 SaidaList.open((MainActivity) getActivity());
@@ -212,18 +210,18 @@ public class EntradaAlunoFragment extends Fragment {
     private EntradaDto updateEntrada(){
         EntradaDto entradaDto = Contexto.getEntradaAtual(getActivity());
         entradaDto.setObservacao(textInputObservacao.getText().toString());
-        entradaDto.setFinalizada(true);
         EntradaDtoDao.save(getActivity(), entradaDto);
 
         return entradaDto;
     }
 
-    private boolean isJaSalvo() {
-        return jaSalvo;
-    }
-
-    private void setJaSalvo(boolean jaSalvo) {
-        this.jaSalvo = jaSalvo;
+    private void updateItens(boolean upload){
+        EntradaItemDtoDao.listByEntrada(getActivity(), Contexto.getIdEntradaAtual(getActivity())).forEach( i -> {
+            i.setEntrada(false);
+            i.setUpload(upload);
+            i.setPreenchido(true);
+            EntradaItemDtoDao.save(getActivity(), i);
+        });
     }
 
     public static EntradaAlunoFragment newInstance(){

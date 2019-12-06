@@ -18,6 +18,7 @@ import com.observatorioMirim.api.models.RespostaEscola;
 import com.observatorioMirim.api.models.entrada.Entrada;
 import com.observatorioMirim.api.models.entrada.EntradaDto;
 import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 import com.observatorioMirim.utils.SweetUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -36,15 +37,17 @@ public class UploadFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
-        int total = EntradaDtoDao.countSincronizacoesPendentes(getActivity());
+        int total = EntradaItemDtoDao.countItensPendentes(getActivity());
         if(total < 1){
             return inflater.inflate(R.layout.fragment_upload_vazio, container, false);
         }
 
         View view = inflater.inflate(R.layout.fragment_upload, container, false);
 
+        boolean maisQueUm = total > 1;
+
         textQuantidade = view.findViewById(R.id.sincronizar_quantidade);
-        textQuantidade.setText("Você possui " + total + " entradas pendentes!");
+        textQuantidade.setText("Você possui " + total + " ite" + (maisQueUm ? "ns" : "m") + " não enviado" + (maisQueUm ? "s" : "") + "!");
 
         buttonSincronizar = view.findViewById(R.id.sincronizar);
         buttonSincronizar.setOnClickListener( o -> {
@@ -66,9 +69,6 @@ public class UploadFragment extends Fragment {
         API.postEntrada(Entrada.generateEntrada(getActivity(), entradaDto), new Callback<RespostaEscola>() {
             @Override
             public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
-
-                EntradaDtoDao.delete(getActivity(), entradaDto.getId());
-
                 if(iterator.hasNext()){
                     enviarEntrada(iterator);
                 }else{
