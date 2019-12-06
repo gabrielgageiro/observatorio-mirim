@@ -127,11 +127,13 @@ public class Entrada implements Serializable {
 
         List<EntradaItemDto> produtos = EntradaItemDtoDao.listByEntrada(context, entradaDto.getId());
         produtos.forEach( p -> {
-            EntradaItem item = new EntradaItem(p);
-            item.setIdConta(entrada.getIdConta());
-            item.setIdEscola(entrada.getIdEscola());
+            if(p.isEntrada()){
+                EntradaItem item = new EntradaItem(p);
+                item.setIdConta(entrada.getIdConta());
+                item.setIdEscola(entrada.getIdEscola());
 
-            entrada.addEntradaItem(item);
+                entrada.addEntradaItem(item);
+            }
         });
 
         List<EntradaAlunoDto> alunos = EntradaAlunoDtoDao.listByEntrada(context, entradaDto.getId());

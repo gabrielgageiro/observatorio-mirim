@@ -72,8 +72,10 @@ public class UploadFragment extends Fragment {
             public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
                 List<EntradaItemDto> itens = EntradaItemDtoDao.listByEntrada(getActivity(), entradaDto.getId());
                 itens.forEach( i -> {
-                    i.setUpload(true);
-                    EntradaItemDtoDao.save(getActivity(), i);
+                    if(i.isPreenchido()){
+                        i.setUpload(true);
+                        EntradaItemDtoDao.save(getActivity(), i);
+                    }
                 });
 
                 if(iterator.hasNext()){

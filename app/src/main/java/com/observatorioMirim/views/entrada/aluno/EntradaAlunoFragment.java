@@ -217,10 +217,12 @@ public class EntradaAlunoFragment extends Fragment {
 
     private void updateItens(boolean upload){
         EntradaItemDtoDao.listByEntrada(getActivity(), Contexto.getIdEntradaAtual(getActivity())).forEach( i -> {
-            i.setEntrada(false);
-            i.setUpload(upload);
-            i.setPreenchido(true);
-            EntradaItemDtoDao.save(getActivity(), i);
+            if(i.isEntrada()){
+                i.setEntrada(false);
+                i.setUpload(upload);
+                i.setPreenchido(true);
+                EntradaItemDtoDao.save(getActivity(), i);
+            }
         });
     }
 
