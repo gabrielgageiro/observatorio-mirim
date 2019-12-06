@@ -1,6 +1,5 @@
 package com.observatorioMirim.views.saida.list;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,18 +17,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.observatorioMirim.LoginActivity;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
-import com.observatorioMirim.api.models.saida.Saida;
+import com.observatorioMirim.utils.Contexto;
 import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.observatorioMirim.utils.AbstractFragment;
 
 import java.security.acl.Group;
-import java.util.ArrayList;
 
 public class SaidaListFragment extends Fragment {
     SwipeRefreshLayout refreshLayout;
-    ArrayList<Saida> saidas;
     ListView listaSaida;
     Group colaboradores;
 
@@ -40,42 +36,32 @@ public class SaidaListFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         activity.getBottomNavigationView().setVisibility(View.VISIBLE);
 
-        saidas = (ArrayList<Saida>) getArguments().getSerializable("saidas");
+        SweetUtils.cancelarLoaderNativo();
 
-        if (saidas.isEmpty()) {
+        if (Contexto.getIdEntradaAtual(getContext()) < 0) {
             AbstractFragment.openFragmentFromActivity(activity, SaidaVaziaListFragment.newInstance(),"Entradas");
-//            return inflater.inflate(R.layout.fragment_list_saida_vazio, container, false);
         }
 
         View view = inflater.inflate(R.layout.fragment_list_saida, container, false);
         listaSaida = view.findViewById(R.id.list_saida);
 
-        SaidaListAdapter saidaListAdapter = new SaidaListAdapter(getActivity(), saidas);
+        SaidaListAdapter saidaListAdapter = new SaidaListAdapter(getActivity());
         listaSaida.setAdapter(saidaListAdapter);
 
         setHasOptionsMenu(true);
 
         refreshLayout = view.findViewById(R.id.swipe_refresh_saida);
         refreshLayout.setOnRefreshListener(() -> {
-            saidas = (ArrayList<Saida>) getArguments().getSerializable("saidas");
 
             SaidaList.open((MainActivity) getActivity());
-            listaSaida.setAdapter(new SaidaListAdapter(getActivity(), saidas));
             refreshLayout.setRefreshing(false);
         });
 
         return view;
     }
 
-    public static SaidaListFragment newInstance(final ArrayList<Saida> saidas) {
-
-        SaidaListFragment saidaListFragment = new SaidaListFragment();
-
-        Bundle args = new Bundle();
-        args.putSerializable("saidas", saidas);
-        saidaListFragment.setArguments(args);
-
-        return saidaListFragment;
+    public static SaidaListFragment newInstance() {
+        return new SaidaListFragment();
     }
 
     @Override

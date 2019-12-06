@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import com.observatorioMirim.MainActivity;
 import com.observatorioMirim.R;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
+import com.observatorioMirim.utils.Contexto;
 import com.observatorioMirim.views.entrada.aluno.EntradaAluno;
 import com.observatorioMirim.utils.SweetUtils;
 import com.observatorioMirim.views.entrada.produto.item.EntradaProdutoItem;
@@ -43,11 +45,12 @@ public class EntradaProdutoListFragment extends Fragment {
 
         MainActivity main = (MainActivity) getActivity();
         main.getBottomNavigationView().setVisibility(View.GONE);
-        produtos = (ArrayList<EntradaItemDto>) getArguments().getSerializable("produtos");
 
         View view = inflater.inflate(R.layout.fragment_list_produto, container, false);
 
         setHasOptionsMenu(true);
+
+        produtos = EntradaItemDtoDao.listByEntrada(getContext(), Contexto.getIdEntradaAtual(getActivity()));
 
         saidaListAdapter = new EntradaProdutoListAdapter(getActivity(), produtos);
         listaProduto = view.findViewById(R.id.list_produto);
@@ -136,15 +139,8 @@ public class EntradaProdutoListFragment extends Fragment {
         main.getSupportActionBar().setTitle("Entradas");
     }
 
-    public static EntradaProdutoListFragment newInstance(final ArrayList<EntradaItemDto> produtos) {
-
-        EntradaProdutoListFragment entradaProdutoListFragment = new EntradaProdutoListFragment();
-
-        Bundle args = new Bundle();
-        args.putSerializable("produtos", produtos);
-        entradaProdutoListFragment.setArguments(args);
-
-        return entradaProdutoListFragment;
+    public static EntradaProdutoListFragment newInstance() {
+        return new EntradaProdutoListFragment();
     }
 
 }

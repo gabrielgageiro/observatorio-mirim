@@ -11,6 +11,6 @@ public class EntradaProdutoList {
     private static final String TITULO = "Produtos";
 
     public static void open(@NonNull final AppCompatActivity activity){
-        AbstractFragment.openFragmentFromActivity(activity, EntradaProdutoListFragment.newInstance(EntradaItemDtoCache.getCache()), TITULO, EntradaProdutoListFragment.TAG);
+        AbstractFragment.openFragmentFromActivity(activity, EntradaProdutoListFragment.newInstance(), TITULO, EntradaProdutoListFragment.TAG);
     }
 }

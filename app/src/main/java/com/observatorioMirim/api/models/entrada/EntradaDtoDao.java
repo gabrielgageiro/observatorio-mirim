@@ -89,6 +89,7 @@ public final class EntradaDtoDao {
             entradaDto.setIdSaida(Integer.parseInt(cursor.getString(3)));
             entradaDto.setObservacao(cursor.getString(4));
             entradaDto.setFinalizada("1".equals(cursor.getString(5)));
+            entradaDto.setData(LocalDate.parse(cursor.getString(6)));
 
             return entradaDto;
         }
@@ -173,5 +174,16 @@ public final class EntradaDtoDao {
         }
 
         return 0;
+    }
+
+    public static Integer exitsEntradaDoDia(Context context){ //Retorna os ids das entradas removidas
+        SQLiteDatabase db = DbGateway.getInstance(context).getDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUNA_ID + " FROM " + TABELA + " WHERE " + COLUNA_DATA + " = '" + LocalDate.now().toString() + "'", null);
+
+        if (cursor.moveToFirst()) {
+            return Integer.parseInt(cursor.getString(0));
+        }
+
+        return null;
     }
 }

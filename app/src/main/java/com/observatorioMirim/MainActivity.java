@@ -33,40 +33,40 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         initBottomNavigationBar();
 
         //Limpa tudo que é antigo
-        EntradaDtoDao.deleteEntradasNaoFinalizadasAnteriores(this);
+//        EntradaDtoDao.deleteEntradasNaoFinalizadasAnteriores(this);
 
         //Verifica se tem algo não finalizado
-        Integer entradaId = EntradaDtoDao.existeEntradaNaoFinalizada(this);
+//        Integer entradaId = EntradaDtoDao.existeEntradaNaoFinalizada(this);
 
-        if(entradaId != null){
-
-            SweetUtils.confirmDialog(this, "Continuar Entrada", "Existe uma entrada que não foi terminada, você quer continuar de onde parou?", "Continuar", "Descartar",
-                    (SweetAlertDialog sDialog) -> {
-
-                        SweetUtils.loaderNativo(this, "Aguarde", "Sincronizando os produtos.");
-
-                        Shared.putInt(this, "entradaAtual", entradaId);
-
-                        sDialog.dismissWithAnimation();
-
-                        EntradaItemDtoCache.setCache(EntradaItemDtoDao.listByEntrada(this, entradaId));
-
-                        EntradaProdutoList.open(this);
-
-                        SweetUtils.cancelarLoaderNativo();
-
-                    }, (SweetAlertDialog sDialog) -> {
-
-                        //Caso não queira continuar, limpa tudo que é incompleto
-                        EntradaDtoDao.delete(this, entradaId);
-                        SaidaList.open(this);
-
-                        sDialog.dismissWithAnimation();
-
-                    });
-        }else{
+//        if(entradaId != null){
+//
+//            SweetUtils.confirmDialog(this, "Continuar Entrada", "Existe uma entrada que não foi terminada, você quer continuar de onde parou?", "Continuar", "Descartar",
+//                    (SweetAlertDialog sDialog) -> {
+//
+//                        SweetUtils.loaderNativo(this, "Aguarde", "Sincronizando os produtos.");
+//
+//                        Shared.putInt(this, "entradaAtual", entradaId);
+//
+//                        sDialog.dismissWithAnimation();
+//
+//                        EntradaItemDtoCache.setCache(EntradaItemDtoDao.listByEntrada(this, entradaId));
+//
+//                        EntradaProdutoList.open(this);
+//
+//                        SweetUtils.cancelarLoaderNativo();
+//
+//                    }, (SweetAlertDialog sDialog) -> {
+//
+//                        //Caso não queira continuar, limpa tudo que é incompleto
+//                        EntradaDtoDao.delete(this, entradaId);
+//                        SaidaList.open(this);
+//
+//                        sDialog.dismissWithAnimation();
+//
+//                    });
+//        }else{
             SaidaList.open(this);
-        }
+//        }
 
     }
 
