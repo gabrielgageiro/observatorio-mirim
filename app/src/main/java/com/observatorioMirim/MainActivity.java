@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
-import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoCache;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 import com.observatorioMirim.utils.Shared;
 import com.observatorioMirim.utils.SweetUtils;
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //
 //                        sDialog.dismissWithAnimation();
 //
-//                        EntradaItemDtoCache.setCache(EntradaItemDtoDao.listByEntrada(this, entradaId));
 //
 //                        EntradaProdutoList.open(this);
 //
