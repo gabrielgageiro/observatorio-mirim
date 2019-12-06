@@ -20,6 +20,7 @@ public class EntradaItemDto implements Serializable {
     private String unidade;
     private String observacao;
     private boolean entrada = false;
+    private boolean upload = false;
 
     public EntradaItemDto() {
     }
@@ -111,6 +112,14 @@ public class EntradaItemDto implements Serializable {
 
     public boolean isNew(){
         return id == null;
+    }
+
+    public boolean isUpload() {
+        return upload;
+    }
+
+    public void setUpload(boolean upload) {
+        this.upload = upload;
     }
 
     @NonNull
