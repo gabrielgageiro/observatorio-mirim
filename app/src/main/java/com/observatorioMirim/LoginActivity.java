@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(final String codigoEscola, final String senhaEscola){
+        SweetUtils.loaderSweet(LoginActivity.this, "Entrando...");
         API.getEscolaByCodigoSenha(codigoEscola, senhaEscola, new Callback<Escola>() {
             @Override
             public void onResponse(Call<Escola> call, Response<Escola> response) {
@@ -111,18 +112,20 @@ public class LoginActivity extends AppCompatActivity {
 
                         Intent it = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(it);
-                        SweetUtils.loaderSweet(LoginActivity.this, "Entrando...");
                     } else {
+                        SweetUtils.cancelarLoaderSweet();
                         SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário ou senha informados estão incorretos", SweetAlertDialog.ERROR_TYPE);
                     }
                 } else {
+                    SweetUtils.cancelarLoaderSweet();
                     SweetUtils.message(LoginActivity.this, "Atenção!", "O usuário ou senha informados estão incorretos", SweetAlertDialog.ERROR_TYPE);
                 }
             }
 
             @Override
             public void onFailure(Call<Escola> call, Throwable t) {
-                SweetUtils.message(LoginActivity.this, "Atenção!", "Erro ao conectar com o servidor.", SweetAlertDialog.ERROR_TYPE);
+                SweetUtils.cancelarLoaderSweet();
+                SweetUtils.onErrorConnectionInternet(LoginActivity.this);
             }
         });
     }
