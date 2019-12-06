@@ -18,6 +18,7 @@ import com.observatorioMirim.api.models.RespostaEscola;
 import com.observatorioMirim.api.models.entrada.Entrada;
 import com.observatorioMirim.api.models.entrada.EntradaDto;
 import com.observatorioMirim.api.models.entrada.EntradaDtoDao;
+import com.observatorioMirim.api.models.entrada.item.EntradaItemDto;
 import com.observatorioMirim.api.models.entrada.item.EntradaItemDtoDao;
 import com.observatorioMirim.utils.SweetUtils;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -69,6 +70,12 @@ public class UploadFragment extends Fragment {
         API.postEntrada(Entrada.generateEntrada(getActivity(), entradaDto), new Callback<RespostaEscola>() {
             @Override
             public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
+                List<EntradaItemDto> itens = EntradaItemDtoDao.listByEntrada(getActivity(), entradaDto.getId());
+                itens.forEach( i -> {
+                    i.setUpload(true);
+                    EntradaItemDtoDao.save(getActivity(), i);
+                });
+
                 if(iterator.hasNext()){
                     enviarEntrada(iterator);
                 }else{
