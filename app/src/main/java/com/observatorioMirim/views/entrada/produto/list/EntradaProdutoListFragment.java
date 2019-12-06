@@ -58,18 +58,7 @@ public class EntradaProdutoListFragment extends Fragment {
 
         buttonTerminei = view.findViewById(R.id.entrada_produto_item_dar_entrada);
         buttonTerminei.setOnClickListener(o -> {
-            boolean possuiItemNaoLancado = false;
-            for (EntradaItemDto p : produtos) {
-                if (!p.isEntrada()) {
-                    possuiItemNaoLancado = true;
-                    break;
-                }
-            }
-            if(possuiItemNaoLancado){
-                SweetUtils.message(getContext(), "Atenção!", "Você possui produtos não lançados", SweetAlertDialog.WARNING_TYPE);
-            } else {
-                EntradaAluno.open((MainActivity) getActivity());
-            }
+            EntradaAluno.open((MainActivity) getActivity());
         });
 
         return view;
