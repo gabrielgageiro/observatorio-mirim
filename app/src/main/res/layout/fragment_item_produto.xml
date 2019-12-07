@@ -20,13 +20,6 @@
             android:orientation="horizontal"
             android:layout_marginBottom="15dp">
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textSize="22sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:id="@+id/entrada_produto_item_nome"-->
-<!--                />-->
             <Spinner
                 android:id="@+id/spinner_entrada"
                 android:layout_width="match_parent"
@@ -200,9 +193,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dar_entrada"
                 android:textColor="#fff"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
                 android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/drawable_button"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 />
 
             <Button
@@ -211,9 +205,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/cancelar_entrada"
                 android:textColor="#fff"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
                 android:backgroundTint="@color/red_btn_bg_color"
+                android:background="@drawable/drawable_button"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
                 />
 
         </LinearLayout>

@@ -76,6 +76,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/drawable_button"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="@string/sincronizar_agora"
             android:layout_gravity="bottom"
             android:textColor="@color/white" />
@@ -86,7 +89,10 @@
             android:layout_height="wrap_content"
             android:text="@string/sincronizar_depois"
             android:layout_marginTop="10dp"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="bottom"
+            android:background="@drawable/drawable_button"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
     </LinearLayout>
 

@@ -19,10 +19,11 @@
             android:id="@+id/entrada_produto_item_dar_entrada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="5dp"
             android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/drawable_button"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="@string/terminei"
             android:textColor="#fff" />
 
