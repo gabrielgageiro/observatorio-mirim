@@ -34,4 +34,12 @@
         android:layout_gravity="center"
         android:text="Todas a entradas já foram feitas." />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"
+        android:text="Você pode arrastar para baixo para atualizar." />
+
 </LinearLayout>
