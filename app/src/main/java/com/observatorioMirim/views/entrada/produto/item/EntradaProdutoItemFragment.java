@@ -173,7 +173,11 @@ public class EntradaProdutoItemFragment extends Fragment {
 
         });
         buttonCancelarEntrada = view.findViewById(R.id.cancelar_entrada);
-        buttonCancelarEntrada.setOnClickListener(o -> getActivity().getSupportFragmentManager().popBackStack());
+        buttonCancelarEntrada.setOnClickListener(o -> {
+            produto.setEntrada(false);
+            EntradaItemDtoDao.save(getActivity(), produto);
+            getActivity().getSupportFragmentManager().popBackStack();
+        });
 
         return view;
     }
