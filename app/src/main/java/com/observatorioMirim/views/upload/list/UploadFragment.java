@@ -67,7 +67,7 @@ public class UploadFragment extends Fragment {
 
         EntradaDto entradaDto = iterator.next();
 
-        API.postEntrada(Entrada.generateEntrada(getActivity(), entradaDto), new Callback<RespostaEscola>() {
+        API.postEntrada(Entrada.generateEntrada(getActivity(), entradaDto, false), new Callback<RespostaEscola>() {
             @Override
             public void onResponse(Call<RespostaEscola> call, Response<RespostaEscola> response) {
                 List<EntradaItemDto> itens = EntradaItemDtoDao.listByEntrada(getActivity(), entradaDto.getId());

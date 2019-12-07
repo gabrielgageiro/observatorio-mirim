@@ -82,7 +82,7 @@ public class EntradaAlunoFragment extends Fragment {
                     entradaDto = Contexto.getEntradaAtual(getActivity());
                 }
 
-                Entrada entrada = Entrada.generateEntrada(getActivity(), entradaDto);
+                Entrada entrada = Entrada.generateEntrada(getActivity(), entradaDto, true);
 
                 API.postEntrada(entrada, new Callback<RespostaEscola>() {
                     @Override

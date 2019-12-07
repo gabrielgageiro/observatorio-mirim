@@ -122,12 +122,12 @@ public class Entrada implements Serializable {
         entradaAlunos.add(entradaAluno);
     }
 
-    public static Entrada generateEntrada(Context context, EntradaDto entradaDto){
+    public static Entrada generateEntrada(Context context, EntradaDto entradaDto, boolean checkEntrada){
         Entrada entrada = new Entrada(entradaDto);
 
         List<EntradaItemDto> produtos = EntradaItemDtoDao.listByEntrada(context, entradaDto.getId());
         produtos.forEach( p -> {
-            if(p.isEntrada()){
+            if((checkEntrada && p.isEntrada()) || (!checkEntrada && !p.isUpload() && p.isPreenchido())){ //Ou faz o check da entrada ou do upload
                 EntradaItem item = new EntradaItem(p);
                 item.setIdConta(entrada.getIdConta());
                 item.setIdEscola(entrada.getIdEscola());
